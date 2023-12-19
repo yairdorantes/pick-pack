@@ -1,59 +1,61 @@
+import axios from "axios";
 import { useEffect, useRef, useState } from "react";
+import { api } from "../../api";
 
 const Scanner = () => {
   const [orders, setOrders] = useState([
     {
-      orderId: "7501991615172",
-      name: "playera cuello redondolo redondolo redondolo redondo manga corta para hombre color negro m ",
-      quantity: 4,
-      image:
-        "https://eurocotton.vtexassets.com/arquivos/ids/163419-800-800?v=638138264125230000&width=800&height=800&aspect=true",
+      id_item: 55,
+      orden_item: "1258440731848-01",
+      refId_item: "TPOLPRCROJGDE",
+      name_item: "Playera Tipo Polo Premium para Hombre Color Rojo G",
+      imageUrl_item:
+        "https://eurocotton.vteximg.com.br/arquivos/ids/164197/TPOLPRCROJ-2.jpg?v=637928113262070000",
+      skuId_item: 544,
+      quantity_item: 3,
+      ean_item: "7506389322281",
     },
     {
-      orderId: "7501991699806",
-      name: "orden2",
-      quantity: 1,
-      image:
-        "https://eurocotton.vtexassets.com/arquivos/ids/165282-800-800?v=638343056243900000&width=800&height=800&aspect=true",
+      id_item: 56,
+      orden_item: "1258440731848-01",
+      refId_item: "TPOLPRCJASGDE",
+      name_item: "Playera Tipo Polo Premium para Hombre Color Jaspe G",
+      imageUrl_item:
+        "https://eurocotton.vteximg.com.br/arquivos/ids/164162/TPOLPRCJAS-2.jpg?v=637928088181630000",
+      skuId_item: 509,
+      quantity_item: 3,
+      ean_item: "7506389321888",
     },
     {
-      orderId: "75019916998022",
-      name: "orden3",
-      quantity: 2,
-      image:
-        "https://eurocotton.vtexassets.com/arquivos/ids/163924-800-800?v=638138889370430000&width=800&height=800&aspect=true",
-    },
-    {
-      orderId: "2",
-      name: "orden4",
-      quantity: 12,
-      image:
-        "https://eurocotton.vtexassets.com/arquivos/ids/163544-800-800?v=638138921318030000&width=800&height=800&aspect=true",
+      id_item: 57,
+      orden_item: "1258440731848-01",
+      refId_item: "TPOLPRCREYGDE",
+      name_item: "Playera Tipo Polo Premium para Hombre Color Rey G",
+      imageUrl_item:
+        "https://eurocotton.vteximg.com.br/arquivos/ids/164192/TPOLPRCREY-2.jpg?v=637928110380130000",
+      skuId_item: 539,
+      quantity_item: 3,
+      ean_item: "7506389322083",
     },
   ]);
   const inputRef = useRef(null);
   const [readCode, setReadCode] = useState("");
 
   const handleCode = (event) => {
-    // event.preventDefault();
     const currentValue = event.target.value;
     setReadCode(currentValue);
     // console.log(currentValue);
-
     if (currentValue.length === 13) {
       const orderIndex = orders.findIndex(
         (order) => order.orderId === currentValue
       );
-
       if (orderIndex !== -1) {
-        // Decrease the quantity if greater than 0
         if (orders[orderIndex].quantity > 1) {
           const updatedOrders = [...orders];
           updatedOrders[orderIndex] = {
             ...updatedOrders[orderIndex],
             quantity: updatedOrders[orderIndex].quantity - 1,
           };
-
           setOrders(updatedOrders);
         } else {
           const filteredOrders = orders.filter(
@@ -67,8 +69,21 @@ const Scanner = () => {
     }
   };
 
+  function getItems() {
+    axios
+      .get(`${api}/pick-pack/1258440731848-01`)
+      .then((res) => {
+        console.log(res);
+        setOrders(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   useEffect(() => {
     inputRef.current.focus();
+    getItems();
   }, []);
   return (
     <div>
@@ -96,7 +111,7 @@ const Scanner = () => {
           <div key={i}>
             <div className="flex cursor-pointer items-center rounded-md space-x-4 p-4 bg-white">
               <img
-                src={order.image}
+                src={order.imageUrl_item}
                 alt="Black T-Shirt"
                 className="w-[100px] h-[100px] border-2 rounded-md"
                 width="100"
@@ -105,7 +120,7 @@ const Scanner = () => {
               />
               <div className="flex flex-col">
                 <span className="text-sm text-left text-black font-semibold capitalize">
-                  Black round seck Short Sleeve T-Shirt for men size m
+                  {order.name_item}
                 </span>
                 <span className="text-sm text-left flex items-center gap-2 text-gray-500">
                   <svg
@@ -116,7 +131,7 @@ const Scanner = () => {
                   >
                     <path d="M2 6h2v12H2V6m3 0h1v12H5V6m2 0h3v12H7V6m4 0h1v12h-1V6m3 0h2v12h-2V6m3 0h3v12h-3V6m4 0h1v12h-1V6z" />
                   </svg>{" "}
-                  {order.orderId}
+                  {order.ean_item}
                 </span>
                 <div className="flex items-center space-x-2 mt-1">
                   <svg
@@ -138,7 +153,7 @@ const Scanner = () => {
                     <path d="M12 22V12"></path>
                   </svg>
                   <span className="text-sm text-black">
-                    {order.quantity} unidades
+                    {order.quantity_item} unidades
                   </span>
                 </div>
               </div>
