@@ -13,7 +13,7 @@ const Scanner = () => {
         "https://eurocotton.vteximg.com.br/arquivos/ids/164197/TPOLPRCROJ-2.jpg?v=637928113262070000",
       skuId_item: 544,
       quantity_item: 3,
-      ean_item: "7506389322281",
+      ean_item: "7501991615172",
     },
     {
       id_item: 56,
@@ -24,7 +24,7 @@ const Scanner = () => {
         "https://eurocotton.vteximg.com.br/arquivos/ids/164162/TPOLPRCJAS-2.jpg?v=637928088181630000",
       skuId_item: 509,
       quantity_item: 3,
-      ean_item: "7506389321888",
+      ean_item: "7501991699806",
     },
     {
       id_item: 57,
