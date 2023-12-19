@@ -108,7 +108,7 @@ const Scanner = () => {
                   Black Round Neck Short Sleeve T-Shirt for Men Size M
                 </span>
                 <span className="text-sm text-left text-gray-500">
-                  SKU: 7501991695105
+                  SKU: {order.orderId}
                 </span>
                 <div className="flex items-center space-x-2 mt-1">
                   <svg
