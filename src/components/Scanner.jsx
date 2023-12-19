@@ -71,13 +71,16 @@ const Scanner = () => {
   }, []);
   return (
     <div>
-      <div className="btn">scanner</div>
+      <div className="btn" onClick={() => handleCode("7506174503697")}>
+        scanner
+      </div>
 
       <input
-        className="opacity-0"
+        // className="opacity-0"
         ref={inputRef}
         value={readCode}
         onBlur={(e) => e.target.focus()}
+        // readOnly
         onChange={(e) => {
           handleCode(e);
         }}
@@ -85,6 +88,7 @@ const Scanner = () => {
           if (e.keyCode === 9) e.preventDefault();
         }}
         type="text"
+        inputMode="none"
       />
 
       <div className="flex mt-10 max-w-lg mx-auto flex-col gap-1">
