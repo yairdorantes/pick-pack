@@ -35,7 +35,7 @@ const Scanner = () => {
   const [readCode, setReadCode] = useState("");
 
   const handleCode = (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     const currentValue = event.target.value;
     setReadCode(currentValue);
     // console.log(currentValue);
@@ -72,9 +72,7 @@ const Scanner = () => {
   }, []);
   return (
     <div>
-      <div className="btn" onClick={() => handleCode("7506174503697")}>
-        scanner
-      </div>
+      <div className="btn">scanner</div>
 
       <input
         inputMode="none"
@@ -86,7 +84,9 @@ const Scanner = () => {
           handleCode(e);
         }}
         onKeyDown={(e) => {
-          if (e.keyCode === 9) e.preventDefault();
+          if (e.key === "Tab") {
+            e.preventDefault();
+          }
         }}
         type="text"
       />
