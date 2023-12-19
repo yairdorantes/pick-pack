@@ -35,6 +35,7 @@ const Scanner = () => {
   const [readCode, setReadCode] = useState("");
 
   const handleCode = (event) => {
+    event.preventDefault();
     const currentValue = event.target.value;
     setReadCode(currentValue);
     // console.log(currentValue);
@@ -76,11 +77,11 @@ const Scanner = () => {
       </div>
 
       <input
+        inputMode="none"
         className="opacity-0"
         ref={inputRef}
         value={readCode}
         onBlur={(e) => e.target.focus()}
-        // readOnly
         onChange={(e) => {
           handleCode(e);
         }}
@@ -88,7 +89,6 @@ const Scanner = () => {
           if (e.keyCode === 9) e.preventDefault();
         }}
         type="text"
-        inputMode="none"
       />
 
       <div className="flex mt-10 max-w-lg mx-auto flex-col gap-1">
