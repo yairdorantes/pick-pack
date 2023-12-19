@@ -88,7 +88,6 @@ const Scanner = () => {
   return (
     <div>
       <div className="btn">scanner</div>
-
       <input
         inputMode="none"
         className="opacity-0"

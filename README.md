@@ -18,3 +18,5 @@ Inside the **/components** folder, you'll find all the reusable components for t
 
 At certaing point we may gotta use a global context, so I've decided to install the **zustand** library 'cause is easier to use than Redux, i guess...
 but if you have a better option fell free to share it.
+
+<!-- <small> _gits.sh file is used when there's a minimal change to be commited</small>. -->
