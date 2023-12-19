@@ -44,22 +44,23 @@ const Scanner = () => {
   const handleCode = (event) => {
     const currentValue = event.target.value;
     setReadCode(currentValue);
+    console.log(currentValue);
     // console.log(currentValue);
     if (currentValue.length === 13) {
       const orderIndex = orders.findIndex(
-        (order) => order.orderId === currentValue
+        (order) => order.ean_item === currentValue
       );
       if (orderIndex !== -1) {
-        if (orders[orderIndex].quantity > 1) {
+        if (orders[orderIndex].quantity_item > 1) {
           const updatedOrders = [...orders];
           updatedOrders[orderIndex] = {
             ...updatedOrders[orderIndex],
-            quantity: updatedOrders[orderIndex].quantity - 1,
+            quantity_item: updatedOrders[orderIndex].quantity_item - 1,
           };
           setOrders(updatedOrders);
         } else {
           const filteredOrders = orders.filter(
-            (order) => order.orderId !== currentValue
+            (order) => order.ean_item !== currentValue
           );
 
           setOrders(filteredOrders);
@@ -74,7 +75,7 @@ const Scanner = () => {
       .get(`${api}/pick-pack/1258440731848-01`)
       .then((res) => {
         console.log(res);
-        setOrders(res.data);
+        // setOrders(res.data);
       })
       .catch((err) => {
         console.log(err);
