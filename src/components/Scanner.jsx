@@ -3,21 +3,21 @@ import { useEffect, useRef, useState } from "react";
 const Scanner = () => {
   const [orders, setOrders] = useState([
     {
-      orderId: "7506174503697",
+      orderId: "7501991615172",
       name: "playera cuello redondolo redondolo redondolo redondo manga corta para hombre color negro m ",
       quantity: 4,
       image:
         "https://eurocotton.vtexassets.com/arquivos/ids/163419-800-800?v=638138264125230000&width=800&height=800&aspect=true",
     },
     {
-      orderId: "7501991615172",
+      orderId: "7501991699806",
       name: "orden2",
       quantity: 1,
       image:
         "https://eurocotton.vtexassets.com/arquivos/ids/165282-800-800?v=638343056243900000&width=800&height=800&aspect=true",
     },
     {
-      orderId: "7501991699806",
+      orderId: "75019916998022",
       name: "orden3",
       quantity: 2,
       image:
