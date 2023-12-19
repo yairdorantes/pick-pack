@@ -44,7 +44,6 @@ const Scanner = () => {
   const handleCode = (event) => {
     const currentValue = event.target.value;
     setReadCode(currentValue);
-    console.log(currentValue);
     // console.log(currentValue);
     if (currentValue.length === 13) {
       const orderIndex = orders.findIndex(
@@ -113,7 +112,7 @@ const Scanner = () => {
             <div className="flex cursor-pointer items-center rounded-md space-x-4 p-4 bg-white">
               <img
                 src={order.imageUrl_item}
-                alt="Black T-Shirt"
+                alt="Prenda"
                 className="w-[100px] h-[100px] border-2 rounded-md"
                 width="100"
                 height="100"
