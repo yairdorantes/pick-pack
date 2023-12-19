@@ -76,7 +76,7 @@ const Scanner = () => {
       </div>
 
       <input
-        // className="opacity-0"
+        className="opacity-0"
         ref={inputRef}
         value={readCode}
         onBlur={(e) => e.target.focus()}
