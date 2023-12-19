@@ -94,7 +94,7 @@ const Scanner = () => {
       <div className="flex mt-10 max-w-lg mx-auto flex-col gap-1">
         {orders.map((order, i) => (
           <div key={i}>
-            <div className="flex items-center rounded-md space-x-4 p-4 bg-white">
+            <div className="flex cursor-pointer items-center rounded-md space-x-4 p-4 bg-white">
               <img
                 src={order.image}
                 alt="Black T-Shirt"
@@ -104,11 +104,19 @@ const Scanner = () => {
                 style={{ aspectRatio: "100/100", objectFit: "cover" }}
               />
               <div className="flex flex-col">
-                <span className="text-sm text-left text-black font-semibold">
-                  Black Round Neck Short Sleeve T-Shirt for Men Size M
+                <span className="text-sm text-left text-black font-semibold capitalize">
+                  Black round seck Short Sleeve T-Shirt for men size m
                 </span>
-                <span className="text-sm text-left text-gray-500">
-                  SKU: {order.orderId}
+                <span className="text-sm text-left flex items-center gap-2 text-gray-500">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    height="20"
+                    width="20"
+                  >
+                    <path d="M2 6h2v12H2V6m3 0h1v12H5V6m2 0h3v12H7V6m4 0h1v12h-1V6m3 0h2v12h-2V6m3 0h3v12h-3V6m4 0h1v12h-1V6z" />
+                  </svg>{" "}
+                  {order.orderId}
                 </span>
                 <div className="flex items-center space-x-2 mt-1">
                   <svg
