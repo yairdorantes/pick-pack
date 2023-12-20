@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { api } from "../../api";
+import { useParams } from "react-router-dom";
+import ModalChat from "./ModalChat";
 
 const Scanner = () => {
   const [orders, setOrders] = useState([
@@ -38,13 +40,19 @@ const Scanner = () => {
       ean_item: "7506389322083",
     },
   ]);
+  const { orderId } = useParams();
+
+  // const [orderID, setOrderID] = useState("1765175-01");
+  let [items, setItems] = useState(() => {
+    const storedItems = localStorage.getItem(`ws-${orderId}`);
+    return storedItems ? storedItems : null;
+  });
   const inputRef = useRef(null);
   const [readCode, setReadCode] = useState("");
 
   const handleCode = (event) => {
     const currentValue = event.target.value;
     setReadCode(currentValue);
-    // console.log(currentValue);
     if (currentValue.length === 13) {
       const orderIndex = orders.findIndex(
         (order) => order.ean_item === currentValue
@@ -57,12 +65,14 @@ const Scanner = () => {
             quantity_item: updatedOrders[orderIndex].quantity_item - 1,
           };
           setOrders(updatedOrders);
+          localStorage.setItem(`ws-${orderId}`, JSON.stringify(updatedOrders));
         } else {
           const filteredOrders = orders.filter(
             (order) => order.ean_item !== currentValue
           );
 
           setOrders(filteredOrders);
+          localStorage.setItem(`ws-${orderId}`, JSON.stringify(filteredOrders));
         }
       }
       setReadCode("");
@@ -71,10 +81,12 @@ const Scanner = () => {
 
   function getItems() {
     axios
-      .get(`${api}/pick-pack/1258440731848-01`)
+      .get(`${api}/pick-pack/${orderId}`)
       .then((res) => {
-        console.log(res);
-        // setOrders(res.data);
+        // console.log(res.data);
+        console.log("items server request");
+        setOrders(res.data);
+        localStorage.setItem(`ws-${orderId}`, JSON.stringify(res.data));
       })
       .catch((err) => {
         console.log(err);
@@ -83,14 +95,29 @@ const Scanner = () => {
 
   useEffect(() => {
     inputRef.current.focus();
-    getItems();
+    if (items) {
+      setOrders(JSON.parse(items));
+    } else {
+      getItems();
+    }
+    // console.log(orderId);
+
+    // console.log("items", items);
   }, []);
   return (
     <div>
-      <div className="btn">scanner</div>
+      <ModalChat />
+      <div
+        className="btn"
+        onClick={() => {
+          localStorage.removeItem(`ws-${orderId}`);
+        }}
+      >
+        reboot
+      </div>
       <input
         inputMode="none"
-        className="opacity-0"
+        className="opacity-20"
         ref={inputRef}
         value={readCode}
         onBlur={(e) => e.target.focus()}
