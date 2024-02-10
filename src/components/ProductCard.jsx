@@ -41,7 +41,7 @@ const ProductCard = ({
           />
         </div>
       </div>
-      <img
+      {/* <img
         src={order.imageUrl_item}
         alt={"Producto"}
         className={` w-[85px] ${
@@ -53,7 +53,7 @@ const ProductCard = ({
           aspectRatio: "100/100",
           objectFit: "cover",
         }}
-      />
+      /> */}
       <div
         className={`w-full  ${
           !showDetails && "flex flex-row justify-between "
