@@ -86,12 +86,12 @@ const QrScan = () => {
       >
         activate
       </button>
-      <div>{code}</div>
+      <div>scanned: {code}</div>
       <video
         id="video"
         playsInline
         className=""
-        style={{ width: "10px", height: "10px" }}
+        // style={{ width: "10px", height: "10px" }}
       />
     </NavBar>
   );
