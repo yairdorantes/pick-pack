@@ -12,7 +12,7 @@ const Test = () => {
         // console.log("decoded qr code:", result);
         console.log(result);
         alert(JSON.stringify(result));
-        // navigator.clipboard.writeText(copyText.value);
+        navigator.clipboard.writeText(result);
       },
       { highlightScanRegion: true }
     );
