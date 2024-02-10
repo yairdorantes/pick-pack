@@ -1,3 +1,4 @@
+import { stringify } from "postcss";
 import QrScanner from "qr-scanner";
 import { useEffect } from "react";
 
@@ -10,6 +11,7 @@ const Test = () => {
       (result) => {
         // console.log("decoded qr code:", result);
         console.log(result);
+        alert(JSON, stringify(result));
       },
       { highlightScanRegion: true }
     );
@@ -26,7 +28,7 @@ const Test = () => {
         playsInline
         className=""
         style={{ width: "10px", height: "10px" }}
-      ></video>
+      />
     </div>
   );
 };
