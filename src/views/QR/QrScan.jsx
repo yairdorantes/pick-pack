@@ -19,6 +19,7 @@ const QrScan = () => {
   const navigate = useNavigate();
 
   const handleQRCode = () => {
+    qrScannerRef.current?.stop();
     axios
       .post(`${api}/pick-pack/assigment/qr`, {
         userId: user.id,
@@ -39,7 +40,7 @@ const QrScan = () => {
       })
       .catch((err) => {
         console.log(err);
-
+        qrScannerRef.current?.start();
         toast.error("Ups algo salio mal, intenta de nuevo", {});
         // toast.remove();
       })
@@ -70,27 +71,13 @@ const QrScan = () => {
   }, []);
   return (
     <NavBar>
-      <button
-        onClick={() => {
-          qrScannerRef.current?.stop();
-        }}
-        className="btn"
-      >
-        stop
-      </button>{" "}
-      <button
-        onClick={() => {
-          qrScannerRef.current?.start();
-        }}
-        className="btn"
-      >
-        activate
-      </button>
-      <div>scanned: {code}</div>
+      <div className="bg-blue-500 fixed z-40 bottom-0 text-white">
+        scanned: {code}
+      </div>
       <video
         id="video"
         playsInline
-        className=""
+        className="absolute top-40"
         // style={{ width: "10px", height: "10px" }}
       />
     </NavBar>
