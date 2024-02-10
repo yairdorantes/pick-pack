@@ -30,7 +30,7 @@ const ProductCard = ({
       >
         <div>{order.refId_item}</div>
         <div className={`${!showDetails && "hidden"} `}>
-          <Barcode
+          {/* <Barcode
             height={50}
             margin={0}
             background="#fffefeb8"
@@ -38,7 +38,7 @@ const ProductCard = ({
             value={order.ean_item}
             fontSize={0}
             lineColor="black"
-          />
+          /> */}
         </div>
       </div>
       {/* <img
@@ -77,11 +77,11 @@ const ProductCard = ({
           {order.ean_item}
         </span>
         <div className="flex items-center mt-1 space-x-1 ">
-          <img
+          {/* <img
             src={`/skus/${typeOfProduct(order.refId_item)}`}
             className="w-5"
             alt=""
-          />
+          /> */}
           <span
             className={`text-sm  font-bold ${
               productScanned.id_item === order.id_item && "pulse"
