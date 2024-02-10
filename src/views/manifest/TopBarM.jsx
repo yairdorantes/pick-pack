@@ -1,0 +1,55 @@
+import { useState } from "react";
+import { flushSync } from "react-dom";
+import { useNavigate } from "react-router-dom";
+import Included from "./Included";
+import NoIncluded from "./NoIncluded";
+import Construction from "../../components/Construction";
+
+const TopBarM = ({ view = 2 }) => {
+  const navigate = useNavigate();
+  const [selection, setSelection] = useState(view);
+  const handleSelection = (selection) => {
+    if (selection === 1) {
+      setSelection(1);
+    } else if (selection === 2) {
+      setSelection(2);
+    } else if (selection === 3) {
+      setSelection(3);
+    }
+  };
+  return (
+    <div className="border-t-2 ">
+      <div className="grid grid-cols-1  text-center  cursor-pointer">
+        {/* <div
+          className={`p-3 inner-shadow ${
+            selection === 1 && "border-b-4  border-b-blue-600 text-blue-600"
+          }  `}
+          onClick={() => handleSelection(1)}
+        >
+          Sin incluir
+        </div> */}
+        <div
+          className={`p-3 ${
+            selection === 2 && "border-b-4 border-b-blue-600 text-blue-600"
+          }`}
+          onClick={() => handleSelection(2)}
+        >
+          Incluidos
+        </div>
+        {/* <div
+          className={`p-3   ${
+            selection === 3 && "border-b-4 border-b-blue-600 text-blue-600"
+          }`}
+          onClick={() => handleSelection(3)}
+        >
+          Embarcado
+        </div> */}
+      </div>
+      {selection === 1 && <NoIncluded />}
+      {selection === 2 && <Included />}
+      {selection === 3 && <Construction />}
+    </div>
+  );
+};
+
+export default TopBarM;
