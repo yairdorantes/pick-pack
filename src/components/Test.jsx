@@ -26,7 +26,18 @@ const Test = () => {
   }, []);
   return (
     <div>
-      <div>jaja</div>
+      <div>jaja lolas yahooo jajaj</div>
+      <button
+        onClick={() => {
+          localStorage.setItem(
+            "authTokenFulfilment",
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyRGF0YSI6eyJpZCI6MjcsInVzZXJuYW1lIjoiWWFpciBJc21hZWwiLCJlbWFpbCI6ImRlc2Fycm9sbG9lY29tMkBhbWVyaWNhbmNvdHRvbi5jb20ubXgifSwiaWF0IjoxNzA3NDUzMjk1LCJleHAiOjE3MDgwNTgwOTV9.pPgVuagIAYR-NlfqAzTUMit4zI2f-rL93oSsYXABsyg"
+          );
+        }}
+        className="btn"
+      >
+        login
+      </button>
       <video
         id="video"
         playsInline
