@@ -54,7 +54,7 @@ const QrScan = () => {
       videoElem,
       (result) => {
         console.log(result);
-        setCode(JSON.parse(result));
+        setCode(JSON.stringify(result));
       },
       { highlightScanRegion: true }
     );
