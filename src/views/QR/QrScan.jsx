@@ -9,7 +9,7 @@ import NavBar from "../../components/NavBar";
 import QrScanner from "qr-scanner";
 
 const QrScan = () => {
-  const qrScannerRef = useRef(null); // Create a useRef for qrScanner
+  const qrScannerRef = useRef(null);
 
   const { user } = useStore();
   const [code, setCode] = useState("");
@@ -50,7 +50,6 @@ const QrScan = () => {
   useEffect(() => {
     const videoElem = document.createElement("video");
     document.body.appendChild(videoElem);
-
     const qrScanner = new QrScanner(
       videoElem,
       (result) => {
@@ -60,11 +59,8 @@ const QrScan = () => {
       },
       { highlightScanRegion: true }
     );
-
     qrScannerRef.current = qrScanner; // Assign qrScanner to qrScannerRef.current
-
     qrScanner.start();
-
     return () => {
       qrScanner.stop();
       document.body.removeChild(videoElem);
@@ -72,9 +68,9 @@ const QrScan = () => {
   }, []);
   return (
     <NavBar>
-      <div className="bg-blue-500 fixed z-40 bottom-0 text-white">
+      {/* <div className="bg-blue-500 fixed z-40 bottom-0 text-white">
         scanned: {code}
-      </div>
+      </div> */}
       <video
         id="video"
         playsInline
