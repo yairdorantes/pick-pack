@@ -274,29 +274,29 @@ const Scanner = () => {
               (order, i) =>
                 order.remaining_item > 0 && (
                   <div key={i} className="relative">
-                    <motion.div
+                    {/* <motion.div
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, x: -100 }}
                       transition={{ duration: 0.5 }}
                       onClick={() => {
                         handleClick(order);
                       }}
-                    >
-                      <div>
-                        <DragCard
+                    > */}
+                    <div>
+                      {/* <DragCard
                           productData={order}
                           setModal={setProductModalOpen}
-                        >
-                          <ProductCard
-                            order={order}
-                            productScanned={productScanned}
-                            productClicked={productClicked}
-                            key={i}
-                            showDetails={showDetails}
-                          />
-                        </DragCard>
-                      </div>
-                    </motion.div>
+                        > */}
+                      <ProductCard
+                        order={order}
+                        productScanned={productScanned}
+                        productClicked={productClicked}
+                        key={i}
+                        showDetails={showDetails}
+                      />
+                      {/* </DragCard> */}
+                    </div>
+                    {/* </motion.div> */}
                     {savingItem && productsLoader === order.id_item && (
                       <div className="flex justify-center items-center bg-gray-100 bg-opacity-60 absolute z-20 w-full h-full top-0">
                         <span className="loading loading-spinner loading-lg text-error" />
