@@ -17,7 +17,6 @@
     "emoji-picker-element": "^1.21.0",
     "framer-motion": "^10.16.16",
     "hamburger-react": "^2.5.0",
-    "html5-qrcode": "^2.3.8",
     "jwt-decode": "^4.0.0",
     "npm": "^10.2.5",
     "qr-scanner": "^1.4.2",
