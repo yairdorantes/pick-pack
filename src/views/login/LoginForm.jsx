@@ -7,7 +7,7 @@ import useStore from "../../../Context";
 import { flushSync } from "react-dom";
 import toast from "react-hot-toast";
 import omsLogo from "../../assets/images/oms.png";
-import video from "../../assets/videos/video.mp4";
+// import video from "../../assets/videos/video.mp4";
 const route = "/picking";
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -101,10 +101,9 @@ const LoginForm = () => {
         <div className="absolute w-screen h-screen bg-black bg-opacity-20"></div>
         <video
           // controls
-
           ref={videoRef}
           muted
-          src={video}
+          src="https://res.cloudinary.com/tolumaster/video/upload/v1707626688/video_s7z3sy.mp4"
           autoPlay
           loop
           className="w-full h-full object-cover"

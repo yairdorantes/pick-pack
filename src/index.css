@@ -151,18 +151,6 @@ input::-webkit-inner-spin-button {
   padding-right: 20px;
 }
 
-/*hover/active styles*/
-.breadcrumb a.active,
-.breadcrumb a:hover {
-  /* background: #333; */
-  /* background: linear-gradient(#333, #000); */
-}
-.breadcrumb a.active:after,
-.breadcrumb a:hover:after {
-  /* background: #333; */
-  /* background: linear-gradient(135deg, #333, #000); */
-}
-
 /*adding the arrows for the breadcrumbs using rotated pseudo elements*/
 .breadcrumb a:after {
   content: "";

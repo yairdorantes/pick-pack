@@ -7,9 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { flushSync } from "react-dom";
 import NavBar from "../../components/NavBar";
 import euroImg from "../../assets/images/eurocotton_logo.png";
-// import QrScanner from "qr-scanner";
 import { QrScanner } from "@yudiel/react-qr-scanner";
-import bg from "../../assets/images/image2.jpg";
 const QrScan = () => {
   const [isScanning, setIsScanning] = useState(true);
   const { user } = useStore();
@@ -74,7 +72,11 @@ const QrScan = () => {
 
         <div className="">
           <QrScanner
-            scanDelay={50}
+            // videoStyle={{
+            //   width: "10%",
+            //   height: "10%",
+            // }}
+            scanDelay={500}
             containerStyle={{
               position: "absolute",
               top: "50%",
@@ -82,6 +84,9 @@ const QrScan = () => {
               transform: "translateY(-50%)",
             }}
             stopDecoding={!isScanning}
+            onResult={(result2) => {
+              alert(result2);
+            }}
             onDecode={(result) => {
               // alert(result);
               handleQRCode(result);
@@ -90,7 +95,7 @@ const QrScan = () => {
             onError={(error) => console.log(error?.message)}
           />
         </div>
-        <div className="absolute bottom-2 -translate-x-1/2 left-1/2">
+        <div className="fixed bottom-2 -translate-x-1/2 left-1/2">
           <img src={euroImg} alt="" className="opacity-40 w-36" />
         </div>
       </div>
