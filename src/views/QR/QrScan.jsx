@@ -84,9 +84,9 @@ const QrScan = () => {
               transform: "translateY(-50%)",
             }}
             stopDecoding={!isScanning}
-            onResult={(result2) => {
-              alert(result2);
-            }}
+            // onResult={(result2) => {
+            //   alert(result2);
+            // }}
             onDecode={(result) => {
               // alert(result);
               handleQRCode(result);
