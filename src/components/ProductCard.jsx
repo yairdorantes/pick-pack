@@ -1,6 +1,6 @@
-import { memo, useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import Barcode from "react-barcode";
-import toast from "react-hot-toast";
+// import toast from "react-hot-toast";
 
 const ProductCard = ({
   order,
@@ -11,9 +11,9 @@ const ProductCard = ({
   console.log("card prodict rendered");
   const [shadow, setShadow] = useState(false);
 
-  const typeOfProduct = useMemo(() => {
-    return (string) => `${string.slice(0, 7)}.png`;
-  }, []);
+  const typeOfProduct = (string) => {
+    return `${string.slice(0, 7)}.png`;
+  };
   return (
     <div
       onTouchStart={() => setShadow(true)}

@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import useStore from "../../Context";
 
-const DragCard = ({ children, setModal, productData }) => {
+const DragCard = ({ children, productData }) => {
   const { setItemData, setDragging } = useStore();
 
   const [scale, setScale] = useState(1);
@@ -38,7 +38,7 @@ const DragCard = ({ children, setModal, productData }) => {
       //TODO do somethingj
       console.log("do something with ");
     } else if (offset.x > 130) {
-      setModal(true);
+      // setModal(true);
       setItemData(productData);
     }
   }, [offset]);
@@ -116,5 +116,4 @@ const DragCard = ({ children, setModal, productData }) => {
     </div>
   );
 };
-
-export default DragCard;
+export default memo(DragCard);
