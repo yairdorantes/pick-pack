@@ -4,8 +4,10 @@ import Router from "../routes/Router";
 function App() {
   return (
     <>
-      <Router />
-      <Toaster />
+      <div>
+        <Router />
+        <Toaster />
+      </div>
     </>
   );
 }

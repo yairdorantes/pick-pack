@@ -13,6 +13,7 @@ import oms from "/oms.png";
 import ModalChat from "./ModalChat";
 import useStore from "../../Context";
 const NavBar = ({ children }) => {
+  // console.log("naaba");
   const navigate = useNavigate();
   const { orderId } = useParams();
   const [showSideMenu, setShowSideMenu] = useState(false);

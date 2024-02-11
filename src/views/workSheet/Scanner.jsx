@@ -268,7 +268,6 @@ const Scanner = () => {
               </div>
             </div>
           )}
-
           <AnimatePresence>
             {itemsList.map(
               (order, i) =>
@@ -282,20 +281,18 @@ const Scanner = () => {
                         handleClick(order);
                       }}
                     >
-                      <div>
-                        <DragCard
-                          productData={order}
-                          setModal={setProductModalOpen}
-                        >
-                          <ProductCard
-                            order={order}
-                            productScanned={productScanned}
-                            productClicked={productClicked}
-                            key={i}
-                            showDetails={showDetails}
-                          />
-                        </DragCard>
-                      </div>
+                      <DragCard
+                        productData={order}
+                        setModal={setProductModalOpen}
+                      >
+                        <ProductCard
+                          order={order}
+                          productScanned={productScanned}
+                          productClicked={productClicked}
+                          key={i}
+                          showDetails={showDetails}
+                        />
+                      </DragCard>
                     </motion.div>
                     {savingItem && productsLoader === order.id_item && (
                       <div className="flex justify-center items-center bg-gray-100 bg-opacity-60 absolute z-20 w-full h-full top-0">
