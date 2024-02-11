@@ -78,6 +78,7 @@ const ProductCard = ({
         </span>
         <div className="flex items-center mt-1 space-x-1 ">
           <img
+            loading="lazy"
             src={`/skus/${typeOfProduct(order.refId_item)}`}
             className="w-5"
             alt=""
