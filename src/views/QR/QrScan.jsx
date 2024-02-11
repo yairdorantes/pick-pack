@@ -79,9 +79,9 @@ const QrScan = () => {
         qrbox: { width: 250, height: 250 }, // Size of QR code scanning box
       },
       (qrCodeMessage) => {
-        alert(qrCodeMessage);
-        handleQRCode("");
-        console.log("QR Code detected:", qrCodeMessage);
+        // alert(qrCodeMessage);
+        handleQRCode(qrCodeMessage);
+        // console.log("QR Code detected:", qrCodeMessage);
         // Handle the detected QR code message here
       },
       (errorMessage) => {
