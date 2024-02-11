@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import { Suspense, lazy } from "react";
+import NewTest from "../src/components/NewTest";
 
 const Picking = lazy(() => import("../src/views/workSheet/Picking"));
 const LoginForm = lazy(() => import("../src/views/login/LoginForm"));
@@ -40,6 +41,7 @@ const Router = () => {
         <Route path="/comingsoon" element={<Construction />} />
         <Route path="/qr" element={<QrScan />} />
         <Route path="/admin" element={<AdminContainer />} />
+        <Route path="/test2" element={<NewTest />} />
         {/* </Suspense> */}
       </Route>
       <Route path="/*" element={<Page404 />} />

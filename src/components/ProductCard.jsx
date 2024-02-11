@@ -8,6 +8,7 @@ const ProductCard = ({
   productClicked,
   showDetails,
 }) => {
+  console.log("card prodict rendered");
   const [shadow, setShadow] = useState(false);
 
   const typeOfProduct = useMemo(() => {

@@ -7,9 +7,10 @@ import { useNavigate } from "react-router-dom";
 import { flushSync } from "react-dom";
 import NavBar from "../../components/NavBar";
 import euroImg from "../../assets/images/eurocotton_logo.png";
-import { QrScanner } from "@yudiel/react-qr-scanner";
+import { Html5Qrcode } from "html5-qrcode";
 const QrScan = () => {
-  const [isScanning, setIsScanning] = useState(true);
+  const qrCodeScannerRef = useRef(null);
+
   const { user } = useStore();
   const example = `{"data":"https://www.bourbon.co.jp/petit/" ,"cornerPoints":[{"x":318,"y":494.4},{"x":444,"y":508.79999999999995},{"x":429.59999999999997,"y": 637.2},{"x":301.2,"y":621.5999999999999}]}`;
   const res = JSON.parse(example);
@@ -17,7 +18,8 @@ const QrScan = () => {
   const navigate = useNavigate();
 
   const handleQRCode = (resultQR) => {
-    setIsScanning(false);
+    qrCodeScannerRef.current?.stop();
+
     axios
       .post(`${api}/pick-pack/assigment/qr`, {
         userId: user.id,
@@ -38,7 +40,26 @@ const QrScan = () => {
       })
       .catch((err) => {
         console.log(err);
-        setIsScanning(true);
+        setTimeout(() => {
+          qrCodeScannerRef.current?.start(
+            { facingMode: "environment" },
+            {
+              fps: 10,
+              qrbox: { width: 250, height: 250 },
+            },
+            (qrCodeMessage) => {
+              alert(qrCodeMessage);
+              handleQRCode("");
+              console.log("QR Code detected:", qrCodeMessage);
+              // Handle the detected QR code message here
+            },
+            (errorMessage) => {
+              console.error("Error:", errorMessage);
+              // Handle any errors here
+            }
+          );
+        }, 500);
+
         toast.error("Ups algo salio mal, intenta de nuevo", {});
         // toast.remove();
       })
@@ -46,6 +67,35 @@ const QrScan = () => {
         // setIsScanning(true);
       });
   };
+  useEffect(() => {
+    // Create a new Html5Qrcode instance and save it to the ref
+    qrCodeScannerRef.current = new Html5Qrcode("reader");
+
+    // Start the QR code scanner
+    qrCodeScannerRef.current.start(
+      { facingMode: "environment" }, // Use the back camera
+      {
+        fps: 10, // Frames per second for video capture
+        qrbox: { width: 250, height: 250 }, // Size of QR code scanning box
+      },
+      (qrCodeMessage) => {
+        alert(qrCodeMessage);
+        handleQRCode("");
+        console.log("QR Code detected:", qrCodeMessage);
+        // Handle the detected QR code message here
+      },
+      (errorMessage) => {
+        console.error("Error:", errorMessage);
+        // Handle any errors here
+      }
+    );
+
+    // Clean up
+    return () => {
+      // Stop the QR code scanner when the component unmounts
+      qrCodeScannerRef.current.stop();
+    };
+  }, []);
 
   return (
     <NavBar>
@@ -68,36 +118,11 @@ const QrScan = () => {
             </svg>
           </div>
         </div>
-        {/* <img src={bg} alt="" /> */}
+        <div id="reader">{/* Placeholder for the video feed */}</div>
 
-        <div className="">
-          <QrScanner
-            // videoStyle={{
-            //   width: "10%",
-            //   height: "10%",
-            // }}
-            scanDelay={500}
-            containerStyle={{
-              position: "absolute",
-              top: "50%",
-              // translate
-              transform: "translateY(-50%)",
-            }}
-            stopDecoding={!isScanning}
-            // onResult={(result2) => {
-            //   alert(result2);
-            // }}
-            onDecode={(result) => {
-              // alert(result);
-              handleQRCode(result);
-              console.log(result);
-            }}
-            onError={(error) => console.log(error?.message)}
-          />
-        </div>
-        <div className="fixed bottom-2 -translate-x-1/2 left-1/2">
+        {/* <div className="fixed bottom-2 -translate-x-1/2 left-1/2">
           <img src={euroImg} alt="" className="opacity-40 w-36" />
-        </div>
+        </div> */}
       </div>
     </NavBar>
   );
