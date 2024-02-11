@@ -8,7 +8,7 @@ const HomeContainer = () => {
       <div className="p-3 ">
         <div
           // onClick={() => setOpenOrders(1)}
-          className="w-full relative transition-all relative hover:scale-95  bg-gray-100 shadow-lg"
+          className="w-full  transition-all relative hover:scale-95  bg-gray-100 shadow-lg"
         >
           <div className="flex mb-4 items-center gap-2 p-4">
             <div className="text-xl">✅</div>
