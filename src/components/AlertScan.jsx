@@ -16,7 +16,7 @@ const AlertScan = ({ number, sku, SpeechTxt }) => {
   useEffect(() => {
     if (number !== undefined) {
       setAnimationKey((prevKey) => prevKey + 1);
-      speech(SpeechTxt);
+      // speech(SpeechTxt);
     }
   }, [number]);
 

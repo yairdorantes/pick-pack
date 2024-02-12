@@ -37,7 +37,7 @@ const DragCard = ({ children, setModal, productData }) => {
     // Check the direction based on offset.x
     if (offset.x < -130) {
       //TODO do somethingj
-      console.log("do something with ");
+      console.log("do something with");
     } else if (offset.x > 130) {
       setModal(true);
       setItemData(productData);
@@ -102,6 +102,7 @@ const DragCard = ({ children, setModal, productData }) => {
         drag="x"
         dragConstraints={{ left: 0, right: 0 }}
         onDrag={handleDrag}
+        dragElastic={{ left: 0, right: 0.5 }}
         onDragStart={() => {
           setDragging(true);
         }}
@@ -110,7 +111,7 @@ const DragCard = ({ children, setModal, productData }) => {
           setDragging(false);
         }}
         style={{ cursor: "grab" }}
-        dragElastic={0.7}
+        // dragElastic={0.7}
       >
         {children}
       </motion.div>

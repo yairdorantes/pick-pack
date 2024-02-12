@@ -11,14 +11,14 @@ export default defineConfig({
     maximumFileSizeToCacheInBytes: 3 * 1024 * 1024, // Set the maximum file size to be precached to 3MB
   },
   server: {
-    https: true,
+    https: false,
   },
   plugins: [
     react(),
     mkcert(),
     VitePWA({
       devOptions: {
-        enabled: true,
+        enabled: false,
         // type: "module",
       },
       // add this to cache all the imports

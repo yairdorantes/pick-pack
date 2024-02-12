@@ -300,3 +300,19 @@ input::-webkit-inner-spin-button {
   z-index: -10; */
   animation: fadeInOut 2.5s ease-out;
 }
+
+@keyframes scaleAnimation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.scaling-element {
+  animation: scaleAnimation 1.3s infinite;
+}

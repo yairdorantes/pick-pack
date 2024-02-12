@@ -18,6 +18,19 @@ const EverthingTable = () => {
     setModalOpen(true);
     setRowSelected(row);
   }
+  const getStatusString = (statusNumber) => {
+    if (statusNumber === 3) {
+      return "Listo para manejo";
+    } else if (statusNumber === 4) {
+      return "Surtiendo";
+    } else if (statusNumber === 5) {
+      return "Surtido";
+    } else if (statusNumber === 6) {
+      return "Empacando";
+    } else if (statusNumber === 7) {
+      return "Empacado";
+    }
+  };
   function getOrders() {
     setLoadingOrders(true);
     axios
@@ -82,8 +95,12 @@ const EverthingTable = () => {
           <tbody>
             {filteredResults.map((order, i) => (
               <tr key={i}>
-                <th>{order.idVtex_order}</th>
-                <td>{order.status_order}</td>
+                <td>{order.idVtex_order}</td>
+                <td className="">
+                  <span className="badge">
+                    {getStatusString(order.status2_order)}
+                  </span>
+                </td>
                 {/* <td>Picker 1, picker 2, picker uno</td>
                 <td>Picker 3, picker 4,picker 5</td> */}
                 <td>
