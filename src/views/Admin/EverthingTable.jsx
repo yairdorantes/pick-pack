@@ -45,7 +45,7 @@ const EverthingTable = () => {
       })
       .catch((err) => {
         console.log(err);
-        toast.error("Ocurrio un error al intentar obtener las ordenes ");
+        toast.error("Ocurrio un error al intentar obtener las ordenes");
       })
       .finally(() => setLoadingOrders(false));
   }

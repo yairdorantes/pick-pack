@@ -103,7 +103,7 @@ const ModalAssigment = ({ opening, changeState, rowSelected }) => {
               <th></th>
               <th>Nombre</th>
               <th>XP</th>
-              <th>Averge Time</th>
+              {/* <th>Averge Time</th> */}
               <th></th>
             </tr>
           </thead>
@@ -120,7 +120,7 @@ const ModalAssigment = ({ opening, changeState, rowSelected }) => {
                     <div className="avatar">
                       <div className="mask mask-squircle w-10 h-10">
                         <img
-                          src={`https://cdn.pixabay.com/photo/2017/07/18/23/23/user-2517433_640.png`}
+                          src={`https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQx99bK-uLFqLyjp6cPQY8kJbEcsc6u4pedrPxNIZYTrKValUzf3SoYf-8uhv9EmjYAs9I&usqp=CAU`}
                           alt="Avatar Tailwind CSS Component"
                         />
                       </div>
@@ -136,9 +136,7 @@ const ModalAssigment = ({ opening, changeState, rowSelected }) => {
                 <td>
                   <div>{i + 12}</div>
                 </td>
-                <td className="text-center">
-                  <div>{22 + i}m</div>
-                </td>
+                <td className="text-center">{/* <div>{22 + i}m</div> */}</td>
                 <th>
                   <label>
                     <input

@@ -77,9 +77,7 @@ const AddUser = () => {
               <input
                 {...register("last_name", { required: true })}
                 type="text"
-                placeholder="Elsa Porrico
-
-              "
+                placeholder="Willy Melano"
                 className="input input-bordered w-full max-w-xs"
               />
             </label>
