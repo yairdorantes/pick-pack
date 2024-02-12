@@ -84,8 +84,14 @@ const QrScan = () => {
     );
 
     return () => {
-      // Stop the QR code scanner when the component unmounts
-      qrCodeScannerRef.current.stop();
+      qrCodeScannerRef.current
+        .stop()
+        .then((res) => {
+          // toast.success("success stopin qr");
+        })
+        .catch(() => {
+          toast.error("error stopin QR");
+        });
     };
   }, []);
 

@@ -3,8 +3,15 @@ import NavBar from "../../components/NavBar";
 import Chart from "./Chart";
 import Stats from "./Stats";
 import { flushSync } from "react-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { api } from "../../../api";
+import toast from "react-hot-toast";
+import useStore from "../../../Context";
 
 const HomeContainer = () => {
+  const [resumeData, setresumeData] = useState({});
+  const { user } = useStore();
   const navigate = useNavigate();
 
   const goPicking = () => {
@@ -29,6 +36,20 @@ const HomeContainer = () => {
     }
     document.startViewTransition(() => flushSync(() => navigate("/qr")));
   };
+
+  useEffect(() => {
+    axios
+      .get(`${api}/pick-pack/resume/${user.id}`)
+      .then((res) => {
+        console.log(res);
+        setresumeData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("Ocurrio un error al intentar recuperar la información");
+      });
+  }, []);
+
   return (
     <NavBar>
       <div className="p-3 select-none">
@@ -43,12 +64,15 @@ const HomeContainer = () => {
             <div className="text-xl">✅</div>
             <div className="">
               Ordenes pendientes para Picking :
-              <span className="font-semibold"> 17 </span>
+              <span className="font-semibold">
+                {" "}
+                {resumeData.pickingCurrent}{" "}
+              </span>
             </div>
           </div>
           <div className="absolute right-2  top-1/2 -translate-y-1/2">
             <svg
-              className="text-warning w-6 h-6"
+              className="text-blue-500 w-6 h-6"
               viewBox="0 0 24 24"
               fill="currentColor"
               height="1em"
@@ -67,12 +91,15 @@ const HomeContainer = () => {
             <div className="text-xl">📦</div>
             <div className="">
               Ordenes pendientes para Packing :
-              <span className="font-semibold"> 17</span>
+              <span className="font-semibold">
+                {" "}
+                {resumeData.packingCurrent}
+              </span>
             </div>
           </div>
           <div className="absolute right-2  top-1/2 -translate-y-1/2">
             <svg
-              className="text-warning w-6 h-6"
+              className="text-blue-500 w-6 h-6"
               viewBox="0 0 24 24"
               fill="currentColor"
               height="1em"

@@ -96,7 +96,7 @@ const ModalAssigment = ({ opening, changeState, rowSelected }) => {
         onHandleQuery={filterTable}
       />
       <div className="overflow-x-auto max-h-96 mb-16">
-        <table className="table ">
+        <table className="table table-pin-cols">
           {/* head */}
           <thead>
             <tr>
@@ -116,13 +116,11 @@ const ModalAssigment = ({ opening, changeState, rowSelected }) => {
                 onClick={() => toggleList(user.id_user)}
               >
                 <td>
-                  <div className="flex items-center gap-3">
+                  <div className="">
                     <div className="avatar">
-                      <div className="mask mask-squircle w-12 h-12">
+                      <div className="mask mask-squircle w-10 h-10">
                         <img
-                          src={`https://i.pravatar.cc/300?u=${
-                            user.id_user + 1 * 4
-                          }`}
+                          src={`https://cdn.pixabay.com/photo/2017/07/18/23/23/user-2517433_640.png`}
                           alt="Avatar Tailwind CSS Component"
                         />
                       </div>

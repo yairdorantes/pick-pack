@@ -20,17 +20,18 @@ const EverthingTable = () => {
   }
   const getStatusString = (statusNumber) => {
     if (statusNumber === 3) {
-      return "Listo para manejo";
+      return "Listo para manejo 🚚";
     } else if (statusNumber === 4) {
-      return "Surtiendo";
+      return "Surtiendo 🛒";
     } else if (statusNumber === 5) {
-      return "Surtido";
+      return "Surtido ✅";
     } else if (statusNumber === 6) {
-      return "Empacando";
+      return "Empacando 📦";
     } else if (statusNumber === 7) {
-      return "Empacado";
+      return "Empacado 📦✅";
     }
   };
+
   function getOrders() {
     setLoadingOrders(true);
     axios
