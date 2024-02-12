@@ -2,21 +2,16 @@ import axios from "axios";
 import { api } from "../../../api";
 import toast from "react-hot-toast";
 import useStore from "../../../Context";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { flushSync } from "react-dom";
 import NavBar from "../../components/NavBar";
-import euroImg from "../../assets/images/eurocotton_logo.png";
+// import euroImg from "../../assets/images/eurocotton_logo.png";
 import { Html5Qrcode } from "html5-qrcode";
 const QrScan = () => {
   const qrCodeScannerRef = useRef(null);
-
   const { user } = useStore();
-  const example = `{"data":"https://www.bourbon.co.jp/petit/" ,"cornerPoints":[{"x":318,"y":494.4},{"x":444,"y":508.79999999999995},{"x":429.59999999999997,"y": 637.2},{"x":301.2,"y":621.5999999999999}]}`;
-  const res = JSON.parse(example);
-  console.log(res.data);
   const navigate = useNavigate();
-
   const handleQRCode = (resultQR) => {
     qrCodeScannerRef.current?.stop();
 
@@ -48,8 +43,8 @@ const QrScan = () => {
               qrbox: { width: 250, height: 250 },
             },
             (qrCodeMessage) => {
-              alert(qrCodeMessage);
-              handleQRCode("");
+              // alert(qrCodeMessage);
+              handleQRCode(qrCodeMessage);
               console.log("QR Code detected:", qrCodeMessage);
               // Handle the detected QR code message here
             },
@@ -81,8 +76,6 @@ const QrScan = () => {
       (qrCodeMessage) => {
         // alert(qrCodeMessage);
         handleQRCode(qrCodeMessage);
-        // console.log("QR Code detected:", qrCodeMessage);
-        // Handle the detected QR code message here
       },
       (errorMessage) => {
         console.error("Error:", errorMessage);
@@ -90,7 +83,6 @@ const QrScan = () => {
       }
     );
 
-    // Clean up
     return () => {
       // Stop the QR code scanner when the component unmounts
       qrCodeScannerRef.current.stop();
