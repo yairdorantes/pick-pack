@@ -89,16 +89,7 @@ const Scanner = () => {
     getProducts(orderId);
   }, []);
 
-  function handleClick(value) {
-    if (value.id_item === productClicked.id_item) {
-      setProductClicked({});
-    } else {
-      setProductClicked(value);
-    }
-  }
-
   useEffect(() => {
-    // console.log(cod.length);
     if (codeScanned.length === 13) {
       handleCode();
     }
@@ -114,7 +105,6 @@ const Scanner = () => {
         sku={productScanned.refId_item}
         SpeechTxt={txtSpeech}
       />
-      {/* <div>{loading.toString()}</div> */}
 
       <div className="sticky top-16 z-20">
         <div className="w-full z-20 border-2 border-opacity-100 rounded-md bg-white  border-gray-200 p-4 flex items-center justify-between  ">
@@ -271,20 +261,12 @@ const Scanner = () => {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, x: -100 }}
                       transition={{ duration: 0.5 }}
-                      onClick={() => {
-                        handleClick(order);
-                      }}
                     >
                       <DragCard
                         productData={order}
                         setModal={memoizedSetProductModalOpen}
                       >
-                        <ProductCard
-                          order={order}
-                          productScanned={productScanned}
-                          productClicked={productClicked}
-                          showDetails={showDetails}
-                        />
+                        <ProductCard order={order} showDetails={showDetails} />
                       </DragCard>
                     </motion.div>
                     {savingItem && productsLoader === order.id_item && (

@@ -2,21 +2,17 @@ import { memo, useMemo, useState } from "react";
 import Barcode from "react-barcode";
 // import toast from "react-hot-toast";
 
-const ProductCard = ({
-  order,
-  productScanned,
-  productClicked,
-  showDetails,
-}) => {
-  console.log("card prodict rendered");
+const ProductCard = ({ order, showDetails }) => {
+  const [showCover, setShowCover] = useState(false);
+  console.log("**CARD PRODUCT RENDERED!!");
   const [shadow, setShadow] = useState(false);
-
   const typeOfProduct = useMemo(() => {
     return (string) => `${string.slice(0, 7)}.png`;
   }, []);
   return (
     <div
       onTouchStart={() => setShadow(true)}
+      onClick={() => setShowCover(!showCover)}
       onTouchEnd={() => setShadow(false)}
       className={`overflow-hidden ${
         shadow && "act-shadow"
@@ -26,7 +22,7 @@ const ProductCard = ({
     >
       <div
         className={`${
-          productClicked.id_item === order.id_item ? "opacity-100" : "opacity-0"
+          showCover ? "opacity-100" : "opacity-0"
         }  transition-all duration-500 backdrop-blur-sm font-bold flex bg-opacity-60 text-white text-2xl justify-center items-center flex-col absolute left-0 w-full h-full bg-gray-900 `}
       >
         <div>{order.refId_item}</div>
@@ -84,13 +80,13 @@ const ProductCard = ({
             className="w-5"
             alt=""
           />
-          <span
+          {/* <span
             className={`text-sm  font-bold ${
               productScanned.id_item === order.id_item && "pulse"
             }  text-black`}
           >
             {order.remaining_item}
-          </span>
+          </span> */}
           <span className="">ud</span>
         </div>
       </div>

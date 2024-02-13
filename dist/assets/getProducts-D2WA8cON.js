@@ -1,2 +1,0 @@
-import{r as c,_ as i}from"./index-sry-EDJ_.js";import{u,a as l,b as g}from"./Context-BHbL9UKa.js";function f(){const[s,e]=c.useState(!1),{setItemsList:o,testingList:r}=u();return{getProducts:a=>{const n=`${g}/pick-pack/${a}`;e(!0),l.get(n).then(t=>{console.log("items server request"),o(t.data),console.log(t.data)}).catch(t=>{console.log(t),i.error("Ocurrio un error al intentar obtener los productos");//! this is for testing
-o(r)}).finally(()=>e(!1))},loading:s}}export{f as u};
