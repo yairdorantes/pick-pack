@@ -2,7 +2,7 @@ import { memo, useEffect, useState } from "react";
 import useStore from "../../../Context";
 
 const PackingCard = ({ product }) => {
-  console.log("packinbg pcard rendered");
+  console.log("*PACKING CARD RENDERED !!");
   const [packQuantity, setPackQuantity] = useState(product.packed_item);
   const [hoverQuantity, setHoverQuantity] = useState(false);
   const { packList, setPackList } = useStore();

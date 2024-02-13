@@ -21,7 +21,6 @@ const PendingPackList = () => {
     useStore();
   // const [filteredItems, setFilteredItems] = useState([]);
   const [sendingInfo, setLoading] = useState(false);
-  const [garmentScanned, setGarmentScanned] = useState({});
   const [speechTxt, setSpeechTxt] = useState("");
 
   const [itemScannedSaved, setItemScannedSaved] = useState({});
@@ -84,7 +83,6 @@ const PendingPackList = () => {
     );
     if (productIndex !== -1) {
       const product = itemsList[productIndex];
-      setGarmentScanned(product);
       if (product.packed_item + 1 <= product.quantity_item) {
         const resPack = firstPack(itemsList);
         const updateStatus = { order: orderId };
@@ -186,9 +184,9 @@ const PendingPackList = () => {
                   //   handleClick(order);
                   // }}
                 >
-                  <DragAddPack productData={product}>
-                    <PackingCard product={product} />
-                  </DragAddPack>
+                  {/* <DragAddPack productData={product}> */}
+                  <PackingCard product={product} />
+                  {/* </DragAddPack> */}
                 </motion.div>
               )
           )}

@@ -39,7 +39,7 @@ const Modal = ({ children, handleModal, isOpen, setIsOpen }) => {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel
-                  tabIndex="0"
+                  // tabIndex="0"
                   className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white  text-left align-middle shadow-xl transition-all"
                 >
                   <div className="">{children}</div>

@@ -5,6 +5,7 @@ import Barcode from "react-barcode";
 const ProductCard = ({ order, showDetails }) => {
   const [showCover, setShowCover] = useState(false);
   console.log("**CARD PRODUCT RENDERED!!");
+
   const [shadow, setShadow] = useState(false);
   const typeOfProduct = useMemo(() => {
     return (string) => `${string.slice(0, 7)}.png`;
@@ -80,13 +81,16 @@ const ProductCard = ({ order, showDetails }) => {
             className="w-5"
             alt=""
           />
-          {/* <span
-            className={`text-sm  font-bold ${
-              productScanned.id_item === order.id_item && "pulse"
-            }  text-black`}
+          {/* //  ${
+            //   productScanned.id_item === order.id_item && "pulse"
+            // }  */}
+          <span
+            className={`text-sm  font-bold
+             text-black`}
           >
             {order.remaining_item}
-          </span> */}
+          </span>
+
           <span className="">ud</span>
         </div>
       </div>

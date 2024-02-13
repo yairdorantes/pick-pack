@@ -12,6 +12,7 @@ import useUpdateItemQuantity from "../../scripts/updateItemQuantity";
 import { firstScan } from "../../scripts/firstScan";
 import AlertScan from "../../components/AlertScan";
 import CardLoader from "../../components/CardLoader";
+import SmallCardItem from "../../components/SmallCardItem";
 
 const Scanner = () => {
   const { updateItemQuantity } = useUpdateItemQuantity();
@@ -26,10 +27,10 @@ const Scanner = () => {
   const [savingItem, setSavingItem] = useState(false);
   const [productsLoader, setProductsLoader] = useState(0);
   const [productScanned, setProductScanned] = useState({});
-  const [productClicked, setProductClicked] = useState({});
   const [txtSpeech, setTxtSpeech] = useState("");
   const { orderId } = useParams();
-  const { itemsList, setItemsList, codeScanned } = useStore();
+  const { itemsList, setItemsList, codeScanned, setPickingCardSelected } =
+    useStore();
   const { getProducts, loading } = useGetItems();
   const handleCode = async () => {
     const orderIndex = itemsList.findIndex(
@@ -266,7 +267,14 @@ const Scanner = () => {
                         productData={order}
                         setModal={memoizedSetProductModalOpen}
                       >
-                        <ProductCard order={order} showDetails={showDetails} />
+                        {showDetails ? (
+                          <ProductCard
+                            order={order}
+                            showDetails={showDetails}
+                          />
+                        ) : (
+                          <SmallCardItem order={order} />
+                        )}
                       </DragCard>
                     </motion.div>
                     {savingItem && productsLoader === order.id_item && (
