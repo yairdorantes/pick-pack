@@ -2,14 +2,17 @@ import axios from "axios";
 import { api } from "../../../api";
 import toast from "react-hot-toast";
 import useStore from "../../../Context";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { flushSync } from "react-dom";
 import NavBar from "../../components/NavBar";
 // import euroImg from "../../assets/images/eurocotton_logo.png";
 import { Html5Qrcode } from "html5-qrcode";
+import Html5QrcodePlugin from "./Html5QrcodeScannerPlugin";
 const QrScan = () => {
   const qrCodeScannerRef = useRef(null);
+  const [qrScanner, setQrScanner] = useState(null);
+
   const { user } = useStore();
   const navigate = useNavigate();
   const handleQRCode = (resultQR) => {
@@ -64,33 +67,31 @@ const QrScan = () => {
   };
   useEffect(() => {
     // Create a new Html5Qrcode instance and save it to the ref
-    qrCodeScannerRef.current = new Html5Qrcode("reader");
-
-    // Start the QR code scanner
-    qrCodeScannerRef.current.start(
-      { facingMode: "environment" }, // Use the back camera
-      {
-        fps: 10, // Frames per second for video capture
-        qrbox: { width: 250, height: 250 }, // Size of QR code scanning box
-      },
-      (qrCodeMessage) => {
-        // alert(qrCodeMessage);
-        handleQRCode(qrCodeMessage);
-      },
-      (errorMessage) => {
-        console.error("Error:", errorMessage);
-        // Handle any errors here
-      }
-    );
-
-    return () => {
-      qrCodeScannerRef.current
-        ?.stop()
-        .then(() => {})
-        .catch((err) => {
-          console.warn("QR scanner error**", err);
-        });
-    };
+    // qrCodeScannerRef.current = new Html5Qrcode("reader");
+    // // Start the QR code scanner
+    // qrCodeScannerRef.current.start(
+    //   { facingMode: "environment" }, // Use the back camera
+    //   {
+    //     fps: 10, // Frames per second for video capture
+    //     qrbox: { width: 250, height: 250 }, // Size of QR code scanning box
+    //   },
+    //   (qrCodeMessage) => {
+    //     // alert(qrCodeMessage);
+    //     handleQRCode(qrCodeMessage);
+    //   },
+    //   (errorMessage) => {
+    //     console.error("Error here*:", errorMessage);
+    //     // Handle any errors here
+    //   }
+    // );
+    // return () => {
+    //   qrCodeScannerRef.current
+    //     ?.stop()
+    //     .then(() => {})
+    //     .catch((err) => {
+    //       console.warn("QR scanner error**", err);
+    //     });
+    // };
   }, []);
 
   return (
@@ -114,7 +115,16 @@ const QrScan = () => {
             </svg>
           </div>
         </div>
-        <div id="reader">{/* Placeholder for the video feed */}</div>
+        {/* <div id="reader">Placeholder for the video feed</div> */}
+        <Html5QrcodePlugin
+          fps={10}
+          qrbox={250}
+          disableFlip={false}
+          qrCodeSuccessCallback={(result) => {
+            console.log(result);
+            handleQRCode(result);
+          }}
+        />
 
         {/* <div className="fixed bottom-2 -translate-x-1/2 left-1/2">
           <img src={euroImg} alt="" className="opacity-40 w-36" />
