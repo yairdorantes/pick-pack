@@ -85,12 +85,10 @@ const QrScan = () => {
 
     return () => {
       qrCodeScannerRef.current
-        .stop()
-        .then((res) => {
-          // toast.success("success stopin qr");
-        })
-        .catch(() => {
-          toast.error("error stopin QR");
+        ?.stop()
+        .then(() => {})
+        .catch((err) => {
+          console.warn("QR scanner error**", err);
         });
     };
   }, []);
