@@ -29,8 +29,7 @@ const Scanner = () => {
   const [productScanned, setProductScanned] = useState({});
   const [txtSpeech, setTxtSpeech] = useState("");
   const { orderId } = useParams();
-  const { itemsList, setItemsList, codeScanned, setPickingCardSelected } =
-    useStore();
+  const { itemsList, setItemsList, codeScanned } = useStore();
   const { getProducts, loading } = useGetItems();
   const handleCode = async () => {
     const orderIndex = itemsList.findIndex(
@@ -97,6 +96,31 @@ const Scanner = () => {
     console.log(codeScanned);
   }, [codeScanned]);
 
+  const memoizedItemsList = useMemo(() => {
+    return itemsList.map((order, i) => {
+      return (
+        order.remaining_item > 0 && (
+          <div key={i} className="relative">
+            <motion.div
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, x: -100 }}
+              transition={{ duration: 0.5 }}
+            >
+              <DragCard productData={order}>
+                {showDetails ? (
+                  <ProductCard order={order} />
+                ) : (
+                  <SmallCardItem order={order} />
+                )}
+              </DragCard>
+            </motion.div>
+            {/* Other components */}
+          </div>
+        )
+      );
+    });
+  }, [itemsList, showDetails]);
+
   return (
     <div>
       <AlertScan
@@ -134,7 +158,7 @@ const Scanner = () => {
             </div>
           </div>
           <div
-            className="btn btn-sm"
+            className="btn btn-sm hover:scale-95"
             onClick={() => setShowDetails(!showDetails)}
           >
             {showDetails ? "👀 Ocultar " : "👁️Mostrar "}
@@ -253,36 +277,7 @@ const Scanner = () => {
               </div>
             </div>
           )}
-          <AnimatePresence>
-            {itemsList.map(
-              (order, i) =>
-                order.remaining_item > 0 && (
-                  <div key={i} className="relative">
-                    <motion.div
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, x: -100 }}
-                      transition={{ duration: 0.5 }}
-                    >
-                      <DragCard
-                        productData={order}
-                        setModal={memoizedSetProductModalOpen}
-                      >
-                        {showDetails ? (
-                          <ProductCard order={order} />
-                        ) : (
-                          <SmallCardItem order={order} />
-                        )}
-                      </DragCard>
-                    </motion.div>
-                    {savingItem && productsLoader === order.id_item && (
-                      <div className="flex justify-center items-center bg-gray-100 bg-opacity-60 absolute z-20 w-full h-full top-0">
-                        <span className="loading loading-spinner loading-lg text-error" />
-                      </div>
-                    )}
-                  </div>
-                )
-            )}
-          </AnimatePresence>
+          <AnimatePresence>{memoizedItemsList}</AnimatePresence>
         </div>
       </div>
     </div>
