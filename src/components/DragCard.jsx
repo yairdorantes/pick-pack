@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import useStore from "../../Context";
 
@@ -119,4 +119,4 @@ const DragCard = ({ children, setModal, productData }) => {
   );
 };
 
-export default DragCard;
+export default memo(DragCard);

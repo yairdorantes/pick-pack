@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { memo, useMemo, useState } from "react";
 import Barcode from "react-barcode";
 // import toast from "react-hot-toast";
 
@@ -97,4 +97,4 @@ const ProductCard = ({
     </div>
   );
 };
-export default ProductCard;
+export default memo(ProductCard);

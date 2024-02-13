@@ -12,9 +12,14 @@ import useUpdateItemQuantity from "../../scripts/updateItemQuantity";
 import { firstScan } from "../../scripts/firstScan";
 import AlertScan from "../../components/AlertScan";
 import CardLoader from "../../components/CardLoader";
+
 const Scanner = () => {
   const { updateItemQuantity } = useUpdateItemQuantity();
   const [productModalOpen, setProductModalOpen] = useState(false);
+  const memoizedSetProductModalOpen = useMemo(() => {
+    return setProductModalOpen;
+  }, []); // No dependencies, it won't be recreated on prop changes
+
   const [showDetails, setShowDetails] = useState(true);
   const [modalChanges, setModalChanges] = useState(false);
   const [modalChangesAction, setModalChangesAction] = useState("");
@@ -101,18 +106,7 @@ const Scanner = () => {
   }, [codeScanned]);
 
   return (
-    <div
-    // onKeyDown={(e) => {
-    //   console.log(e.key);
-    //   if (e.key === "Tab") {
-    //     e.preventDefault();
-    //     setReadCode("");
-    //   }
-    //   !isNaN(parseInt(e.key)) &&
-    //     setReadCode((prevString) => prevString + e.key);
-    // }}
-    >
-      {/* <div>codescanned: {codeScanned}</div> */}
+    <div>
       <AlertScan
         number={
           productScanned.remaining_item && productScanned.remaining_item - 1
@@ -283,13 +277,12 @@ const Scanner = () => {
                     >
                       <DragCard
                         productData={order}
-                        setModal={setProductModalOpen}
+                        setModal={memoizedSetProductModalOpen}
                       >
                         <ProductCard
                           order={order}
                           productScanned={productScanned}
                           productClicked={productClicked}
-                          key={i}
                           showDetails={showDetails}
                         />
                       </DragCard>

@@ -317,7 +317,7 @@ input::-webkit-inner-spin-button {
   animation: scaleAnimation 1.3s infinite;
 }
 
-#html5-qrcode-button-camera-stop {
+/* #html5-qrcode-button-camera-stop {
   visibility: hidden;
   display: none;
-}
+} */
