@@ -1,19 +1,13 @@
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import useStore from "../../../Context";
 
 const PackingCard = ({ product }) => {
+  console.log("packinbg pcard rendered");
   const [packQuantity, setPackQuantity] = useState(product.packed_item);
   const [hoverQuantity, setHoverQuantity] = useState(false);
-  const { itemsList, setItemsList, packList, setPackList } = useStore();
+  const { packList, setPackList } = useStore();
 
   function QuantityChange(isAdding) {
-    // const idToUpdate = product.id_item;
-    // const newValue = isAdding ? packQuantity + 1 : packQuantity - 1;
-    // const updatedList = itemsList.map((item) => ({
-    //   ...item,
-    //   packed_item: item.id_item === idToUpdate ? newValue : item.packed_item,
-    // }));
-    // setItemsList(updatedList);
     let newData = [...packList];
     const targetIndex = newData.findIndex(
       (obj) => obj.id_item === product.id_item
@@ -124,4 +118,4 @@ const PackingCard = ({ product }) => {
   );
 };
 
-export default PackingCard;
+export default memo(PackingCard);

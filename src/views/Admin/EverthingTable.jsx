@@ -98,7 +98,7 @@ const EverthingTable = () => {
               <tr key={i}>
                 <td>{order.idVtex_order}</td>
                 <td className="">
-                  <span className="badge">
+                  <span className="">
                     {getStatusString(order.status2_order)}
                   </span>
                 </td>

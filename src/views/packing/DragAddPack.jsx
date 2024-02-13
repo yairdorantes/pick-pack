@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import useStore from "../../../Context";
 
 const DragAddPack = ({ children, productData }) => {
@@ -46,4 +46,4 @@ const DragAddPack = ({ children, productData }) => {
   );
 };
 
-export default DragAddPack;
+export default memo(DragAddPack);

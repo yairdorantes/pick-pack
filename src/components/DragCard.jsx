@@ -7,7 +7,6 @@ const DragCard = ({ children, setModal, productData }) => {
   const { setItemData, setDragging } = useStore();
 
   const [scale, setScale] = useState(1);
-  const [showCheck, setShowCheck] = useState(false);
   const [containerBackgroundColor, setContainerBackgroundColor] =
     useState("#4CAF50"); // Initial color
   const [offset, setOffset] = useState({ x: 0, y: 0 });

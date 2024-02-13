@@ -146,12 +146,10 @@ const PendingPicking = () => {
       </form>
       <div
         id="filterMyOrders"
-        className="form-control inline-block ml-4 border-2 rounded-lg shadow-sm"
+        className="form-control mb-3 inline-block ml-4 border-2 rounded-lg shadow-sm"
       >
         <label className="cursor-pointer label">
-          <span className="label-text mr-2 mb-2 font-semibold">
-            Mis ordenes:
-          </span>
+          <span className="label-text mr-2  font-semibold">Mis ordenes:</span>
           <input
             onChange={(e) => filterMyOrders(e.target.checked)}
             type="checkbox"

@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import { useGetItems } from "../../scripts/getProducts";
 import { useParams } from "react-router-dom";
 import useStore from "../../../Context";
@@ -17,34 +17,24 @@ import CardLoader from "../../components/CardLoader";
 const PendingPackList = () => {
   const { orderId } = useParams();
   const { getProducts, loading } = useGetItems();
-  const {
-    itemsList,
-    setItemsList,
-    packList,
-    setPackList,
-    user,
-    codeScanned,
-    setCodeScanned,
-  } = useStore();
-  const [filteredItems, setFilteredItems] = useState([]);
+  const { itemsList, setItemsList, packList, setPackList, user, codeScanned } =
+    useStore();
+  // const [filteredItems, setFilteredItems] = useState([]);
   const [sendingInfo, setLoading] = useState(false);
-  const [readCode, setReadCode] = useState(""); /*scannning*/
   const [garmentScanned, setGarmentScanned] = useState({});
   const [speechTxt, setSpeechTxt] = useState("");
 
   const [itemScannedSaved, setItemScannedSaved] = useState({});
-  function countSelected() {
+
+  const countSelected = useMemo(() => {
     let count = 0;
     packList.forEach((item) => {
       count += item.packed_item;
     });
-
     return count;
-  }
-  const countItemsToPack = useMemo(() => {
-    return countSelected();
-  }, [itemsList]);
-  function packedQuantity() {
+  }, [packList]);
+
+  const packedQuantity = useCallback(() => {
     let countQuantity = 0;
     let packedQuantity = 0;
     itemsList.forEach((item) => {
@@ -52,7 +42,7 @@ const PendingPackList = () => {
       packedQuantity += item.packed_item;
     });
     return countQuantity === packedQuantity;
-  }
+  }, [itemsList]);
   function packItems() {
     setLoading(true);
     const resPack = firstPack(itemsList);
@@ -148,10 +138,6 @@ const PendingPackList = () => {
   useEffect(() => {
     codeScanned.length === 13 && scanAndPack();
   }, [codeScanned]);
-  useEffect(() => {
-    console.log(garmentScanned);
-    console.log(garmentScanned.quantity_item, garmentScanned.packed_item);
-  }, [garmentScanned]);
 
   useEffect(() => {
     getProducts(orderId);
@@ -323,14 +309,14 @@ const PendingPackList = () => {
 
         <div
           className={`flex shadow-md ${
-            countSelected() > 0 ? "bottom-2 " : "-bottom-16"
+            countSelected > 0 ? "bottom-2 " : "-bottom-16"
           } transition-all duration-150  text-black justify-between items-center bg-gray-100 fixed w-[98%] rounded-sm left-1/2 -translate-x-1/2 p-3  `}
         >
-          <div>Unidades seleccionadas: {countSelected()}</div>
+          <div>Unidades seleccionadas: {countSelected}</div>
           <div>
             <button
               onClick={packItems}
-              disabled={sendingInfo || countSelected() === 0}
+              disabled={sendingInfo || countSelected === 0}
               className="justify-center text-sm font-medium ring-offset-background  transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-blue-800 h-10 bg-[#2A5DB0] text-white px-5 py-6 rounded flex items-center space-x-2"
             >
               <svg
