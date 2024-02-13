@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { memo, useMemo, useState } from "react";
 
 const SmallCardItem = ({ order }) => {
   const [showCover, setShowCover] = useState(false);
@@ -45,4 +45,4 @@ const SmallCardItem = ({ order }) => {
   );
 };
 
-export default SmallCardItem;
+export default memo(SmallCardItem);

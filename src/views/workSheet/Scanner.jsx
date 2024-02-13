@@ -268,10 +268,7 @@ const Scanner = () => {
                         setModal={memoizedSetProductModalOpen}
                       >
                         {showDetails ? (
-                          <ProductCard
-                            order={order}
-                            showDetails={showDetails}
-                          />
+                          <ProductCard order={order} />
                         ) : (
                           <SmallCardItem order={order} />
                         )}
