@@ -128,16 +128,14 @@ const Scanner = () => {
             </span>
             <div>
               <svg
-                stroke="currentColor"
+                viewBox="0 0 512 512"
                 fill="currentColor"
-                strokeWidth="0"
-                viewBox="0 0 1024 1024"
+                height="1em"
+                width="1em"
                 className="text-black"
-                height="20"
-                width="20"
-                xmlns="http://www.w3.org/2000/svg"
               >
-                <path d="M483.2 790.3L861.4 412c1.7-1.7 2.5-4 2.3-6.3l-25.5-301.4c-.7-7.8-6.8-13.9-14.6-14.6L522.2 64.3c-2.3-.2-4.7.6-6.3 2.3L137.7 444.8a8.03 8.03 0 0 0 0 11.3l334.2 334.2c3.1 3.2 8.2 3.2 11.3 0zm62.6-651.7l224.6 19 19 224.6L477.5 694 233.9 450.5l311.9-311.9zm60.16 186.23a48 48 0 1 0 67.88-67.89 48 48 0 1 0-67.88 67.89zM889.7 539.8l-39.6-39.5a8.03 8.03 0 0 0-11.3 0l-362 361.3-237.6-237a8.03 8.03 0 0 0-11.3 0l-39.6 39.5a8.03 8.03 0 0 0 0 11.3l243.2 242.8 39.6 39.5c3.1 3.1 8.2 3.1 11.3 0l407.3-406.6c3.1-3.1 3.1-8.2 0-11.3z"></path>
+                <path d="M256 42c-33.88 0-64-10-64-10v2a64 64 0 00128 0v-2s-30.12 10-64 10z" />
+                <path d="M352 44c-5.49 47.76-46.79 85-96 85s-90.51-37.24-96-85L16 94l18 114 61.71 7.42c7.08.9 7.1.9 7.1 8.19L96 480h320l-6.81-256.39c-.21-7-.21-7 7.1-8.19L478 208l18-114z" />
               </svg>
             </div>
           </div>
@@ -145,7 +143,7 @@ const Scanner = () => {
             className="btn btn-sm hover:scale-95"
             onClick={() => setShowDetails(!showDetails)}
           >
-            {showDetails ? "👀 Ocultar " : "👁️Mostrar "}
+            {showDetails ? "🙈 Ocultar " : "🙉 Mostrar "}
             detalles
           </div>
         </div>

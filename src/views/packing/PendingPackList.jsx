@@ -13,10 +13,12 @@ import { firstPack } from "../../scripts/firstPack";
 import { AnimatePresence, motion } from "framer-motion";
 import AlertScan from "../../components/AlertScan";
 import CardLoader from "../../components/CardLoader";
+import SmallCardItem from "../../components/SmallCardItem";
 
 const PendingPackList = () => {
   const { orderId } = useParams();
   const { getProducts, loading } = useGetItems();
+  const [showDetails, setShowDetails] = useState(true);
   const { itemsList, setItemsList, packList, setPackList, user, codeScanned } =
     useStore();
   // const [filteredItems, setFilteredItems] = useState([]);
@@ -140,6 +142,11 @@ const PendingPackList = () => {
       });
     }
   }
+  const remainingToPack = useMemo(() => {
+    return itemsList.reduce((accumulator, item) => {
+      return accumulator + (item.quantity_item - item.packed_item);
+    }, 0);
+  }, [itemsList]);
   useEffect(() => {
     codeScanned.length === 13 && scanAndPack();
   }, [codeScanned]);
@@ -149,7 +156,7 @@ const PendingPackList = () => {
     setPackList([]);
   }, []);
   return (
-    <div className="overflow-x-hidden mb-24" tabIndex="0">
+    <div className="mb-24">
       {loading && (
         <div className="mt-5">
           <div className="mb-7">
@@ -177,7 +184,38 @@ const PendingPackList = () => {
         sku={itemScannedSaved.refId_item}
         SpeechTxt={speechTxt}
       />
-      <div>
+      <div className="sticky top-16  z-20">
+        <div className=" w-full bg-white border-b border-b-gray-200 p-3 flex items-center justify-between">
+          <div
+            className="flex gap-1"
+            onClick={() => console.log(remainingToPack())}
+          >
+            Items por empacar:{" "}
+            <div className="flex gap-1 items-center">
+              <span className="font-bold">{remainingToPack}</span>
+              <div>
+                <svg
+                  className="w-5 h-5 text-black"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  height="1em"
+                  width="1em"
+                >
+                  <path d="M13 19.3v-6.7l6-3.4V13c.7 0 1.4.1 2 .4V7.5c0-.4-.2-.7-.5-.9l-7.9-4.4c-.2-.1-.4-.2-.6-.2s-.4.1-.6.2L3.5 6.6c-.3.2-.5.5-.5.9v9c0 .4.2.7.5.9l7.9 4.4c.2.1.4.2.6.2s.4-.1.6-.2l.9-.5c-.3-.6-.4-1.3-.5-2M12 4.2l6 3.3-2 1.1-5.9-3.4 1.9-1m-1 15.1l-6-3.4V9.2l6 3.4v6.7m1-8.5L6 7.5l2-1.2 6 3.5-2 1m8 4.2v3h3v2h-3v3h-2v-3h-3v-2h3v-3h2z" />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div
+            className="btn btn-sm hover:scale-95"
+            onClick={() => setShowDetails(!showDetails)}
+          >
+            {" "}
+            {showDetails ? "🙈 Ocultar" : "🙉 Mostrar"} detalles{" "}
+          </div>
+        </div>
+      </div>
+      <div className="overflow-x-hidden">
         <AnimatePresence>
           {itemsList.map(
             (product, i) =>
@@ -192,7 +230,11 @@ const PendingPackList = () => {
                   // }}
                 >
                   <DragAddPack productData={product}>
-                    <PackingCard product={product} />
+                    {showDetails ? (
+                      <PackingCard product={product} />
+                    ) : (
+                      <SmallCardItem order={product} />
+                    )}
                   </DragAddPack>
                 </motion.div>
               )

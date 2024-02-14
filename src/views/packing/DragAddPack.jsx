@@ -23,7 +23,7 @@ const DragAddPack = ({ children, productData }) => {
   return (
     <>
       <div className="relative">
-        <div id="1" className="absolute -z-10 w-full bg-[#4CAF50] h-32" />
+        <div id="1" className="absolute -z-10 w-full bg-[#4CAF50] h-full" />
         <motion.div
           id="2"
           className=" "
