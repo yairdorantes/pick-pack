@@ -46,16 +46,18 @@ const HomeContainer = () => {
       })
       .catch((err) => {
         console.log(err);
-        toast.error("Ocurrio un error al intentar recuperar la información");
+        toast.error("Ocurrio un error al intentar recuperar la información", {
+          position: "bottom-center",
+        });
       });
   }, []);
 
   return (
     <NavBar>
-      <div className="p-3 select-none">
+      <div className="p-3  select-none">
         <div
           // onClick={() => setOpenOrders(1)}
-          className="w-full rounded-sm transition-all relative hover:scale-95  bg-gray-100 shadow-lg"
+          className="w-full  rounded-sm transition-all relative hover:scale-95  bg-gray-100 shadow-lg"
         >
           <div
             onClick={goPicking}

@@ -321,3 +321,8 @@ input::-webkit-inner-spin-button {
   visibility: hidden;
   display: none;
 } */
+
+.bg-blur {
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+}

@@ -1,9 +1,6 @@
 import ReactECharts from "echarts-for-react"; // or var ReactECharts = require('echarts-for-react');
-import { PieChart } from "echarts/charts";
-import * as echarts from "echarts/core";
 
 const Chart = () => {
-  echarts.use(PieChart);
   const data = [
     { name: "16 agosto 2024", value: 6 },
     { name: "11 septiembre 2001", value: 200 },
@@ -15,8 +12,15 @@ const Chart = () => {
     title: {
       text: "Pickeo",
     },
-    tooltip: {},
+    tooltip: {
+      trigger: "axis", // Show tooltip when hovering over data points
+      axisPointer: {
+        // type: "cross", // Display crosshair pointer
+      },
+    },
+
     xAxis: {
+      axisLabel: {},
       axisLine: {
         // symbol: "arrow",
         // lineStyle: {
@@ -24,6 +28,7 @@ const Chart = () => {
         //   // ...
         // },
       },
+
       //   type: "time",
       data: data.map((item) => item.name),
     },

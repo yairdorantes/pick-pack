@@ -1,0 +1,2 @@
+import{r as c,a as i,b as l,_ as u,c as g}from"./index-Ddt3qYNo.js";function f(){const[o,e]=c.useState(!1),{setItemsList:s,testingList:r}=i();return{getProducts:a=>{const n=`${g}/pick-pack/${a}`;e(!0),l.get(n).then(t=>{console.log("items server request"),s(t.data),console.log(t.data)}).catch(t=>{console.log(t),u.error("Ocurrio un error al intentar obtener los productos");//! this is for testing
+s(r)}).finally(()=>e(!1))},loading:o}}export{f as u};

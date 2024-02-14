@@ -64,7 +64,7 @@ const Scanner = () => {
           setTxtSpeech(speechTxt);
         } catch (err) {
           console.log(err);
-          toast.error("Intenta de nuevo");
+          toast.error("Intenta de nuevo", { position: "bottom-center" });
         }
       } else {
         toast("PRENDA YA ALISTADA!", {
@@ -76,6 +76,13 @@ const Scanner = () => {
       toast("ESTA PRENDA NO ESTÁ EN LA ORDEN!", {
         icon: "⚠️",
         position: "bottom-center",
+        style: {
+          // border: "1px solid #bf1dff",
+          padding: "10px",
+          // borderRadius: "10px",
+          // borderRadius: "40px",
+          // color: "#0ccfb5",
+        },
       });
     }
   };

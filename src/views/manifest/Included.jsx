@@ -92,7 +92,7 @@ const Included = () => {
     <div className="">
       {courierOptions && (
         <div
-          className={`fixed bg-black z-20 bg-opacity-40 backdrop-blur-sm transition-all  w-screen h-screen top-0 `}
+          className={`fixed bg-black z-20 bg-opacity-40  transition-all  w-screen h-screen top-0 `}
         />
       )}
       {/* <div className="btn" onClick={speech}>
