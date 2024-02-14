@@ -106,7 +106,10 @@ const Scanner = () => {
               exit={{ opacity: 0, x: -100 }}
               transition={{ duration: 0.5 }}
             >
-              <DragCard productData={order}>
+              <DragCard
+                setModal={memoizedSetProductModalOpen}
+                productData={order}
+              >
                 {showDetails ? (
                   <ProductCard order={order} />
                 ) : (
@@ -114,6 +117,11 @@ const Scanner = () => {
                 )}
               </DragCard>
             </motion.div>
+            {savingItem && productsLoader === order.id_item && (
+              <div className="flex justify-center items-center bg-gray-100 bg-opacity-60 absolute z-20 w-full h-full top-0">
+                <span className="loading loading-spinner loading-lg text-error" />
+              </div>
+            )}
             {/* Other components */}
           </div>
         )
