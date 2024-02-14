@@ -6,7 +6,7 @@ import useStore from "../../../Context";
 import toast from "react-hot-toast";
 import SearchInput from "../../components/SearchInput";
 import AddUser from "./AddUser";
-
+import ModalChat from "../../components/ModalChat";
 const EverthingTable = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [rowSelected, setRowSelected] = useState({});
@@ -77,19 +77,21 @@ const EverthingTable = () => {
   return (
     <div className="">
       <AddUser />
-      <div className="sticky top-20 bg-white z-20">
+      <div className="sticky top-20  bg-white z-20">
         <SearchInput
           onHandleQuery={filterOrderId}
           placeHolderValue="Busca una orden"
         />
       </div>
-      <div className="overflow-x-auto ">
-        <table className="table  text-center table-pin-rows table-sm table-zebra">
+
+      <div className="overflow-x-auto w-screen">
+        <table className="table text-center table-pin-rows table-sm table-zebra">
           <thead>
             <tr className="">
               <th className="">Orden</th>
               <th>Estatus</th>
               <th>Asignar</th>
+              {/* <th>Notas</th> */}
               {/* <th>Notas</th> */}
             </tr>
           </thead>
@@ -122,11 +124,27 @@ const EverthingTable = () => {
                     </svg>
                   </div>
                 </td>
+                {/* <td>
+                  <ModalChat>
+                    <div className="btn btn-sm">
+                      <svg
+                        className="w-7 h-7"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        height="1em"
+                        width="1em"
+                      >
+                        <path d="M8.5 18l3.5 4 3.5-4H19c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2H5c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h3.5zM7 7h10v2H7V7zm0 4h7v2H7v-2z" />
+                      </svg>
+                    </div>
+                  </ModalChat>
+                </td> */}
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+
       {loadingOrders && (
         <div className="text-center mt-10">
           <span className="loading loading-dots loading-lg"></span>

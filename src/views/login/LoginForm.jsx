@@ -8,7 +8,7 @@ import { flushSync } from "react-dom";
 import toast from "react-hot-toast";
 import omsLogo from "../../assets/images/oms.png";
 // import video from "../../assets/videos/video.mp4";
-const route = "/picking";
+const route = "/";
 const LoginForm = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);

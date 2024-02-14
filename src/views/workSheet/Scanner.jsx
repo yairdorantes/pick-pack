@@ -69,11 +69,13 @@ const Scanner = () => {
       } else {
         toast("PRENDA YA ALISTADA!", {
           icon: "⚠️",
+          position: "bottom-center",
         });
       }
     } else {
       toast("ESTA PRENDA NO ESTÁ EN LA ORDEN!", {
         icon: "⚠️",
+        position: "bottom-center",
       });
     }
   };
@@ -95,38 +97,6 @@ const Scanner = () => {
     }
     console.log(codeScanned);
   }, [codeScanned]);
-
-  const memoizedItemsList = useMemo(() => {
-    return itemsList.map((order, i) => {
-      return (
-        order.remaining_item > 0 && (
-          <div key={i} className="relative">
-            <motion.div
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, x: -100 }}
-              transition={{ duration: 0.5 }}
-            >
-              <DragCard
-                setModal={memoizedSetProductModalOpen}
-                productData={order}
-              >
-                {showDetails ? (
-                  <ProductCard order={order} />
-                ) : (
-                  <SmallCardItem order={order} />
-                )}
-              </DragCard>
-            </motion.div>
-            {savingItem && productsLoader === order.id_item && (
-              <div className="flex justify-center items-center bg-gray-100 bg-opacity-60 absolute z-20 w-full h-full top-0">
-                <span className="loading loading-spinner loading-lg text-error" />
-              </div>
-            )}
-          </div>
-        )
-      );
-    });
-  }, [itemsList, showDetails]);
 
   return (
     <div>
@@ -284,7 +254,36 @@ const Scanner = () => {
               </div>
             </div>
           )}
-          <AnimatePresence>{memoizedItemsList}</AnimatePresence>
+          <AnimatePresence>
+            {itemsList.map(
+              (order, i) =>
+                order.remaining_item > 0 && (
+                  <div key={i} className="relative">
+                    <motion.div
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, x: -100 }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      <DragCard
+                        setModal={memoizedSetProductModalOpen}
+                        productData={order}
+                      >
+                        {showDetails ? (
+                          <ProductCard order={order} />
+                        ) : (
+                          <SmallCardItem order={order} />
+                        )}
+                      </DragCard>
+                    </motion.div>
+                    {savingItem && productsLoader === order.id_item && (
+                      <div className="flex justify-center items-center bg-gray-100 bg-opacity-60 absolute z-20 w-full h-full top-0">
+                        <span className="loading loading-spinner loading-lg text-error" />
+                      </div>
+                    )}
+                  </div>
+                )
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </div>

@@ -71,7 +71,7 @@ const ModalPack = ({ packing = true }) => {
         firstPacking: resPack ? updateStatus : undefined,
       })
       .then(() => {
-        toast.success("¡Empaque actualizado!");
+        toast.success("¡Empaque actualizado!", { position: "bottom-center" });
         setModalPack(false);
 
         const updateList = itemsList.map((obj) =>

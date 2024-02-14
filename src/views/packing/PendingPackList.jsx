@@ -99,7 +99,9 @@ const PendingPackList = () => {
             user: user.id,
           })
           .then(() => {
-            toast.success("¡Empaque actualizado!");
+            toast.success("¡Empaque actualizado!", {
+              position: "bottom-center",
+            });
             const updateList = itemsList.map((obj) =>
               obj.id_item === product.id_item
                 ? {
@@ -126,6 +128,11 @@ const PendingPackList = () => {
               "error, no se puedo actualizar el empaquetado, intenta de nuevo"
             );
           });
+      } else {
+        toast("ESTA PRENDA YA HA SIDO EMPACADA!", {
+          icon: "⚠️",
+          position: "bottom-center",
+        });
       }
     } else {
       toast("ESTA PRENDA NO ESTÁ EN LA ORDEN!", {
@@ -184,9 +191,9 @@ const PendingPackList = () => {
                   //   handleClick(order);
                   // }}
                 >
-                  {/* <DragAddPack productData={product}> */}
-                  <PackingCard product={product} />
-                  {/* </DragAddPack> */}
+                  <DragAddPack productData={product}>
+                    <PackingCard product={product} />
+                  </DragAddPack>
                 </motion.div>
               )
           )}

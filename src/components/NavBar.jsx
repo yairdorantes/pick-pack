@@ -85,13 +85,13 @@ const NavBar = ({ children }) => {
       {/* NavBar */}
 
       {/* Main Content */}
-      <div className="flex flex-1  ">
-        {showSideMenu && (
-          <div
-            onClick={() => setShowSideMenu(false)}
-            className="w-full h-full bg-black bg-opacity-50 z-30 fixed"
-          />
-        )}
+      <div className="flex flex-1">
+        <div
+          onClick={() => setShowSideMenu(false)}
+          className={`fixed w-full h-full bg-black ${
+            showSideMenu ? "opacity-100 z-30" : "hidden"
+          } backdrop-blur-sm bg-opacity-50  transition-all `}
+        />
 
         <div className="flex-1 mt-16">{children}</div>
       </div>
