@@ -1,4 +1,4 @@
-import { Sling as Hamburger } from "hamburger-react";
+import { Twirl as Hamburger } from "hamburger-react";
 import { useCallback, useState } from "react";
 import { flushSync } from "react-dom";
 import { useNavigate, useParams } from "react-router-dom";
@@ -76,10 +76,12 @@ const NavBar = ({ children }) => {
         >
           {user.username}
         </div>
-        <Hamburger
-          toggled={showSideMenu}
-          onToggle={() => setShowSideMenu(!showSideMenu)}
-        />
+        <div>
+          <Hamburger
+            toggled={showSideMenu}
+            onToggle={() => setShowSideMenu(!showSideMenu)}
+          />
+        </div>
       </div>
 
       {/* NavBar */}
@@ -88,9 +90,9 @@ const NavBar = ({ children }) => {
       <div className="flex flex-1">
         <div
           onClick={() => setShowSideMenu(false)}
-          className={`fixed w-full h-full bg-black ${
-            showSideMenu ? "opacity-100 z-30" : "hidden"
-          } backdrop-blur-sm bg-opacity-50  transition-all `}
+          className={`fixed backdrop-blur-sm w-full h-full bg-black ${
+            showSideMenu ? "opacity-100 z-30" : "opacity-0 -z-50"
+          }  bg-opacity-50 `}
         />
 
         <div className="flex-1 mt-16">{children}</div>

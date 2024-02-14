@@ -35,7 +35,7 @@ const AddUser = () => {
   };
   return (
     <div className="">
-      <div className="fixed bottom-2 left-2 z-30">
+      <div className="fixed bottom-2 left-2 z-20">
         <div
           onClick={() => setModalOpen(!modalOpen)}
           className="bg-blue-500 py-2 px-3 rounded-lg cursor-pointer"
