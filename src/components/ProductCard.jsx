@@ -9,6 +9,7 @@ const ProductCard = ({ order }) => {
   const typeOfProduct = useMemo(() => {
     return (string) => `${string.slice(0, 7)}.png`;
   }, []);
+
   return (
     <div
       onTouchStart={() => setShadow(true)}

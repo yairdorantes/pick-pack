@@ -89,8 +89,8 @@ const EverthingTable = () => {
             <tr className="">
               <th className="">Orden</th>
               <th>Estatus</th>
-
               <th>Asignar</th>
+              {/* <th>Notas</th> */}
             </tr>
           </thead>
           <tbody>

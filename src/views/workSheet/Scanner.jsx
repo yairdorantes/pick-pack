@@ -122,7 +122,6 @@ const Scanner = () => {
                 <span className="loading loading-spinner loading-lg text-error" />
               </div>
             )}
-            {/* Other components */}
           </div>
         )
       );
