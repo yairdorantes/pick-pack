@@ -9,7 +9,7 @@ import useStore from "../../../Context";
 
 const PackingTable = () => {
   const navigate = useNavigate();
-  const [query, setQuery] = useState("");
+  // const [query, setQuery] = useState("");
   const [pickingOrders, setPickingOrders] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -17,8 +17,8 @@ const PackingTable = () => {
   const { user } = useStore();
   const [usersList, setUsersList] = useState([]);
 
-  const [wsSelected, setWsSelected] = useState(() => {
-    const storedWs = localStorage.getItem("ws");
+  const [wsSelected] = useState(() => {
+    const storedWs = localStorage.getItem("ws-packing");
     return storedWs ? storedWs : "";
   });
   const getUserNames = (usersIdAssigment) => {
@@ -57,7 +57,7 @@ const PackingTable = () => {
   }, []);
   const handleOrderClick = (data) => {
     if (data.packing_assigment && data.packing_assigment.includes(user.id)) {
-      localStorage.setItem("ws", data.idVtex_order);
+      localStorage.setItem("ws-packing", data.idVtex_order);
       getProducts(data.idVtex_order);
       if (!document.startViewTransition) {
         navigate(`/pack/${data.idVtex_order}`);

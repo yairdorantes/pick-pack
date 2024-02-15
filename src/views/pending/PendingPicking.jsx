@@ -16,7 +16,7 @@ const PendingPicking = () => {
   const { user } = useStore();
   const [usersList, setUsersList] = useState([]);
   const [wsSelected, setWsSelected] = useState(() => {
-    const storedWs = localStorage.getItem("ws");
+    const storedWs = localStorage.getItem("ws-picking");
     return storedWs ? storedWs : "";
   });
   const { getProducts } = useGetItems();
@@ -49,7 +49,7 @@ const PendingPicking = () => {
   }, []);
   const handleOrderClick = (data) => {
     if (data.picking_assigment && data.picking_assigment.includes(user.id)) {
-      localStorage.setItem("ws", data.idVtex_order);
+      localStorage.setItem("ws-picking", data.idVtex_order);
       getProducts(data.idVtex_order);
       if (!document.startViewTransition) {
         navigate(`/picking/${data.idVtex_order}`);

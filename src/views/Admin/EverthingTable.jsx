@@ -6,8 +6,9 @@ import useStore from "../../../Context";
 import toast from "react-hot-toast";
 import SearchInput from "../../components/SearchInput";
 import AddUser from "./AddUser";
-import ModalChat from "../../components/ModalChat";
+import ModalChatAdmin from "./ModalChatAdmin";
 const EverthingTable = () => {
+  const [showModal, setShowModal] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [rowSelected, setRowSelected] = useState({});
   const [loadingOrders, setLoadingOrders] = useState([]);
@@ -91,6 +92,7 @@ const EverthingTable = () => {
               <th className="">Orden</th>
               <th>Estatus</th>
               <th>Asignar</th>
+              <th>Notas</th>
               {/* <th>Notas</th> */}
               {/* <th>Notas</th> */}
             </tr>
@@ -124,21 +126,24 @@ const EverthingTable = () => {
                     </svg>
                   </div>
                 </td>
-                {/* <td>
-                  <ModalChat>
-                    <div className="btn btn-sm">
-                      <svg
-                        className="w-7 h-7"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        height="1em"
-                        width="1em"
-                      >
-                        <path d="M8.5 18l3.5 4 3.5-4H19c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2H5c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h3.5zM7 7h10v2H7V7zm0 4h7v2H7v-2z" />
-                      </svg>
-                    </div>
-                  </ModalChat>
-                </td> */}
+                <td
+                  onClick={() => {
+                    console.log("clic");
+                    setShowModal(!showModal);
+                  }}
+                >
+                  <div className="btn btn-sm">
+                    <svg
+                      className="w-7 h-7"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      height="1em"
+                      width="1em"
+                    >
+                      <path d="M8.5 18l3.5 4 3.5-4H19c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2H5c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h3.5zM7 7h10v2H7V7zm0 4h7v2H7v-2z" />
+                    </svg>
+                  </div>
+                </td>
               </tr>
             ))}
           </tbody>
@@ -155,6 +160,7 @@ const EverthingTable = () => {
         rowSelected={rowSelected}
         changeState={setModalOpen}
       />
+      <ModalChatAdmin showUp={showModal} />
     </div>
   );
 };
