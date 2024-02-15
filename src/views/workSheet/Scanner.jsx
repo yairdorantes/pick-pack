@@ -116,7 +116,7 @@ const Scanner = () => {
       />
 
       <div className="sticky top-16 z-20">
-        <div className="w-full z-20 border-2 border-opacity-100 rounded-md bg-white  border-gray-200 p-4 flex items-center justify-between  ">
+        <div className="w-full z-20 border-2 border-opacity-100 rounded-md bg-white  border-gray-200 p-3 flex items-center justify-between">
           <div className="flex gap-1 text-black">
             <div>Items restantes:</div>
             <span
@@ -143,7 +143,7 @@ const Scanner = () => {
             className="btn btn-sm hover:scale-95"
             onClick={() => setShowDetails(!showDetails)}
           >
-            {showDetails ? "🙈 Ocultar " : "🙉 Mostrar "}
+            {showDetails ? "🙈 Ocultar" : "🙉 Mostrar"}
             detalles
           </div>
         </div>
