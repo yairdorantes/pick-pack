@@ -18,12 +18,10 @@ const SmallCardItem = ({ order }) => {
       >
         <div>{order.refId_item}</div>
       </div>
-
-      <div className={`w-full flex flex-row justify-between`}>
+      <div className={`w-full flex flex-row justify-between pr-5`}>
         <span className="text-sm text-left  text-gray-700 font-semibold capitalize">
           <p className="text-black ">SKU: {order.refId_item}</p>{" "}
         </span>
-
         <div className="flex items-center mt-1 space-x-1 ">
           <img
             loading="lazy"
