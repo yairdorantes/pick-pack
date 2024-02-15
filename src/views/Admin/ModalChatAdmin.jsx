@@ -7,11 +7,10 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import useStore from "../../../Context";
 import { api } from "../../../api";
-const ModalChatAdmin = ({ showUp }) => {
+const ModalChatAdmin = ({ isOpen, setIsOpen, orderId }) => {
   const { user } = useStore();
 
-  const { orderId } = useParams();
-  const [isOpen, setIsOpen] = useState(showUp);
+  // const [isOpen, setIsOpen] = useState(showUp);
   const [labels, setLabels] = useState([
     { name: "queja", color: "#3498db" },
     { name: "paqueteria", color: "#e74c3c" },

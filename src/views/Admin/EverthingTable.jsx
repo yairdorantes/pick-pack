@@ -129,6 +129,7 @@ const EverthingTable = () => {
                 <td
                   onClick={() => {
                     console.log("clic");
+                    setRowSelected(order);
                     setShowModal(!showModal);
                   }}
                 >
@@ -160,7 +161,11 @@ const EverthingTable = () => {
         rowSelected={rowSelected}
         changeState={setModalOpen}
       />
-      <ModalChatAdmin showUp={showModal} />
+      <ModalChatAdmin
+        isOpen={showModal}
+        orderId={rowSelected.idVtex_order}
+        setIsOpen={setShowModal}
+      />
     </div>
   );
 };
