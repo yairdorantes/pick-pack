@@ -211,7 +211,7 @@ const PendingPackList = () => {
             onClick={() => setShowDetails(!showDetails)}
           >
             {" "}
-            {showDetails ? "🙈 Ocultar" : "🙉 Mostrar"} detalles{" "}
+            {showDetails ? "🙈 Ocultar " : "🙉 Mostrar "} detalles{" "}
           </div>
         </div>
       </div>

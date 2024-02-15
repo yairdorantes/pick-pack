@@ -143,7 +143,7 @@ const Scanner = () => {
             className="btn btn-sm hover:scale-95"
             onClick={() => setShowDetails(!showDetails)}
           >
-            {showDetails ? "🙈 Ocultar" : "🙉 Mostrar"}
+            {showDetails ? "🙈 Ocultar " : "🙉 Mostrar "}
             detalles
           </div>
         </div>

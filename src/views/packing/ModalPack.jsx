@@ -136,7 +136,13 @@ const ModalPack = ({ packing = true }) => {
                   value={quantity}
                   className="w-10 h-8 text-center"
                   type="number"
-                  onChange={(e) => setQuantity(parseInt(e.target.value))}
+                  onChange={(e) => {
+                    try {
+                      setQuantity(parseInt(e.target.value));
+                    } catch (error) {
+                      console.log(error);
+                    }
+                  }}
                 />
               </div>
               <button
@@ -148,8 +154,16 @@ const ModalPack = ({ packing = true }) => {
             </div>
           </div>
           <button
-            disabled={quantity === 0 || isNaN(quantity)}
-            onClick={sendPackData}
+            // disabled={quantity === 0 || isNaN(quantity)}
+            onClick={() => {
+              if (quantity === 0 || isNaN(quantity)) {
+                toast.error("No puedes enviar este valor", {
+                  position: "bottom-center",
+                });
+              } else {
+                sendPackData();
+              }
+            }}
             className="flex justify-center items-center py-2 hover:bg-blue-300 hover:text-blue-700  bg-blue-200 rounded-md text-blue-600"
           >
             {loading ? (

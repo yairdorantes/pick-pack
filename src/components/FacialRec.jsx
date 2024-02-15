@@ -1,51 +1,62 @@
-import { useRef } from "react";
-import { useReactMediaRecorder } from "react-media-recorder";
+import React, { useRef, useEffect } from "react";
+import toast from "react-hot-toast";
 
-const FacialRec = () => {
+const FacialScan = () => {
   const videoRef = useRef(null);
-  const mediaRecorderRef = useRef(null);
 
-  const startRecording = () => {
-    navigator.mediaDevices
-      .getUserMedia({ video: true })
-      .then((stream) => {
+  useEffect(() => {
+    const constraints = {
+      video: true,
+    };
+
+    const startStream = async () => {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia(constraints);
         videoRef.current.srcObject = stream;
-        mediaRecorderRef.current = new MediaRecorder(stream);
-        mediaRecorderRef.current.ondataavailable = handleDataAvailable;
-        mediaRecorderRef.current.start();
-      })
-      .catch((error) => {
-        console.error("Error accessing camera:", error);
-      });
+        // Start logging frames
+        logFrames();
+      } catch (err) {
+        console.error("Error accessing camera:", err);
+      }
+    };
+
+    startStream();
+
+    return () => {
+      // Clean up by stopping the stream when component unmounts
+      if (videoRef.current.srcObject) {
+        const stream = videoRef.current.srcObject;
+        const tracks = stream.getTracks();
+
+        tracks.forEach((track) => {
+          track.stop();
+        });
+      }
+    };
+  }, []);
+
+  const logFrames = () => {
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+    const video = videoRef.current;
+
+    const captureFrame = () => {
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      const imageData = canvas.toDataURL("image/jpeg");
+      console.log(imageData); // Print frame data to console
+    };
+
+    // Capture frame every second
+    const intervalId = setInterval(captureFrame, 1000);
+
+    return () => {
+      clearInterval(intervalId); // Clean up interval when component unmounts
+    };
   };
 
-  const stopRecording = () => {
-    if (
-      mediaRecorderRef.current &&
-      mediaRecorderRef.current.state !== "inactive"
-    ) {
-      mediaRecorderRef.current.stop();
-    }
-  };
-
-  const handleDataAvailable = (event) => {
-    if (event.data.size > 0) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const frameDataUrl = event.target.result;
-        console.log("Frame data:", frameDataUrl);
-      };
-      reader.readAsDataURL(event.data);
-    }
-  };
-
-  return (
-    <div>
-      <button onClick={startRecording}>Start Recording</button>
-      <button onClick={stopRecording}>Stop Recording</button>
-      <video ref={videoRef} autoPlay />
-    </div>
-  );
+  return <video ref={videoRef} autoPlay className="w-screen" playsInline />;
 };
 
-export default FacialRec;
+export default FacialScan;
