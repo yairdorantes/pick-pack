@@ -93,13 +93,13 @@ const PendingPicking = () => {
   };
   return (
     <div className="">
-      <h1 className="font-semibold flex justify-center items-center gap-2  text-center text-black mt-4">
+      {/* <h1 className="font-semibold flex justify-center items-center gap-2  text-center text-black mt-4">
         <div className="w-4 h-4 rounded-full bg-blue-600"></div>
 
         <div>Alistamiento</div>
 
         <div className="w-4 h-4 rounded-full bg-blue-600"></div>
-      </h1>
+      </h1> */}
       <form className=" mx-auto m-4 px-4">
         <label
           htmlFor="default-search"
@@ -182,7 +182,7 @@ const PendingPicking = () => {
         <table className="table table-zebra border-2 text-center" data-theme="">
           <thead>
             <tr className="text-black">
-              <th>Orden ID</th>
+              <th className="">Orden ID</th>
               <th>Colaboradores Asignados</th>
             </tr>
           </thead>

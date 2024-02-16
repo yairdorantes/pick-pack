@@ -1,4 +1,4 @@
-import { Squash as Hamburger } from "hamburger-react";
+import { Divide as Hamburger } from "hamburger-react";
 import { useCallback, useState } from "react";
 import { flushSync } from "react-dom";
 import { useNavigate, useParams } from "react-router-dom";
@@ -49,7 +49,7 @@ const NavBar = ({ children }) => {
     document.startViewTransition(() => navigate("/"));
   }, [navigate]);
   return (
-    <div className="flex select-none flex-col h-screen ">
+    <div className="flex flex-col h-screen ">
       {/* NavBar */}
 
       <div
@@ -91,7 +91,7 @@ const NavBar = ({ children }) => {
         <div
           onClick={() => setShowSideMenu(false)}
           className={`fixed  w-full h-full bg-opacity-40  bg-black ${
-            showSideMenu ? "opacity-100 z-30" : "opacity-0  -z-50"
+            showSideMenu ? "z-30" : "hidden"
           }   `}
         />
 
@@ -102,9 +102,9 @@ const NavBar = ({ children }) => {
       {/* Side Menu */}
 
       <div
-        className={`z-30  bg-white text-black fixed w-56 h-full ${
+        className={`z-30  select-none bg-white text-black fixed w-56 h-full ${
           showSideMenu ? "right-0" : "-right-56"
-        } transition-all duration-300 top-16 overflow-y-auto`}
+        } transition-all duration-200 top-16 overflow-y-auto`}
       >
         <>
           <div className="flex flex-col cursor-pointer ">

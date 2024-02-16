@@ -17,7 +17,6 @@ const QrScan = () => {
   const navigate = useNavigate();
   const handleQRCode = (resultQR) => {
     qrCodeScannerRef.current?.stop();
-
     axios
       .post(`${api}/pick-pack/assigment/qr`, {
         userId: user.id,
@@ -65,34 +64,7 @@ const QrScan = () => {
         // setIsScanning(true);
       });
   };
-  useEffect(() => {
-    // Create a new Html5Qrcode instance and save it to the ref
-    // qrCodeScannerRef.current = new Html5Qrcode("reader");
-    // // Start the QR code scanner
-    // qrCodeScannerRef.current.start(
-    //   { facingMode: "environment" }, // Use the back camera
-    //   {
-    //     fps: 10, // Frames per second for video capture
-    //     qrbox: { width: 250, height: 250 }, // Size of QR code scanning box
-    //   },
-    //   (qrCodeMessage) => {
-    //     // alert(qrCodeMessage);
-    //     handleQRCode(qrCodeMessage);
-    //   },
-    //   (errorMessage) => {
-    //     console.error("Error here*:", errorMessage);
-    //     // Handle any errors here
-    //   }
-    // );
-    // return () => {
-    //   qrCodeScannerRef.current
-    //     ?.stop()
-    //     .then(() => {})
-    //     .catch((err) => {
-    //       console.warn("QR scanner error**", err);
-    //     });
-    // };
-  }, []);
+  // useEffect(() => {}, []);
 
   return (
     <NavBar>
