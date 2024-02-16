@@ -33,6 +33,13 @@ const Chart = () => {
       data: data.map((item) => item.name),
     },
     yAxis: {},
+    grid: {
+      // top: "10%", // Adjust top margin as needed
+      // bottom: "10%", // Adjust bottom margin as needed
+      // left: "5%", // Adjust left margin as needed
+      // right: "5%", // Adjust right margin as needed
+      height: "40%", // Adjust height of the chart content
+    },
     series: [
       {
         type: "line",
@@ -48,7 +55,7 @@ const Chart = () => {
   return (
     <div>
       <h2 className="text-center">Estadísticas</h2>
-      <div style={{ width: "100%", height: 290 }}>
+      <div style={{ width: "100%", height: 230 }}>
         <ReactECharts option={options} />
       </div>
     </div>

@@ -25,16 +25,20 @@ const ProductCard = ({ order }) => {
         }  transition-all duration-500  font-bold flex bg-opacity-60 text-white text-2xl justify-center items-center flex-col absolute left-0 w-full h-full bg-gray-900 `}
       >
         <div>{order.refId_item}</div>
-        <div className={` `}>
-          <Barcode
-            height={50}
-            margin={0}
-            background="#fffefeb8"
-            width={1}
-            value={order.ean_item}
-            fontSize={0}
-            lineColor="black"
-          />
+        <div className="">
+          {order.ean_item === null || order.ean_item === "" ? (
+            <span className="italic text-sm">Sin código EAN</span>
+          ) : (
+            <Barcode
+              height={50}
+              margin={0}
+              background="#fffefeb8"
+              width={1}
+              value={order.ean_item}
+              fontSize={0}
+              lineColor="black"
+            />
+          )}
         </div>
       </div>
       <img
@@ -59,7 +63,9 @@ const ProductCard = ({ order }) => {
           <svg viewBox="0 0 24 24" fill="currentColor" height="20" width="20">
             <path d="M2 6h2v12H2V6m3 0h1v12H5V6m2 0h3v12H7V6m4 0h1v12h-1V6m3 0h2v12h-2V6m3 0h3v12h-3V6m4 0h1v12h-1V6z" />
           </svg>{" "}
-          {order.ean_item}
+          {order.ean_item === null || order.ean_item === ""
+            ? "N/D"
+            : order.ean_item}
         </span>
         <div className="flex items-center mt-1 space-x-1 ">
           <img

@@ -50,11 +50,11 @@ const Stats = () => {
     },
   ];
   return (
-    <div className="flex mb-10 flex-wrap gap-5 justify-center">
+    <div className="flex px-3 mb-10 flex-wrap gap-5 justify-center">
       {stats.map((stat, i) => (
         <div
           key={i}
-          className={`p-3  shadow-md  w-[300px] rounded-xl bg-slate-200 `}
+          className={`p-3  shadow-md  w-full rounded-xl bg-slate-200 `}
         >
           <div className="flex items-center gap-3">
             <div
