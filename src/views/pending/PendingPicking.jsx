@@ -9,13 +9,13 @@ import useStore from "../../../Context";
 
 const PendingPicking = () => {
   const navigate = useNavigate();
-  const [query, setQuery] = useState("");
+  // const [query, setQuery] = useState("");
   const [pendingOrders, setPendingOrders] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [loading, setLoading] = useState(false);
   const { user } = useStore();
   const [usersList, setUsersList] = useState([]);
-  const [wsSelected, setWsSelected] = useState(() => {
+  const [wsSelected] = useState(() => {
     const storedWs = localStorage.getItem("ws-picking");
     return storedWs ? storedWs : "";
   });

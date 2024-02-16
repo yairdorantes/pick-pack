@@ -53,7 +53,7 @@ const NavBar = ({ children }) => {
       {/* NavBar */}
 
       <div
-        className="navbar z-40 fixed bg-base-100 shadow-md"
+        className="navbar select-none z-40 fixed bg-base-100 shadow-md"
         data-theme="light"
       >
         <div className="flex-none"></div>

@@ -6,6 +6,7 @@ export default {
       fontFamily: {
         Lilita: ["Lilita One", "sans-serif"],
         InterTight: ["Inter Tight", "sans-serif"],
+        Montserrat: ["Montserrat", "sans-serif"],
       },
     },
   },
