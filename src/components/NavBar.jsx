@@ -72,7 +72,7 @@ const NavBar = ({ children }) => {
 
         <div
           onClick={goHome}
-          className="font-semibold  shadow-md   capitalize cursor-pointer text-sm w-16 ml-3 text-center"
+          className="font-semibold  capitalize cursor-pointer text-sm w-16 ml-3 text-center"
         >
           {user.username}
         </div>

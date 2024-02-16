@@ -14,7 +14,7 @@ const SmallCardItem = ({ order }) => {
       <div
         className={`${
           showCover ? "opacity-100" : "opacity-0"
-        }  transition-all duration-500 backdrop-blur-sm font-bold flex bg-opacity-60 text-white text-2xl justify-center items-center flex-col absolute left-0 w-full h-full bg-gray-900 `}
+        }  transition-all duration-500  font-bold flex bg-opacity-60 text-white text-2xl justify-center items-center flex-col absolute left-0 w-full h-full bg-gray-900 `}
       >
         <div>{order.refId_item}</div>
       </div>
