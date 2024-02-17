@@ -13,9 +13,11 @@ import { firstScan } from "../../scripts/firstScan";
 import AlertScan from "../../components/AlertScan";
 import CardLoader from "../../components/CardLoader";
 import SmallCardItem from "../../components/SmallCardItem";
+import usePagination from "../../scripts/Paginator";
 
 const Scanner = () => {
   const { updateItemQuantity } = useUpdateItemQuantity();
+
   const [productModalOpen, setProductModalOpen] = useState(false);
   const memoizedSetProductModalOpen = useMemo(() => {
     return setProductModalOpen;
@@ -30,6 +32,17 @@ const Scanner = () => {
   const [txtSpeech, setTxtSpeech] = useState("");
   const { orderId } = useParams();
   const { itemsList, setItemsList, codeScanned } = useStore();
+  const {
+    currentPage,
+    nextPage,
+    prevPage,
+    jumpToPage,
+    currentData,
+    maxPage,
+    getPageNumbers,
+  } = usePagination(itemsList, 3);
+  const pageNumbers = getPageNumbers();
+
   const { getProducts, loading } = useGetItems();
   const handleCode = async () => {
     const orderIndex = itemsList.findIndex(

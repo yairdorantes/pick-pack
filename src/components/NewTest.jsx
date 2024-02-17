@@ -1,23 +1,71 @@
-const NewTest = () => {
+import usePagination from "../scripts/Paginator";
+
+const NewTest = ({
+  data = [
+    { id: 1, name: "master" },
+    { id: 2, name: "master" },
+    { id: 3, name: "master" },
+    { id: 4, name: "master" },
+    { id: 5, name: "master" },
+    { id: 6, name: "master" },
+    { id: 7, name: "master" },
+    { id: 8, name: "master" },
+    { id: 9, name: "master" },
+    { id: 10, name: "master" },
+  ],
+  itemsPerPage = 3,
+}) => {
+  const {
+    currentPage,
+    nextPage,
+    prevPage,
+    jumpToPage,
+    currentData,
+    maxPage,
+    getPageNumbers,
+  } = usePagination(data, itemsPerPage);
+
+  const pageNumbers = getPageNumbers();
+
   return (
     <div>
-      <div className="stats shadow">
-        <div className="stat w-44">
-          <div className="stat-figure text-primary">
-            <svg
-              className="w-7 h-7"
-              fill="currentColor"
-              viewBox="0 0 16 16"
-              height="1em"
-              width="1em"
-            >
-              <path d="M8 15A7 7 0 118 1a7 7 0 010 14zm0 1A8 8 0 108 0a8 8 0 000 16z" />
-              <path d="M10.97 4.97a.235.235 0 00-.02.022L7.477 9.417 5.384 7.323a.75.75 0 00-1.06 1.06L6.97 11.03a.75.75 0 001.079-.02l3.992-4.99a.75.75 0 00-1.071-1.05z" />
-            </svg>
-          </div>
-          <div className="stat-title">Ordenes</div>
-          <div className="stat-value text-primary text-2xl">25.6K</div>
-        </div>
+      <table>
+        {/* Render your table headers */}
+        <thead>
+          <tr>
+            <th>Column 1</th>
+            <th>Column 2</th>
+            {/* Add more columns as needed */}
+          </tr>
+        </thead>
+        {/* Render your table body */}
+        <tbody>
+          {currentData.map((row, index) => (
+            <tr key={index}>
+              <td>{row.id}</td>
+              <td>{row.name}</td>
+              {/* Render additional columns as needed */}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      {/* Pagination controls */}
+      <div>
+        <button onClick={prevPage} disabled={currentPage === 1}>
+          Previous
+        </button>
+        {pageNumbers.map((pageNumber, index) => (
+          <button
+            key={index}
+            onClick={() => jumpToPage(pageNumber)}
+            disabled={pageNumber === "..."}
+          >
+            {pageNumber}
+          </button>
+        ))}
+        <button onClick={nextPage} disabled={currentPage === maxPage}>
+          Next
+        </button>
       </div>
     </div>
   );
