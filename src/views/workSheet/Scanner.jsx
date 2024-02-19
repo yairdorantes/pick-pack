@@ -13,11 +13,11 @@ import { firstScan } from "../../scripts/firstScan";
 import AlertScan from "../../components/AlertScan";
 import CardLoader from "../../components/CardLoader";
 import SmallCardItem from "../../components/SmallCardItem";
-
+const step = 10;
 const Scanner = () => {
   const { updateItemQuantity } = useUpdateItemQuantity();
 
-  const [limit, setLimit] = useState({ start: 0, end: 10 });
+  const [limit, setLimit] = useState({ start: 0, end: step });
   const [productModalOpen, setProductModalOpen] = useState(false);
   const memoizedSetProductModalOpen = useMemo(() => {
     return setProductModalOpen;
@@ -112,7 +112,7 @@ const Scanner = () => {
   const filterList = useMemo(() => {
     const cleanedItems = itemsList.filter((item) => item.remaining_item !== 0);
     const displayItems = cleanedItems.slice(limit.start, limit.end);
-    return displayItems;
+    return { displayItems, cleanedItems };
   }, [itemsList, limit]);
   return (
     <div>
@@ -127,7 +127,7 @@ const Scanner = () => {
       <div className="sticky top-16 z-20">
         <div className="w-full z-20 border-2 border-opacity-100 rounded-md bg-white  border-gray-200 p-3 flex items-center justify-between">
           <div className="flex gap-1 text-black">
-            <div>Items restantes:</div>
+            <div>Prendas restantes:</div>
             <span
               className={`font-bold  ${
                 Object.keys(productScanned).length !== 0 && "pulse2"
@@ -269,7 +269,7 @@ const Scanner = () => {
             </div>
           )}
           <AnimatePresence>
-            {filterList.map(
+            {filterList.displayItems.map(
               (order, i) =>
                 order.remaining_item > 0 && (
                   <div key={i} className="relative">
@@ -301,12 +301,15 @@ const Scanner = () => {
 
           <div
             id="paginator"
-            className="flex items-center gap-4 justify-center"
+            className="flex mt-4 items-center gap-4 justify-center"
           >
             <div
               onClick={() => {
-                limit.start >= 10 &&
-                  setLimit({ start: limit.start - 10, end: limit.end - 10 });
+                limit.start >= step &&
+                  setLimit({
+                    start: limit.start - step,
+                    end: limit.end - step,
+                  });
               }}
             >
               <svg
@@ -314,27 +317,36 @@ const Scanner = () => {
                 width="16"
                 height="16"
                 fill="currentColor"
-                className="w-7 h-7 text-blue-600"
+                className={`w-7 h-7 ${
+                  limit.start >= step ? "text-blue-600" : "text-gray-500"
+                } `}
                 viewBox="0 0 16 16"
               >
                 <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z" />{" "}
               </svg>
             </div>
-            <div>Página 1 de 2 (10 ítems)</div>
+            <div>
+              Página {limit.start / step + 1} de{" "}
+              {Math.ceil(filterList.cleanedItems.length / step)} (
+              {filterList.cleanedItems.length} ítems)
+            </div>
             <div
               onClick={() =>
-                // limit.end !== filterList.length &&
-                setLimit({ start: limit.start + 10, end: limit.end + 10 })
+                limit.end < filterList.cleanedItems.length &&
+                setLimit({ start: limit.start + step, end: limit.end + step })
               }
             >
-              {filterList.length}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
                 height="16"
                 fill="currentColor"
                 viewBox="0 0 16 16"
-                className="w-7 h-7 text-blue-600"
+                className={`w-7 h-7  ${
+                  limit.end < filterList.cleanedItems.length
+                    ? "text-blue-600"
+                    : "text-gray-500"
+                } `}
               >
                 <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />{" "}
               </svg>

@@ -14,9 +14,12 @@ import { AnimatePresence, motion } from "framer-motion";
 import AlertScan from "../../components/AlertScan";
 import CardLoader from "../../components/CardLoader";
 import SmallCardItem from "../../components/SmallCardItem";
+const step = 10;
 
 const PendingPackList = () => {
   const { orderId } = useParams();
+  const [limit, setLimit] = useState({ start: 0, end: step });
+
   const { getProducts, loading } = useGetItems();
   const [showDetails, setShowDetails] = useState(true);
   const { itemsList, setItemsList, packList, setPackList, user, codeScanned } =
@@ -155,6 +158,13 @@ const PendingPackList = () => {
     getProducts(orderId);
     setPackList([]);
   }, []);
+  const filterList = useMemo(() => {
+    const cleanedItems = itemsList.filter(
+      (item) => item.packed_item !== item.quantity_item
+    );
+    const displayItems = cleanedItems.slice(limit.start, limit.end);
+    return { displayItems, cleanedItems };
+  }, [itemsList, limit]);
   return (
     <div className="mb-24">
       {loading && (
@@ -217,7 +227,7 @@ const PendingPackList = () => {
       </div>
       <div className="overflow-x-hidden">
         <AnimatePresence>
-          {itemsList.map(
+          {filterList.displayItems.map(
             (product, i) =>
               product.packed_item !== product.quantity_item && (
                 <motion.div
@@ -240,6 +250,60 @@ const PendingPackList = () => {
               )
           )}
         </AnimatePresence>
+
+        <div
+          id="paginator"
+          className="flex mt-4 items-center gap-4 justify-center"
+        >
+          <div
+            onClick={() => {
+              limit.start >= step &&
+                setLimit({
+                  start: limit.start - step,
+                  end: limit.end - step,
+                });
+            }}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              className={`w-7 h-7 ${
+                limit.start >= step ? "text-blue-600" : "text-gray-500"
+              } `}
+              viewBox="0 0 16 16"
+            >
+              <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z" />{" "}
+            </svg>
+          </div>
+          <div>
+            Página {limit.start / step + 1} de{" "}
+            {Math.ceil(filterList.cleanedItems.length / step)} (
+            {filterList.cleanedItems.length} ítems)
+          </div>
+          <div
+            onClick={() =>
+              limit.end < filterList.cleanedItems.length &&
+              setLimit({ start: limit.start + step, end: limit.end + step })
+            }
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              viewBox="0 0 16 16"
+              className={`w-7 h-7  ${
+                limit.end < filterList.cleanedItems.length
+                  ? "text-blue-600"
+                  : "text-gray-500"
+              } `}
+            >
+              <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />{" "}
+            </svg>
+          </div>
+        </div>
         {/* show image when there's no items to pack */}
         {packedQuantity() && (
           <div className="flex flex-col justify-center items-center">
