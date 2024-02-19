@@ -13,11 +13,11 @@ import { firstScan } from "../../scripts/firstScan";
 import AlertScan from "../../components/AlertScan";
 import CardLoader from "../../components/CardLoader";
 import SmallCardItem from "../../components/SmallCardItem";
-import usePagination from "../../scripts/Paginator";
 
 const Scanner = () => {
   const { updateItemQuantity } = useUpdateItemQuantity();
 
+  const [limit, setLimit] = useState({ start: 0, end: 10 });
   const [productModalOpen, setProductModalOpen] = useState(false);
   const memoizedSetProductModalOpen = useMemo(() => {
     return setProductModalOpen;
@@ -31,17 +31,8 @@ const Scanner = () => {
   const [productScanned, setProductScanned] = useState({});
   const [txtSpeech, setTxtSpeech] = useState("");
   const { orderId } = useParams();
+
   const { itemsList, setItemsList, codeScanned } = useStore();
-  const {
-    currentPage,
-    nextPage,
-    prevPage,
-    jumpToPage,
-    currentData,
-    maxPage,
-    getPageNumbers,
-  } = usePagination(itemsList, 3);
-  const pageNumbers = getPageNumbers();
 
   const { getProducts, loading } = useGetItems();
   const handleCode = async () => {
@@ -118,6 +109,11 @@ const Scanner = () => {
     console.log(codeScanned);
   }, [codeScanned]);
 
+  const filterList = useMemo(() => {
+    const cleanedItems = itemsList.filter((item) => item.remaining_item !== 0);
+    const displayItems = cleanedItems.slice(limit.start, limit.end);
+    return displayItems;
+  }, [itemsList, limit]);
   return (
     <div>
       <AlertScan
@@ -273,7 +269,7 @@ const Scanner = () => {
             </div>
           )}
           <AnimatePresence>
-            {itemsList.map(
+            {filterList.map(
               (order, i) =>
                 order.remaining_item > 0 && (
                   <div key={i} className="relative">
@@ -302,6 +298,48 @@ const Scanner = () => {
                 )
             )}
           </AnimatePresence>
+
+          <div
+            id="paginator"
+            className="flex items-center gap-4 justify-center"
+          >
+            <div
+              onClick={() => {
+                limit.start >= 10 &&
+                  setLimit({ start: limit.start - 10, end: limit.end - 10 });
+              }}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                className="w-7 h-7 text-blue-600"
+                viewBox="0 0 16 16"
+              >
+                <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z" />{" "}
+              </svg>
+            </div>
+            <div>Página 1 de 2 (10 ítems)</div>
+            <div
+              onClick={() =>
+                // limit.end !== filterList.length &&
+                setLimit({ start: limit.start + 10, end: limit.end + 10 })
+              }
+            >
+              {filterList.length}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                viewBox="0 0 16 16"
+                className="w-7 h-7 text-blue-600"
+              >
+                <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z" />{" "}
+              </svg>
+            </div>
+          </div>
         </div>
       </div>
     </div>
