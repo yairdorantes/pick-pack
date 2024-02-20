@@ -28,11 +28,11 @@ const ModalChanges = ({ isOpen, setIsOpen, handleModal, action }) => {
         .then(() => {
           toast.success("Cambio de status exitoso!");
           if (!document.startViewTransition) {
-            navigate(`/pack/${orderId}`);
+            navigate(`/packing`);
             return;
           }
           document.startViewTransition(() =>
-            flushSync(() => navigate(`/pack/${orderId}`))
+            flushSync(() => navigate(`/packing`))
           );
         })
         .catch(() => toast.error("ups, algo salió mal"));

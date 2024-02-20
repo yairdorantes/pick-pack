@@ -1,5 +1,6 @@
+import { useState } from "react";
 import usePagination from "../scripts/Paginator";
-
+import { AnimatePresence, motion } from "framer-motion";
 const NewTest = ({
   data = [
     { id: 1, name: "master" },
@@ -27,8 +28,49 @@ const NewTest = ({
 
   const pageNumbers = getPageNumbers();
 
+  const [modalOpen, setModalOpen] = useState(true);
+
+  const close = () => setModalOpen(false);
+  const open = () => setModalOpen(true);
+
+  const dropIn = {
+    hidden: {
+      y: "-100vh",
+      opacity: 0,
+    },
+    visible: {
+      y: "0",
+      opacity: 1,
+      transition: {
+        duration: 0.1,
+        type: "spring",
+        damping: 25,
+        stiffness: 500,
+      },
+    },
+    exit: {
+      y: "100vh",
+      opacity: 0,
+    },
+  };
   return (
     <div>
+      <div>
+        <AnimatePresence>
+          {modalOpen && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <h2>Modal Title</h2>
+              <p>Modal Content</p>
+              <button onClick={() => setModalOpen(false)}>Close Modal</button>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+      {/* </motion.button> */}
       <table>
         {/* Render your table headers */}
         <thead>
@@ -49,7 +91,6 @@ const NewTest = ({
           ))}
         </tbody>
       </table>
-      {/* Pagination controls */}
       <div>
         <button onClick={prevPage} disabled={currentPage === 1}>
           Previous

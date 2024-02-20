@@ -200,7 +200,7 @@ const PendingPackList = () => {
             className="flex gap-1"
             onClick={() => console.log(remainingToPack())}
           >
-            Items por empacar:{" "}
+            <span className="text-sm">Prendas por empacar: </span>
             <div className="flex gap-1 items-center">
               <span className="font-bold">{remainingToPack}</span>
               <div>
