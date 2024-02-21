@@ -80,10 +80,7 @@ const HomeContainer = () => {
               </svg>
             </div>
             <div className="">
-              <div className="font-semibold">
-                {" "}
-                {resumeData.pickingCurrent} 10
-              </div>
+              <div className="font-semibold"> {resumeData.pickingCurrent}</div>
               <div className="text-sm">Ordenes Pendientes</div>
             </div>
           </div>
