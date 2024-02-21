@@ -49,25 +49,30 @@ const CameraScan = ({ EAN = "7501991615172", onDetected }) => {
   }
 
   return (
-    <div className="relative">
+    <div className="relative ">
       {loading && (
-        <div className="absolute flex items-center justify-center w-full h-full z-30 bg-white backdrop-blur-sm  bg-opacity-10">
-          <div className="bg-slate-100 bg-opacity-80 rounded-3xl p-2">
-            <div className="font-semibold text-center text-lg">
+        <div className="absolute flex items-start justify-center w-full h-full z-30 bg-white  bg-opacity-10">
+          <div className="bg-slate-100 bg-opacity-85 h-full  w-full p-2 ">
+            <div className="font-semibold text-center mt-10 text-lg">
               Procesando imagen
             </div>
-            <div>
-              <MyLoader />
+            <div className="text-center">
+              <span className="loading loading-bars loading-lg"></span>
+
+              {/* <MyLoader /> */}
             </div>
           </div>
         </div>
       )}
       <Camera
+        // sizeFactor={20}
         onTakePhotoAnimationDone={false}
         idealFacingMode={FACING_MODES.ENVIRONMENT}
         onTakePhoto={(photo) => {
           detectEan(photo);
         }}
+        // idealResolution={{ width: 800, height: 100 }}
+        // isFullscreen={true}
       />
     </div>
   );

@@ -327,3 +327,22 @@ input::-webkit-inner-spin-button {
   -webkit-backdrop-filter: blur(5px);
   backdrop-filter: blur(5px);
 }
+/* change camera button position */
+
+#container-circles {
+  bottom: 280px !important;
+}
+.react-html5-camera-photo {
+  /* width: 100% !important; */
+  /* height: 200px !important; */
+}
+.react-html5-camera-photo > video {
+  height: 100% !important;
+}
+.react-html5-camera-photo > img {
+  /* height: 1000px !important; */
+}
+
+#zr_0 {
+  height: 10px !important;
+}

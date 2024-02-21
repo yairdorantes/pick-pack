@@ -129,7 +129,7 @@ const ModalItem = ({ isOpen, setIsOpen, setProductsLoader, setSavingItem }) => {
                       className="text-lg leading-6 font-medium text-gray-900"
                       id="modal-headline"
                     >
-                      Alistar item
+                      Alistar Prenda
                     </h3>
                     <div className="mt-2">
                       <div className="flex">
@@ -223,7 +223,7 @@ const ModalItem = ({ isOpen, setIsOpen, setProductsLoader, setSavingItem }) => {
               </div>
               <div
                 className={` transition-all ${
-                  showCamera ? "h-auto" : "h-0"
+                  showCamera ? "h-72" : "h-0"
                 } overflow-hidden `}
               >
                 <CameraScan

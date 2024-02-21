@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import { Suspense, lazy } from "react";
 import NewTest from "../src/components/NewTest";
 import FacialRec from "../src/components/FacialRec";
+import InventoryContainer from "../src/views/Inventory/InventoryContainer";
 
 const Picking = lazy(() => import("../src/views/workSheet/Picking"));
 const LoginForm = lazy(() => import("../src/views/login/LoginForm"));
@@ -43,6 +44,7 @@ const Router = () => {
         <Route path="/admin" element={<AdminContainer />} />
         <Route path="/test2" element={<NewTest />} />
         <Route path="/face" element={<FacialRec />} />
+        <Route path="/inventory" element={<InventoryContainer />} />
         {/* </Suspense> */}
       </Route>
       <Route path="/*" element={<Page404 />} />

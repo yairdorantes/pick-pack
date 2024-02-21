@@ -1,63 +1,56 @@
-import ReactECharts from "echarts-for-react"; // or var ReactECharts = require('echarts-for-react');
+import {
+  // LineChart,
+  // Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+  AreaChart,
+  Area,
+} from "recharts";
 
 const Chart = () => {
   const data = [
-    { name: "16 agosto 2024", value: 6 },
-    { name: "11 septiembre 2001", value: 200 },
-    { name: "17 noviembre 2050", value: 100 },
-    { name: "40 abril 2077", value: 400 },
+    { name: "Jan", uv: 4000, pick: 24, amt: 2400 },
+    { name: "Feb", uv: 3000, pick: 13, amt: 2210 },
+    // { name: "Mar", uv: 2000, pv: 9800, amt: 2290 },
+    { name: "Apr", uv: 2780, pick: 39, amt: 2000 },
+    { name: "May", uv: 1890, pick: 15, amt: 2181 },
+    // { name: "Jun", uv: 2390, pv: 3800, amt: 2500 },
+    { name: "Jul", uv: 1490, pick: 13, amt: 1100 },
   ];
-  // ECharts options
-  const options = {
-    title: {
-      text: "Pickeo",
-    },
-    tooltip: {
-      trigger: "axis", // Show tooltip when hovering over data points
-      axisPointer: {
-        // type: "cross", // Display crosshair pointer
-      },
-    },
-
-    xAxis: {
-      axisLabel: {},
-      axisLine: {
-        // symbol: "arrow",
-        // lineStyle: {
-        //   type: "",
-        //   // ...
-        // },
-      },
-
-      //   type: "time",
-      data: data.map((item) => item.name),
-    },
-    yAxis: {},
-    grid: {
-      // top: "10%", // Adjust top margin as needed
-      // bottom: "10%", // Adjust bottom margin as needed
-      // left: "5%", // Adjust left margin as needed
-      // right: "5%", // Adjust right margin as needed
-      height: "40%", // Adjust height of the chart content
-    },
-    series: [
-      {
-        type: "line",
-        areaStyle: {
-          color: "#1879e8",
-          opacity: 0.1,
-        },
-        data: data.map((item) => item.value),
-      },
-    ],
-  };
 
   return (
-    <div>
-      <h2 className="text-center">Estadísticas</h2>
-      <div style={{ width: "100%", height: 230 }}>
-        <ReactECharts option={options} />
-      </div>
+    <div className="p-2">
+      <ResponsiveContainer width={"100%"} height={250}>
+        <AreaChart data={data}>
+          <defs>
+            <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="3%" stopColor="#1d4ed8" stopOpacity={0.8} />
+              <stop offset="95%" stopColor="#1d4ed8" stopOpacity={0} />
+            </linearGradient>
+          </defs>
+          <CartesianGrid stroke="transparent" />
+
+          <XAxis dataKey="name" />
+          <Tooltip />
+          <Legend
+            verticalAlign="top" // Position the legend on top
+            align="center" // Center align the legend
+            layout="vertical"
+          />
+
+          <Area
+            type="linear"
+            dataKey="pick"
+            fill="url(#colorUv)" // Use linearGradient
+            stroke="#0917e2"
+            // dot={<CustomDot />}
+          />
+        </AreaChart>
+      </ResponsiveContainer>
     </div>
   );
 };

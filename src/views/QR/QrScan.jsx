@@ -6,17 +6,13 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { flushSync } from "react-dom";
 import NavBar from "../../components/NavBar";
-// import euroImg from "../../assets/images/eurocotton_logo.png";
-import { Html5Qrcode } from "html5-qrcode";
 import Html5QrcodePlugin from "./Html5QrcodeScannerPlugin";
 const QrScan = () => {
-  const qrCodeScannerRef = useRef(null);
-  const [qrScanner, setQrScanner] = useState(null);
-
   const { user } = useStore();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const handleQRCode = (resultQR) => {
-    qrCodeScannerRef.current?.stop();
+    setLoading(true);
     axios
       .post(`${api}/pick-pack/assigment/qr`, {
         userId: user.id,
@@ -37,34 +33,13 @@ const QrScan = () => {
       })
       .catch((err) => {
         console.log(err);
-        setTimeout(() => {
-          qrCodeScannerRef.current?.start(
-            { facingMode: "environment" },
-            {
-              fps: 10,
-              qrbox: { width: 250, height: 250 },
-            },
-            (qrCodeMessage) => {
-              // alert(qrCodeMessage);
-              handleQRCode(qrCodeMessage);
-              console.log("QR Code detected:", qrCodeMessage);
-              // Handle the detected QR code message here
-            },
-            (errorMessage) => {
-              console.error("Error:", errorMessage);
-              // Handle any errors here
-            }
-          );
-        }, 500);
-
         toast.error("Ups algo salio mal, intenta de nuevo", {});
         // toast.remove();
       })
       .finally(() => {
-        // setIsScanning(true);
+        setLoading(false);
       });
   };
-  // useEffect(() => {}, []);
 
   return (
     <NavBar>
@@ -87,20 +62,15 @@ const QrScan = () => {
             </svg>
           </div>
         </div>
-        {/* <div id="reader">Placeholder for the video feed</div> */}
         <Html5QrcodePlugin
           fps={1}
           qrbox={250}
           disableFlip={false}
           qrCodeSuccessCallback={(result) => {
             console.log(result);
-            handleQRCode(result);
+            !loading && handleQRCode(result);
           }}
         />
-
-        {/* <div className="fixed bottom-2 -translate-x-1/2 left-1/2">
-          <img src={euroImg} alt="" className="opacity-40 w-36" />
-        </div> */}
       </div>
     </NavBar>
   );

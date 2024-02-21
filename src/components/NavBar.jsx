@@ -177,6 +177,29 @@ const NavBar = ({ children }) => {
               </div>
               <div className="font-semibold">Manifiesto</div>
             </div>
+            <div
+              href="/inventory"
+              onClick={handleLink}
+              className="flex h-24 hover:bg-gray-100 border-b-2 p-4 items-center gap-4"
+            >
+              <div>
+                <svg
+                  fill="none"
+                  className="text-gray-600 w-8 h-8"
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  viewBox="0 0 24 24"
+                  height="1em"
+                  width="1em"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" />
+                  <path d="M9.615 20H7a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v8M14 19l2 2 4-4M9 8h4M9 12h2" />
+                </svg>
+              </div>
+              <div className="font-semibold">Inventario</div>
+            </div>
             {user.rol <= 3 && (
               <div
                 href="/admin"
@@ -203,7 +226,7 @@ const NavBar = ({ children }) => {
             </div>
             <div className="font-semibold">Inventario</div>
           </div> */}
-            <div
+            {/* <div
               href="/face"
               onClick={handleLink}
               className="flex h-24 hover:bg-gray-100 border-b-2 p-4 items-center gap-4"
@@ -220,7 +243,7 @@ const NavBar = ({ children }) => {
                 </svg>
               </div>
               <div className="font-semibold">Facial Recognition</div>
-            </div>{" "}
+            </div> */}
             <div
               href="/qr"
               onClick={handleLink}

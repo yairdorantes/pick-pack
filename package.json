@@ -31,6 +31,7 @@
     "react-router-dom": "^6.21.0",
     "react-sketch-canvas": "^6.2.0",
     "react-webcam": "^7.2.0",
+    "recharts": "^2.12.1",
     "uuid": "^9.0.1",
     "vite-plugin-pwa": "^0.17.4",
     "zustand": "^4.4.7"
