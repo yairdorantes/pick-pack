@@ -1,9 +1,5 @@
 import {
-  // LineChart,
-  // Line,
   XAxis,
-  YAxis,
-  CartesianGrid,
   Tooltip,
   Legend,
   ResponsiveContainer,
@@ -28,8 +24,8 @@ const Chart = () => {
         <AreaChart data={data}>
           <defs>
             <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="3%" stopColor="#1d4ed8" stopOpacity={0.8} />
-              <stop offset="95%" stopColor="#1d4ed8" stopOpacity={0} />
+              <stop offset="3%" stopColor="#325dd4" stopOpacity={0.8} />
+              <stop offset="95%" stopColor="#3c5eb9" stopOpacity={0} />
             </linearGradient>
           </defs>
 
@@ -45,7 +41,7 @@ const Chart = () => {
             type="linear"
             dataKey="pick"
             fill="url(#colorUv)" // Use linearGradient
-            stroke="#0917e2"
+            stroke="#3640ca"
             // dot={<CustomDot />}
           />
         </AreaChart>

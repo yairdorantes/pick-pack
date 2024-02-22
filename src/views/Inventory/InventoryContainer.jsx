@@ -53,7 +53,7 @@ const InventoryContainer = () => {
         <div
           className={`fixed w-screen sm:w-72 left-1/2 -translate-x-1/2 p-4 transition-all text-center rounded-t-xl border-2 bg-gray-100 ${
             alertQR ? "bottom-0" : "-bottom-full"
-          }  z-50 h-3/4`}
+          }  z-50 h-[400px]`}
         >
           <div
             className="absolute top-2 right-2"
@@ -74,7 +74,7 @@ const InventoryContainer = () => {
               />
             </svg>
           </div>
-          <div className="font-bold text-lg capitalize mt-4">
+          <div className="font-bold text-lg capitalize ">
             Información obtenida
           </div>
           <div className="flex mt-4  flex-col text-left max-w-lg mx-auto gap-3">

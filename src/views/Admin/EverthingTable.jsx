@@ -91,8 +91,8 @@ const EverthingTable = () => {
             <tr className="">
               <th className="">Orden</th>
               <th>Estatus</th>
-              <th>Asignar</th>
-              <th>Notas</th>
+              <th>Acciones</th>
+              {/* <th>Notas</th> */}
               {/* <th>Notas</th> */}
               {/* <th>Notas</th> */}
             </tr>
@@ -100,15 +100,53 @@ const EverthingTable = () => {
           <tbody>
             {filteredResults.map((order, i) => (
               <tr key={i}>
-                <td>{order.idVtex_order}</td>
-                <td className="">
+                <td className="whitespace-nowrap">{order.idVtex_order}</td>
+                <td className="whitespace-nowrap">
                   <span className="">
                     {getStatusString(order.status2_order)}
                   </span>
                 </td>
+                <td>
+                  <div className="dropdown dropdown-left">
+                    <div
+                      tabIndex={0}
+                      role="button"
+                      className="btn btn-ghost btn-sm"
+                    >
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        height="1em"
+                        width="1em"
+                      >
+                        <path d="M12 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 12c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" />
+                      </svg>
+                    </div>
+                    <ul
+                      tabIndex={0}
+                      className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+                    >
+                      <li
+                        onClick={() => {
+                          handleSelection(order);
+                        }}
+                      >
+                        <a>● Asignar Picker </a>
+                      </li>
+                      <li
+                        onClick={() => {
+                          setRowSelected(order);
+                          setShowModal(!showModal);
+                        }}
+                      >
+                        <a>● Agregar notas </a>
+                      </li>
+                    </ul>
+                  </div>
+                </td>
                 {/* <td>Picker 1, picker 2, picker uno</td>
                 <td>Picker 3, picker 4,picker 5</td> */}
-                <td>
+                {/* <td>
                   <div
                     className="btn btn-sm"
                     onClick={() => {
@@ -125,8 +163,8 @@ const EverthingTable = () => {
                       <path d="M21.7 13.35l-1 1-2.05-2.05 1-1a.55.55 0 01.77 0l1.28 1.28c.21.21.21.56 0 .77M12 18.94l6.06-6.06 2.05 2.05L14.06 21H12v-2.06M12 14c-4.42 0-8 1.79-8 4v2h6v-1.89l4-4c-.66-.08-1.33-.11-2-.11m0-10a4 4 0 00-4 4 4 4 0 004 4 4 4 0 004-4 4 4 0 00-4-4z" />
                     </svg>
                   </div>
-                </td>
-                <td
+                </td> */}
+                {/* <td
                   onClick={() => {
                     console.log("clic");
                     setRowSelected(order);
@@ -144,7 +182,7 @@ const EverthingTable = () => {
                       <path d="M8.5 18l3.5 4 3.5-4H19c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2H5c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h3.5zM7 7h10v2H7V7zm0 4h7v2H7v-2z" />
                     </svg>
                   </div>
-                </td>
+                </td> */}
               </tr>
             ))}
           </tbody>

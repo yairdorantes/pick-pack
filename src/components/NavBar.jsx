@@ -1,4 +1,4 @@
-import { Divide as Hamburger } from "hamburger-react";
+import { Sling as Hamburger } from "hamburger-react";
 import { useCallback, useState } from "react";
 import { flushSync } from "react-dom";
 import { useNavigate, useParams } from "react-router-dom";
