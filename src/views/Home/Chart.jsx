@@ -32,7 +32,6 @@ const Chart = () => {
               <stop offset="95%" stopColor="#1d4ed8" stopOpacity={0} />
             </linearGradient>
           </defs>
-          <CartesianGrid stroke="transparent" />
 
           <XAxis dataKey="name" />
           <Tooltip />

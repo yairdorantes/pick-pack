@@ -5,17 +5,25 @@ import Html5QrcodePlugin from "../QR/Html5QrcodeScannerPlugin";
 const InventoryContainer = () => {
   const [alertQR, setAlertQR] = useState(false);
   const [dataInput, setDataInput] = useState({
-    SKU: "jaja",
-    NoClothes: 1,
-    package: "091729shskj",
+    SKU: "TCOMADCBLACHI_example",
+    NoClothes: 7777357,
+    package: "BULT21_example",
+    notes: "",
+    maquilero: "M00120_example",
   });
   const [activeInput, setActiveInput] = useState(0);
-  const [QRValues, setQRValues] = useState(["xs", "xs", "xs", "xs", "xs"]);
+
   const handleQRValue = (value) => {
     let separatedValue = "";
     try {
       separatedValue = value.split(",");
-      setQRValues(separatedValue);
+      setDataInput({
+        SKU: separatedValue[2],
+        NoClothes: parseInt(separatedValue[3]),
+        package: separatedValue[0],
+        notes: "",
+        maquilero: separatedValue[4],
+      });
     } catch (error) {
       console.log("Error");
     }
@@ -24,10 +32,10 @@ const InventoryContainer = () => {
   // setQRValues(here);
   return (
     <NavBar>
-      <div className="relative">
-        <button className="btn" onClick={() => setAlertQR(!alertQR)}>
+      <div className="relative ">
+        {/* <button className="btn" onClick={() => setAlertQR(!alertQR)}>
           ajaj
-        </button>
+        </button> */}
         <div className={``}>
           <Html5QrcodePlugin
             fps={1}
@@ -43,7 +51,7 @@ const InventoryContainer = () => {
         </div>
 
         <div
-          className={` fixed w-screen p-4 transition-all text-center rounded-t-lg border bg-gray-100 ${
+          className={`fixed w-screen sm:w-72 left-1/2 -translate-x-1/2 p-4 transition-all text-center rounded-t-xl border-2 bg-gray-100 ${
             alertQR ? "bottom-0" : "-bottom-full"
           }  z-50 h-3/4`}
         >
@@ -69,57 +77,73 @@ const InventoryContainer = () => {
           <div className="font-bold text-lg capitalize mt-4">
             Información obtenida
           </div>
-          <div className="flex mt-4 justify-center flex-col gap-3">
-            <div className="text-center border ">
-              <div className=" ">SKU:{QRValues[2]}</div>
-              <div className="">{QRValues[2]}</div>
-            </div>
-            <div className="text-center uppercase">
-              <div className="text-blue-400 font-bold text-sm ">
-                Numero de prendas:
+          <div className="flex mt-4  flex-col text-left max-w-lg mx-auto gap-3">
+            <div className="">
+              <div className=" ">
+                SKU:<span className="font-bold"> {dataInput.SKU}</span>
               </div>
-              {activeInput !== 2 && (
-                <div
-                  onClick={() => setActiveInput(2)}
-                  className="font-semibold text-lg"
-                >
-                  {QRValues[3]}
-                </div>
-              )}
-              {activeInput === 2 && (
-                <input
-                  type="number"
-                  className="input-sm font-bold text-lg text-center"
-                  value={dataInput.NoClothes}
-                  onChange={(e) =>
-                    setDataInput({ ...dataInput, NoClothes: e.target.value })
-                  }
-                />
-              )}
+              {/* <div className="">{QRValues[2]}</div> */}
             </div>
-            <div className="text-center uppercase">
-              <div className="text-blue-400 font-bold text-sm ">Bulto:</div>
-              <div className="font-semibold text-lg">{QRValues[4]}</div>
+            <div className=" capitalize">
+              <div
+                onClick={() => {
+                  setActiveInput(2);
+                }}
+                className=" "
+              >
+                Numero de prendas:{" "}
+                {activeInput !== 2 ? (
+                  <span className="font-bold">{dataInput.NoClothes}</span>
+                ) : (
+                  <input
+                    type="number"
+                    className="input-sm rounded-xl  font-bold w-16 text-center"
+                    value={dataInput.NoClothes}
+                    onChange={(e) =>
+                      setDataInput({ ...dataInput, NoClothes: e.target.value })
+                    }
+                  />
+                )}
+              </div>
+            </div>
+            <div className=" capitalize">
+              <div className=" ">
+                Bulto: <span className="font-bold">{dataInput.package}</span>
+              </div>
+            </div>{" "}
+            <div className="capitalize">
+              <div className=" ">
+                Maquilero:{" "}
+                <span className="font-bold">{dataInput.maquilero}</span>
+              </div>
             </div>
             <div>
-              <div className="text-blue-400 uppercase font-bold text-sm ">
-                Notas:
+              {/* <div className="capitalize">Notas:</div> */}
+
+              <div className="">
+                <textarea
+                  onClick={() => {
+                    setActiveInput(5);
+                  }}
+                  onChange={(e) =>
+                    setDataInput({ ...dataInput, notes: e.target.value })
+                  }
+                  value={dataInput.notes}
+                  className="textarea textarea-info  textarea-md w-full max-w-xs"
+                  placeholder="Agrega información adicional"
+                ></textarea>
               </div>
-              <textarea
-                name=""
-                id=""
-                cols="30"
-                rows="10"
-                className="h-20 rounded-lg bg-gray-200"
-              />
             </div>
           </div>
-          <div className="flex w-full  items-center flex-col">
-            <div className="btn btn-success text-white w-3/4">Enviar</div>{" "}
+
+          <div className="absolute bottom-0 w-3/4  mt-4  left-1/2 -translate-x-1/2">
+            <div
+              className="euro-btn w-full"
+              onClick={() => console.log(dataInput)}
+            >
+              Enviar
+            </div>{" "}
           </div>
-          {/* <div className="btn" onClick={() => setAlertQR(!alertQR)}>
-            qrSCanned!!!!!
-          </div> */}
         </div>
       </div>
     </NavBar>

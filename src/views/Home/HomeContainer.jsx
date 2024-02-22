@@ -128,7 +128,6 @@ const HomeContainer = () => {
           <option>another</option>
         </select>
       </div>
-
       <Chart />
       <div className="flex gap-2 mb-2 p-3">
         <div className="border-2 w-1/2 p-2 rounded-lg">
