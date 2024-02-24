@@ -24,12 +24,12 @@ const Chart = () => {
         <AreaChart data={data}>
           <defs>
             <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="3%" stopColor="#325dd4" stopOpacity={0.8} />
-              <stop offset="95%" stopColor="#3c5eb9" stopOpacity={0} />
+              <stop offset="3%" stopColor="#5380fa" stopOpacity={0.8} />
+              <stop offset="95%" stopColor="#567fee" stopOpacity={0} />
             </linearGradient>
           </defs>
 
-          <XAxis dataKey="name" />
+          <XAxis dataKey="name" fontSize={14} />
           <Tooltip />
           <Legend
             verticalAlign="top" // Position the legend on top
