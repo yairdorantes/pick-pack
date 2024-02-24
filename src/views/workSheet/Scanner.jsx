@@ -31,8 +31,10 @@ const Scanner = () => {
   const [productScanned, setProductScanned] = useState({});
   const [txtSpeech, setTxtSpeech] = useState("");
   const { orderId } = useParams();
+  const [itemSelected, setItemSelected] = useState({});
 
   const { itemsList, setItemsList, codeScanned } = useStore();
+  const [cardSelected, setCardSelected] = useState();
 
   const { getProducts, loading } = useGetItems();
   const handleCode = async () => {
@@ -277,15 +279,26 @@ const Scanner = () => {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, x: -100 }}
                       transition={{ duration: 0.5 }}
+                      onClick={() => {
+                        setItemSelected(
+                          order.id_item === itemSelected.id_item ? {} : order
+                        );
+                      }}
                     >
                       <DragCard
                         setModal={memoizedSetProductModalOpen}
                         productData={order}
                       >
                         {showDetails ? (
-                          <ProductCard order={order} />
+                          <ProductCard
+                            itemSelected={itemSelected}
+                            order={order}
+                          />
                         ) : (
-                          <SmallCardItem order={order} />
+                          <SmallCardItem
+                            itemSelected={itemSelected}
+                            order={order}
+                          />
                         )}
                       </DragCard>
                     </motion.div>

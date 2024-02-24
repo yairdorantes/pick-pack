@@ -1,7 +1,8 @@
 import { memo, useEffect, useState } from "react";
 import useStore from "../../../Context";
+import Barcode from "react-barcode";
 
-const PackingCard = ({ product }) => {
+const PackingCard = ({ product, itemSelected }) => {
   console.log("*PACKING CARD RENDERED !!");
   const [packQuantity, setPackQuantity] = useState(product.packed_item);
   const [hoverQuantity, setHoverQuantity] = useState(false);
@@ -47,6 +48,30 @@ const PackingCard = ({ product }) => {
   return (
     <>
       <div className="relative   flex items-center justify-between p-4 bg-white border border-gray-200 ">
+        <div
+          className={`${
+            itemSelected.id_item === product.id_item
+              ? "opacity-100 z-20"
+              : "opacity-0"
+          }  transition-all   font-bold flex bg-opacity-90 text-white text-2xl justify-center items-center flex-col absolute left-0 w-full h-full bg-gray-900 `}
+        >
+          <div>{product.refId_item}</div>
+          <div className="">
+            {product.ean_item === null || product.ean_item === "" ? (
+              <span className="italic text-sm">Sin código EAN</span>
+            ) : (
+              <Barcode
+                height={50}
+                margin={0}
+                background="#fffefeb8"
+                width={1}
+                value={product.ean_item}
+                fontSize={0}
+                lineColor="black"
+              />
+            )}
+          </div>
+        </div>
         <div className="flex items-center space-x-4">
           <img
             src={product.imageUrl_item}

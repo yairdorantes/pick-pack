@@ -27,6 +27,7 @@ const PendingPackList = () => {
   // const [filteredItems, setFilteredItems] = useState([]);
   const [sendingInfo, setLoading] = useState(false);
   const [speechTxt, setSpeechTxt] = useState("");
+  const [productSelected, setProductSelected] = useState({});
 
   const [itemScannedSaved, setItemScannedSaved] = useState({});
 
@@ -235,15 +236,20 @@ const PendingPackList = () => {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, x: -100 }}
                   transition={{ duration: 0.5 }}
-                  // onClick={() => {
-                  //   handleClick(order);
-                  // }}
+                  onClick={() => {
+                    setProductSelected(
+                      product.id_item === productSelected.id_item ? {} : product
+                    );
+                  }}
                 >
                   <DragAddPack productData={product}>
                     {showDetails ? (
-                      <PackingCard product={product} />
+                      <PackingCard
+                        itemSelected={productSelected}
+                        product={product}
+                      />
                     ) : (
-                      <SmallCardItem order={product} />
+                      <SmallCardItem itemSelected={product} order={product} />
                     )}
                   </DragAddPack>
                 </motion.div>

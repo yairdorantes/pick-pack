@@ -2,27 +2,20 @@ import { memo, useMemo, useState } from "react";
 import Barcode from "react-barcode";
 // import toast from "react-hot-toast";
 
-const ProductCard = ({ order }) => {
-  const [showCover, setShowCover] = useState(false);
+const ProductCard = ({ order, itemSelected }) => {
   console.log("**CARD PRODUCT RENDERED!!");
-  const [shadow, setShadow] = useState(false);
   const typeOfProduct = useMemo(() => {
     return (string) => `${string.slice(0, 7)}.png`;
   }, []);
 
   return (
     <div
-      onTouchStart={() => setShadow(true)}
-      onClick={() => setShowCover(!showCover)}
-      onTouchEnd={() => setShadow(false)}
-      className={`overflow-hidden ${
-        shadow && "act-shadow"
-      } shadow-desktop flex transition-all  duration-150 h-32 border-b border-gray-200 group cursor-pointer relative items-center  space-x-2  bg-white`}
+      className={`overflow-hidden shadow-desktop flex transition-all  duration-150 h-32 border-b border-gray-200 group cursor-pointer relative items-center  space-x-2  bg-white`}
     >
       <div
         className={`${
-          showCover ? "opacity-100" : "opacity-0"
-        }  transition-all   font-bold flex bg-opacity-80 text-white text-2xl justify-center items-center flex-col absolute left-0 w-full h-full bg-gray-900 `}
+          itemSelected.id_item === order.id_item ? "opacity-100" : "opacity-0"
+        }  transition-all   font-bold flex bg-opacity-90 text-white text-2xl justify-center items-center flex-col absolute left-0 w-full h-full bg-gray-900 `}
       >
         <div>{order.refId_item}</div>
         <div className="">
