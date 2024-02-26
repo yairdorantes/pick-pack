@@ -1,11 +1,16 @@
 import Camera, { FACING_MODES } from "react-html5-camera-photo";
 import MyLoader from "./MyLoader";
-import { useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import axios from "axios";
 import { api } from "../../api";
 import toast from "react-hot-toast";
 import "react-html5-camera-photo/build/css/index.css";
-
+import Webcam from "react-webcam";
+const videoConstraints = {
+  width: 350,
+  height: 400,
+  facingMode: "environment", // Use the back camera
+};
 const CameraScan = ({ EAN = "7501991615172", onDetected }) => {
   const [loading, setLoading] = useState(false);
   function speech(txt) {
@@ -48,6 +53,13 @@ const CameraScan = ({ EAN = "7501991615172", onDetected }) => {
       });
   }
 
+  const webcamRef = useRef(null);
+  const capture = useCallback(() => {
+    const imageSrc = webcamRef.current.getScreenshot();
+    console.log(imageSrc);
+    detectEan(imageSrc);
+  }, [webcamRef]);
+
   return (
     <div className="relative ">
       {loading && (
@@ -64,16 +76,21 @@ const CameraScan = ({ EAN = "7501991615172", onDetected }) => {
           </div>
         </div>
       )}
-      <Camera
-        // sizeFactor={20}
-        onTakePhotoAnimationDone={false}
-        idealFacingMode={FACING_MODES.ENVIRONMENT}
-        onTakePhoto={(photo) => {
-          detectEan(photo);
-        }}
-        // idealResolution={{ width: 800, height: 100 }}
-        // isFullscreen={true}
+      <Webcam
+        className="mx-auto "
+        // audio={true}
+        // height={720}
+        ref={webcamRef}
+        screenshotFormat="image/jpeg"
+        // width={1280}
+        videoConstraints={videoConstraints}
       />
+      <div
+        onClick={capture}
+        className="absolute flex justify-center items-center bottom-3 -translate-x-1/2 left-1/2 bg-gray-400 w-16 h-16 rounded-full"
+      >
+        <div className="w-[85%] h-[85%] rounded-full bg-white" />
+      </div>
     </div>
   );
 };

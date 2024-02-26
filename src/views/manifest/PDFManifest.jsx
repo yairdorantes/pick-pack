@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import Modal from "../../components/Modal";
 import Receipt from "./Receipt";
 import NavBar from "../../components/NavBar";
+
 const PDFManifest = () => {
   const { courierId } = useParams();
   const [base64PDF, setBase64PDF] = useState("");
@@ -79,7 +80,8 @@ const PDFManifest = () => {
           Sin ordenes registradas...
         </div>
       )}
-      {tableData.length > 0 && (
+      {/* tableData.length > 0 */}
+      {
         <div className="text-center mt-10 space-x-2">
           <div className="btn capitalize" onClick={() => setModalReceipt(true)}>
             Firmar Manifiesto
@@ -98,7 +100,7 @@ const PDFManifest = () => {
             </a>
           )}
         </div>
-      )}
+      }
       <Modal isOpen={modalReceipt} setIsOpen={setModalReceipt}>
         <div
           onClick={() => setModalReceipt(false)}

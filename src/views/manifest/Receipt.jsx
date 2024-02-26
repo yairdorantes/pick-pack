@@ -1,9 +1,15 @@
 import { ReactSketchCanvas } from "react-sketch-canvas";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Camera, { FACING_MODES } from "react-html5-camera-photo";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { api } from "../../../api";
+import Webcam from "react-webcam";
+const videoConstraints = {
+  width: 350,
+  height: 400,
+  facingMode: "environment", // Use the back camera
+};
 const Receipt = ({ setModal, courierId }) => {
   const [photo, setPhoto] = useState("");
   const [draw, setDraw] = useState(false);
@@ -58,7 +64,12 @@ const Receipt = ({ setModal, courierId }) => {
     }
   }
 
-  // useEffect(() => {}, []);
+  const webcamRef = useRef(null);
+  const capture = useCallback(() => {
+    const imageSrc = webcamRef.current.getScreenshot();
+    console.log(imageSrc);
+    setPhoto(imageSrc);
+  }, [webcamRef]);
 
   return (
     <div className="text-center ">
@@ -94,14 +105,34 @@ const Receipt = ({ setModal, courierId }) => {
             photo.length === 0 ? "opacity-100 " : "opacity-0 -z-10 w-0"
           }`}
         >
-          <Camera
+          <div className="relative">
+            <Webcam
+              className="mx-auto "
+              // audio={true}
+              // height={720}
+              ref={webcamRef}
+              screenshotFormat="image/jpeg"
+              // width={1280}
+              videoConstraints={videoConstraints}
+            />
+            <div
+              onClick={() => {
+                webcamRef.current !== null && capture();
+              }}
+              className="absolute flex justify-center items-center bottom-3 -translate-x-1/2 left-1/2 bg-gray-400 w-16 h-16 rounded-full"
+            >
+              <div className="w-[85%] h-[85%] rounded-full bg-white" />
+            </div>
+          </div>
+
+          {/* <Camera
             isSilentMode
             idealFacingMode={FACING_MODES.ENVIRONMENT}
             onTakePhoto={(photo) => {
               // console.log(photo);
               setPhoto(photo);
             }}
-          />
+          /> */}
         </div>
         <div
           className={`relative bg-gray-100 w-full overflow-hidden  flex flex-col justify-center items-center ${

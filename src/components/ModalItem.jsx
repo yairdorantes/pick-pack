@@ -223,7 +223,7 @@ const ModalItem = ({ isOpen, setIsOpen, setProductsLoader, setSavingItem }) => {
               </div>
               <div
                 className={` transition-all ${
-                  showCamera ? "h-72" : "h-0"
+                  showCamera ? "h-auto" : "h-0"
                 } overflow-hidden `}
               >
                 <CameraScan
