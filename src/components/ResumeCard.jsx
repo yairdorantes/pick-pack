@@ -1,6 +1,6 @@
 const ResumeCard = ({ product }) => {
   return (
-    <div className="flex items-center justify-between p-4 bg-white border border-gray-200 rounded-lg">
+    <div className="flex items-center justify-between p-4 bg-white border border-gray-200 ">
       <div className="flex items-center space-x-4">
         <img
           src={product.imageUrl_item}
@@ -20,7 +20,7 @@ const ResumeCard = ({ product }) => {
       </div>
       <div className="flex px-1 items-center">
         <div className="">
-          <p className="text-sm font-medium">Cantidad</p>
+          <p className="text-sm font-medium ">Prendas Alistadas</p>
           <p className="flex items-center  text-green-600">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -36,7 +36,7 @@ const ResumeCard = ({ product }) => {
             >
               <polyline points="20 6 9 17 4 12"></polyline>
             </svg>{" "}
-            {product.quantity_item} ud
+            {product.quantity_item - product.remaining_item} ud
           </p>
         </div>
       </div>

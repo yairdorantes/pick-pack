@@ -17,7 +17,7 @@ const InfoBar = () => {
           }  `}
           onClick={() => handleSelection(1)}
         >
-          Items
+          Prendas
         </div>
         <div
           className={`p-3 ${
@@ -33,7 +33,7 @@ const InfoBar = () => {
           }`}
           onClick={() => handleSelection(3)}
         >
-          Resumen
+          Alistamiento
         </div>
       </div>
       <div>{selection === 1 && <Scanner />}</div>

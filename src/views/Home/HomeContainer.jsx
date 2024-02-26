@@ -205,8 +205,8 @@ const HomeContainer = () => {
             </svg>
           </div>
           <div>
-            <div>{resumeData.packingCurrent}777</div>
-            <div>Sin asignar</div>
+            <div>Historial</div>
+            <div>Ordenes</div>
           </div>
           <div>
             <svg

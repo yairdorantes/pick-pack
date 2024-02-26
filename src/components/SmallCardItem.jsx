@@ -1,7 +1,8 @@
 import { memo, useMemo } from "react";
 
 const SmallCardItem = ({ order, itemSelected }) => {
-  console.log(itemSelected);
+  console.log(itemSelected, "*******************");
+  console.log(order, "+++++++++++++++++++++++++");
   const typeOfProduct = useMemo(() => {
     return (string) => `${string.slice(0, 7)}.png`;
   }, []);

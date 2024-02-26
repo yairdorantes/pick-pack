@@ -46,9 +46,7 @@ const PackedList = () => {
         statusName: "Empacado",
       })
       .then(() => {
-        toast.success("¡Confirmación enviada con éxito!", {
-          position: "bottom-center",
-        });
+        toast.success("¡Confirmación enviada con éxito!");
         // if (!document.startViewTransition) {
         //   navigate(`/pack/${orderId}`);
         //   return;

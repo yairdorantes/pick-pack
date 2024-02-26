@@ -27,7 +27,7 @@ const useStore = create((set) => {
           "https://eurocotton.vtexassets.com/arquivos/ids/164759-800-800?v=638308220641230000&width=800&height=800&aspect=true",
         skuId_item: 544,
         quantity_item: 3,
-        remaining_item: 3,
+        remaining_item: 2,
         ean_item: "7501991615172",
         // ean_item: "7501025406387",
         packed_item: 0,

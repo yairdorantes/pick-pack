@@ -71,7 +71,7 @@ const ModalPack = ({ packing = true }) => {
         firstPacking: resPack ? updateStatus : undefined,
       })
       .then(() => {
-        toast.success("¡Empaque actualizado!", { position: "bottom-center" });
+        toast.success("¡Empaque actualizado!");
         setModalPack(false);
 
         const updateList = itemsList.map((obj) =>
@@ -157,9 +157,7 @@ const ModalPack = ({ packing = true }) => {
             // disabled={quantity === 0 || isNaN(quantity)}
             onClick={() => {
               if (quantity === 0 || isNaN(quantity)) {
-                toast.error("No puedes enviar este valor", {
-                  position: "bottom-center",
-                });
+                toast.error("No puedes enviar este valor");
               } else {
                 sendPackData();
               }

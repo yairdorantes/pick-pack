@@ -69,13 +69,34 @@ const NavBar = ({ children }) => {
             Eurocotton Fulfillment
           </a>
         </div>
+        <div className="navbar-end">
+          <button className="btn btn-ghost btn-circle">
+            <div className="indicator">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+                />
+              </svg>
+              <span className="badge badge-xs text-white badge-error indicator-item"></span>
+            </div>
+          </button>
+        </div>
 
-        <div
+        {/* <div
           onClick={goHome}
           className="font-semibold  capitalize cursor-pointer text-sm w-16 ml-3 text-center"
         >
           {user.username}
-        </div>
+        </div> */}
         <div>
           <Hamburger
             toggled={showSideMenu}
@@ -147,6 +168,28 @@ const NavBar = ({ children }) => {
                   </div>
                 </ModalChat>
               )}
+            </div>
+            <div
+              href="/qr"
+              onClick={handleLink}
+              className="flex h-24 hover:bg-gray-100 border-b-2 p-4 items-center gap-4"
+            >
+              <div>
+                <svg
+                  className="text-gray-600"
+                  fill="currentColor"
+                  viewBox="0 0 16 16"
+                  height="2em"
+                  width="2em"
+                >
+                  <path d="M0 .5A.5.5 0 01.5 0h3a.5.5 0 010 1H1v2.5a.5.5 0 01-1 0v-3zm12 0a.5.5 0 01.5-.5h3a.5.5 0 01.5.5v3a.5.5 0 01-1 0V1h-2.5a.5.5 0 01-.5-.5zM.5 12a.5.5 0 01.5.5V15h2.5a.5.5 0 010 1h-3a.5.5 0 01-.5-.5v-3a.5.5 0 01.5-.5zm15 0a.5.5 0 01.5.5v3a.5.5 0 01-.5.5h-3a.5.5 0 010-1H15v-2.5a.5.5 0 01.5-.5zM4 4h1v1H4V4z" />
+                  <path d="M7 2H2v5h5V2zM3 3h3v3H3V3zm2 8H4v1h1v-1z" />
+                  <path d="M7 9H2v5h5V9zm-4 1h3v3H3v-3zm8-6h1v1h-1V4z" />
+                  <path d="M9 2h5v5H9V2zm1 1v3h3V3h-3zM8 8v2h1v1H8v1h2v-2h1v2h1v-1h2v-1h-3V8H8zm2 2H9V9h1v1zm4 2h-1v1h-2v1h3v-2zm-4 2v-1H8v1h2z" />
+                  <path d="M12 9h2V8h-2v1z" />
+                </svg>
+              </div>
+              <div className="font-semibold">QR Orden</div>
             </div>
             <div
               href="/manifest"
@@ -244,28 +287,6 @@ const NavBar = ({ children }) => {
               </div>
               <div className="font-semibold">Facial Recognition</div>
             </div> */}
-            <div
-              href="/qr"
-              onClick={handleLink}
-              className="flex h-24 hover:bg-gray-100 border-b-2 p-4 items-center gap-4"
-            >
-              <div>
-                <svg
-                  className="text-gray-600"
-                  fill="currentColor"
-                  viewBox="0 0 16 16"
-                  height="2em"
-                  width="2em"
-                >
-                  <path d="M0 .5A.5.5 0 01.5 0h3a.5.5 0 010 1H1v2.5a.5.5 0 01-1 0v-3zm12 0a.5.5 0 01.5-.5h3a.5.5 0 01.5.5v3a.5.5 0 01-1 0V1h-2.5a.5.5 0 01-.5-.5zM.5 12a.5.5 0 01.5.5V15h2.5a.5.5 0 010 1h-3a.5.5 0 01-.5-.5v-3a.5.5 0 01.5-.5zm15 0a.5.5 0 01.5.5v3a.5.5 0 01-.5.5h-3a.5.5 0 010-1H15v-2.5a.5.5 0 01.5-.5zM4 4h1v1H4V4z" />
-                  <path d="M7 2H2v5h5V2zM3 3h3v3H3V3zm2 8H4v1h1v-1z" />
-                  <path d="M7 9H2v5h5V9zm-4 1h3v3H3v-3zm8-6h1v1h-1V4z" />
-                  <path d="M9 2h5v5H9V2zm1 1v3h3V3h-3zM8 8v2h1v1H8v1h2v-2h1v2h1v-1h2v-1h-3V8H8zm2 2H9V9h1v1zm4 2h-1v1h-2v1h3v-2zm-4 2v-1H8v1h2z" />
-                  <path d="M12 9h2V8h-2v1z" />
-                </svg>
-              </div>
-              <div className="font-semibold">QR Orden</div>
-            </div>
             <div
               onClick={logoutClick}
               className="flex h-24 hover:bg-gray-100 border-b-2 p-4 items-center gap-4 mb-20"

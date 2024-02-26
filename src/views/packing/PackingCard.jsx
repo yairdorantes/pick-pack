@@ -1,6 +1,7 @@
 import { memo, useEffect, useState } from "react";
 import useStore from "../../../Context";
 import Barcode from "react-barcode";
+import toast from "react-hot-toast";
 
 const PackingCard = ({ product, itemSelected }) => {
   console.log("*PACKING CARD RENDERED !!");
@@ -39,8 +40,12 @@ const PackingCard = ({ product, itemSelected }) => {
     }
   }
 
-  const handleMouseEnter = () => setHoverQuantity(true);
-  const handleMouseLeave = () => setHoverQuantity(false);
+  const handleMouseEnter = () => {
+    setHoverQuantity(true);
+  };
+  const handleMouseLeave = () => {
+    setHoverQuantity(false);
+  };
 
   useEffect(() => {
     setPackQuantity(product.packed_item);
@@ -51,7 +56,7 @@ const PackingCard = ({ product, itemSelected }) => {
         <div
           className={`${
             itemSelected.id_item === product.id_item
-              ? "opacity-100 z-20"
+              ? "opacity-100 "
               : "opacity-0"
           }  transition-all   font-bold flex bg-opacity-90 text-white text-2xl justify-center items-center flex-col absolute left-0 w-full h-full bg-gray-900 `}
         >

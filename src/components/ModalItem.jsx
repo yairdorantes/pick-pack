@@ -56,7 +56,7 @@ const ModalItem = ({ isOpen, setIsOpen, setProductsLoader, setSavingItem }) => {
         toast.success("Hoja de trabajo Actualizada");
       } catch (error) {
         console.log(error);
-        toast.error("Intenta de nuevo", { position: "bottom-center" });
+        toast.error("Intenta de nuevo");
       }
     } else {
       toast.error("No es posible modificar ");
