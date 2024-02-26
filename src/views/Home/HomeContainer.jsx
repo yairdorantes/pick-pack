@@ -54,7 +54,7 @@ const HomeContainer = () => {
 
   return (
     <NavBar>
-      <div className="px-3 mt-3 font-semibold text-sm">{user.username}</div>
+      <div className="px-3 mt-3 font-semibold ">{user.username}</div>
       <div className="p-3  select-none">
         <div
           // onClick={() => setOpenOrders(1)}
@@ -62,7 +62,7 @@ const HomeContainer = () => {
         >
           <div
             onClick={goPicking}
-            className="flex cursor-pointer  items-center gap-2 p-2 rounded-lg"
+            className="flex cursor-pointer  items-center gap-2 p-4 rounded-lg border-2"
           >
             <div className="text-xl">
               {" "}
@@ -100,7 +100,7 @@ const HomeContainer = () => {
 
       <div
         onClick={goQRScanner}
-        className="bg-gray-100 shadow-lg  flex w-[95%] mx-auto justify-between p-3 rounded-lg"
+        className="bg-gray-100 shadow-lg  flex w-[95%] mx-auto justify-between p-4 border-2 rounded-lg"
       >
         <div className="">Escanea tu orden</div>
         <div>
@@ -205,8 +205,8 @@ const HomeContainer = () => {
             </svg>
           </div>
           <div>
-            <div>Historial</div>
             <div>Ordenes</div>
+            <div>Historial</div>
           </div>
           <div>
             <svg

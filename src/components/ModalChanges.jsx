@@ -60,7 +60,7 @@ const ModalChanges = ({ isOpen, setIsOpen, handleModal, action }) => {
               className="btn btn-error text-white"
               onClick={() => setIsOpen(false)}
             >
-              Rechazar
+              Cancelar
             </button>
           </div>
         </div>
