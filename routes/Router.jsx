@@ -3,6 +3,7 @@ import { Suspense, lazy } from "react";
 import NewTest from "../src/components/NewTest";
 import FacialRec from "../src/components/FacialRec";
 import InventoryContainer from "../src/views/Inventory/InventoryContainer";
+import NotifContainer from "../src/views/Notifications/NotifContainer";
 
 const Picking = lazy(() => import("../src/views/workSheet/Picking"));
 const LoginForm = lazy(() => import("../src/views/login/LoginForm"));
@@ -45,6 +46,7 @@ const Router = () => {
         <Route path="/test2" element={<NewTest />} />
         <Route path="/face" element={<FacialRec />} />
         <Route path="/inventory" element={<InventoryContainer />} />
+        <Route path="/notifications" element={<NotifContainer />} />
         {/* </Suspense> */}
       </Route>
       <Route path="/*" element={<Page404 />} />

@@ -1,11 +1,10 @@
-import Camera, { FACING_MODES } from "react-html5-camera-photo";
-import MyLoader from "./MyLoader";
 import { useCallback, useRef, useState } from "react";
 import axios from "axios";
 import { api } from "../../api";
 import toast from "react-hot-toast";
 import "react-html5-camera-photo/build/css/index.css";
 import Webcam from "react-webcam";
+import audioCamera from "../assets/audio/camera-13695.mp3";
 const videoConstraints = {
   width: 350,
   height: 400,
@@ -53,10 +52,16 @@ const CameraScan = ({ EAN = "7501991615172", onDetected }) => {
       });
   }
 
+  const playSound = () => {
+    const audio = new Audio(audioCamera);
+    audio.play();
+  };
+
   const webcamRef = useRef(null);
   const capture = useCallback(() => {
     const imageSrc = webcamRef.current.getScreenshot();
     console.log(imageSrc);
+    playSound();
     detectEan(imageSrc);
   }, [webcamRef]);
 

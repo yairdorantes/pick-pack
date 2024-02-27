@@ -81,7 +81,7 @@ const PDFManifest = () => {
         </div>
       )}
       {/* tableData.length > 0 */}
-      {
+      {tableData.length > 0 && (
         <div className="text-center mt-10 space-x-2">
           <div className="btn capitalize" onClick={() => setModalReceipt(true)}>
             Firmar Manifiesto
@@ -100,7 +100,7 @@ const PDFManifest = () => {
             </a>
           )}
         </div>
-      }
+      )}
       <Modal isOpen={modalReceipt} setIsOpen={setModalReceipt}>
         <div
           onClick={() => setModalReceipt(false)}

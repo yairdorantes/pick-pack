@@ -10,6 +10,7 @@ const videoConstraints = {
   height: 400,
   facingMode: "environment", // Use the back camera
 };
+import audioCamera from "../../assets/audio/camera-13695.mp3";
 const Receipt = ({ setModal, courierId }) => {
   const [photo, setPhoto] = useState("");
   const [draw, setDraw] = useState(false);
@@ -38,6 +39,11 @@ const Receipt = ({ setModal, courierId }) => {
   function resetCanvas() {
     canvasRef.current.clearCanvas();
   }
+
+  const playSound = () => {
+    const audio = new Audio(audioCamera);
+    audio.play();
+  };
 
   async function saveReceipt() {
     console.log(photo);
@@ -69,36 +75,11 @@ const Receipt = ({ setModal, courierId }) => {
     const imageSrc = webcamRef.current.getScreenshot();
     console.log(imageSrc);
     setPhoto(imageSrc);
+    playSound();
   }, [webcamRef]);
 
   return (
     <div className="text-center ">
-      {/* <ReactFileReader base64={true} handleFiles={handleFiles}>
-        <div className="mt-10">
-          <div
-            style={{
-              borderColor: "white",
-              backgroundImage: "url(" + photo.base64 + ")",
-            }}
-            className="bg-gray-200 bg-center bg-cover mx-auto p-5 flex flex-col justify-center items-center w-3/4 h-44 rounded-xl"
-          >
-            {!photo.base64 && (
-              <div>
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  height="50"
-                  width="50"
-                  className="mx-auto"
-                >
-                  <path d="M22 3H2c-1.09.04-1.96.91-2 2v14c.04 1.09.91 1.96 2 2h20c1.09-.04 1.96-.91 2-2V5a2.074 2.074 0 00-2-2m0 16H2V5h20v14m-8-2v-1.25c0-1.66-3.34-2.5-5-2.5-1.66 0-5 .84-5 2.5V17h10M9 7a2.5 2.5 0 00-2.5 2.5A2.5 2.5 0 009 12a2.5 2.5 0 002.5-2.5A2.5 2.5 0 009 7m5 0v1h6V7h-6m0 2v1h6V9h-6m0 2v1h4v-1h-4" />
-                </svg>
-                Agrega una identificacion
-              </div>
-            )}
-          </div>
-        </div>
-      </ReactFileReader> */}
       <div className="mt-10 ">
         <div
           className={` ${
@@ -124,15 +105,6 @@ const Receipt = ({ setModal, courierId }) => {
               <div className="w-[85%] h-[85%] rounded-full bg-white" />
             </div>
           </div>
-
-          {/* <Camera
-            isSilentMode
-            idealFacingMode={FACING_MODES.ENVIRONMENT}
-            onTakePhoto={(photo) => {
-              // console.log(photo);
-              setPhoto(photo);
-            }}
-          /> */}
         </div>
         <div
           className={`relative bg-gray-100 w-full overflow-hidden  flex flex-col justify-center items-center ${
