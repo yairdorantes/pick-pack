@@ -48,7 +48,9 @@ const Scanner = () => {
         if (item.remaining_item - 1 >= 0) {
           setProductsLoader(item.id_item);
           const resFirst = firstScan(itemsList);
+
           try {
+            setSavingItem(true);
             await updateItemQuantity(
               item.id_item,
               item.remaining_item - 1,
@@ -73,6 +75,8 @@ const Scanner = () => {
           } catch (err) {
             console.log(err);
             toast.error("Intenta de nuevo");
+          } finally {
+            setSavingItem(false);
           }
         } else {
           toast("PRENDA YA ALISTADA ", {
