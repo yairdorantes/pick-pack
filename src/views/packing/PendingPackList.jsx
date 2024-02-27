@@ -86,54 +86,56 @@ const PendingPackList = () => {
       (product) => product.ean_item === codeScanned
     );
     if (productIndex !== -1) {
-      const product = itemsList[productIndex];
-      if (product.packed_item + 1 <= product.quantity_item) {
-        const resPack = firstPack(itemsList);
-        const updateStatus = { order: orderId };
-        const packList = [
-          { id_item: product.id_item, packed_item: product.packed_item + 1 },
-        ];
-        // scanning
-        // kkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
+      if (!sendingInfo) {
+        const product = itemsList[productIndex];
+        if (product.packed_item + 1 <= product.quantity_item) {
+          const resPack = firstPack(itemsList);
+          const updateStatus = { order: orderId };
+          const packList = [
+            { id_item: product.id_item, packed_item: product.packed_item + 1 },
+          ];
+          // scanning
+          // kkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
 
-        axios
-          .put(`${api}/pick-pack/pack_items`, {
-            items: packList,
-            firstPacking: resPack ? updateStatus : undefined,
-            user: user.id,
-          })
-          .then(() => {
-            toast.success("¡Empaque actualizado!");
-            const updateList = itemsList.map((obj) =>
-              obj.id_item === product.id_item
-                ? {
-                    ...obj,
-                    packed_item: product.packed_item + 1,
-                  }
-                : obj
-            );
-            setItemScannedSaved(product);
-            setItemsList(updateList);
-            const txtSpeech = `${
-              product.quantity_item - (product.packed_item + 1) === 0
-                ? `Felicidades haz terminado ${product.refId_item}`
-                : `Listo, restan ${
-                    product.quantity_item - (product.packed_item + 1)
-                  }`
-            }`;
-            setSpeechTxt(txtSpeech);
-            // console.log(updateList);
-          })
-          .catch((err) => {
-            console.log(err);
-            toast.error(
-              "error, no se puedo actualizar el empaquetado, intenta de nuevo"
-            );
+          axios
+            .put(`${api}/pick-pack/pack_items`, {
+              items: packList,
+              firstPacking: resPack ? updateStatus : undefined,
+              user: user.id,
+            })
+            .then(() => {
+              toast.success("¡Empaque actualizado!");
+              const updateList = itemsList.map((obj) =>
+                obj.id_item === product.id_item
+                  ? {
+                      ...obj,
+                      packed_item: product.packed_item + 1,
+                    }
+                  : obj
+              );
+              setItemScannedSaved(product);
+              setItemsList(updateList);
+              const txtSpeech = `${
+                product.quantity_item - (product.packed_item + 1) === 0
+                  ? `Felicidades haz terminado ${product.refId_item}`
+                  : `Listo, restan ${
+                      product.quantity_item - (product.packed_item + 1)
+                    }`
+              }`;
+              setSpeechTxt(txtSpeech);
+              // console.log(updateList);
+            })
+            .catch((err) => {
+              console.log(err);
+              toast.error(
+                "error, no se puedo actualizar el empaquetado, intenta de nuevo"
+              );
+            });
+        } else {
+          toast("ESTA PRENDA YA HA SIDO EMPACADA!", {
+            icon: "⚠️",
           });
-      } else {
-        toast("ESTA PRENDA YA HA SIDO EMPACADA!", {
-          icon: "⚠️",
-        });
+        }
       }
     } else {
       toast("ESTA PRENDA NO ESTÁ EN LA ORDEN!", {
@@ -484,7 +486,7 @@ const PendingPackList = () => {
                 <path d="M12 22V12"></path>
               </svg>
               {sendingInfo ? (
-                <span className="sendingInfo sendingInfo-spinner text-info"></span>
+                <span className="loading loading-spinner loading-sm"></span>
               ) : (
                 <span>Empacar</span>
               )}

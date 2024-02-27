@@ -17,16 +17,6 @@ const PackedList = () => {
   const { orderId } = useParams();
   const navigate = useNavigate();
 
-  function countPacked() {
-    let allPacked = true;
-    itemsList.forEach((obj) => {
-      if (obj.packed_item !== obj.quantity_item) {
-        allPacked = false;
-        return;
-      }
-    });
-    return allPacked;
-  }
   const changePage = (data) => {
     if (!document.startViewTransition) {
       navigate(`/end/${orderId}`);

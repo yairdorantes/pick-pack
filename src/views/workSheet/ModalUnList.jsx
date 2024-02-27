@@ -7,7 +7,7 @@ import { api } from "../../../api";
 
 const ModalUnList = ({ modalUnList, setModalUnList }) => {
   const [loading, setLoading] = useState(false);
-  const { itemData } = useStore();
+  const { itemData, setItemsList, itemsList } = useStore();
   const [quantity, setQuantity] = useState(0);
   const add = () => {
     if (
@@ -40,6 +40,15 @@ const ModalUnList = ({ modalUnList, setModalUnList }) => {
         .then(() => {
           toast.success("Alistamiento actualizado");
           setModalUnList(false);
+          const orderIndex = itemsList.findIndex(
+            (order) => order.id_item === itemData.id_item
+          );
+          const updatedOrders = [...itemsList];
+          updatedOrders[orderIndex] = {
+            ...updatedOrders[orderIndex],
+            remaining_item: updatedOrders[orderIndex].remaining_item + quantity,
+          };
+          setItemsList(updatedOrders);
         })
         .catch((err) => {
           console.log(err);

@@ -34,7 +34,6 @@ const Scanner = () => {
   const [itemSelected, setItemSelected] = useState({});
 
   const { itemsList, setItemsList, codeScanned } = useStore();
-  const [cardSelected, setCardSelected] = useState();
 
   const { getProducts, loading } = useGetItems();
   const handleCode = async () => {
@@ -42,40 +41,41 @@ const Scanner = () => {
       (order) => order.ean_item === codeScanned
     );
     if (orderIndex !== -1) {
-      const item = itemsList[orderIndex];
-      if (item.remaining_item - 1 >= 0) {
-        setProductsLoader(item.id_item);
-        const resFirst = firstScan(itemsList);
-        console.log(resFirst);
-        try {
-          await updateItemQuantity(
-            item.id_item,
-            item.remaining_item - 1,
-            setSavingItem,
-            resFirst
-          );
-          if (itemsList[orderIndex].remaining_item > 0) {
-            const updatedOrders = [...itemsList];
-            updatedOrders[orderIndex] = {
-              ...updatedOrders[orderIndex],
-              remaining_item: updatedOrders[orderIndex].remaining_item - 1,
-            };
-            setItemsList(updatedOrders);
+      if (!savingItem) {
+        const item = itemsList[orderIndex];
+        if (item.remaining_item - 1 >= 0) {
+          setProductsLoader(item.id_item);
+          const resFirst = firstScan(itemsList);
+          try {
+            await updateItemQuantity(
+              item.id_item,
+              item.remaining_item - 1,
+              setSavingItem,
+              resFirst
+            );
+            if (itemsList[orderIndex].remaining_item > 0) {
+              const updatedOrders = [...itemsList];
+              updatedOrders[orderIndex] = {
+                ...updatedOrders[orderIndex],
+                remaining_item: updatedOrders[orderIndex].remaining_item - 1,
+              };
+              setItemsList(updatedOrders);
+            }
+            setProductScanned(item);
+            // const speechTxt =
+            //   item.remaining_item - 1 === 0
+            //     ? `Felicidades Has terminado  ${item.refId_item}`
+            //     : `Listo restan ${item.remaining_item - 1}`;
+            // setTxtSpeech(speechTxt);
+          } catch (err) {
+            console.log(err);
+            toast.error("Intenta de nuevo");
           }
-          setProductScanned(item);
-          const speechTxt =
-            item.remaining_item - 1 === 0
-              ? `Felicidades Has terminado  ${item.refId_item}`
-              : `Listo restan ${item.remaining_item - 1}`;
-          setTxtSpeech(speechTxt);
-        } catch (err) {
-          console.log(err);
-          toast.error("Intenta de nuevo");
+        } else {
+          toast("PRENDA YA ALISTADA!", {
+            icon: "⚠️",
+          });
         }
-      } else {
-        toast("PRENDA YA ALISTADA!", {
-          icon: "⚠️",
-        });
       }
     } else {
       toast("ESTA PRENDA NO ESTÁ EN LA ORDEN!", {
