@@ -132,14 +132,36 @@ const PendingPackList = () => {
               );
             });
         } else {
-          toast("ESTA PRENDA YA HA SIDO EMPACADA!", {
+          toast("ESTA PRENDA YA HA SIDO EMPACADA! ", {
             icon: "⚠️",
+            style: {
+              border: "1px solid #713200",
+              padding: "12px",
+              color: "black",
+              fontSize: "17px",
+              background: "#fae7c7",
+            },
+            // iconTheme: {
+            //   primary: "#713200",
+            //   secondary: "#FFFAEE",
+            // },
           });
         }
       }
     } else {
-      toast("ESTA PRENDA NO ESTÁ EN LA ORDEN!", {
+      toast("ESTA PRENDA NO ESTÁ EN LA ORDEN! ", {
         icon: "⚠️",
+        style: {
+          border: "1px solid #713200",
+          padding: "12px",
+          color: "black",
+          fontSize: "17px",
+          background: "#fae7c7",
+        },
+        // iconTheme: {
+        //   primary: "#713200",
+        //   secondary: "#FFFAEE",
+        // },
       });
     }
   }

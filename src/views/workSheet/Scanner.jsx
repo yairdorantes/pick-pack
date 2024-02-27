@@ -72,21 +72,36 @@ const Scanner = () => {
             toast.error("Intenta de nuevo");
           }
         } else {
-          toast("PRENDA YA ALISTADA!", {
+          toast("PRENDA YA ALISTADA ", {
             icon: "⚠️",
+            style: {
+              border: "1px solid #713200",
+              padding: "12px",
+              color: "black",
+              fontSize: "17px",
+              background: "#fae7c7",
+            },
+            // iconTheme: {
+            //   primary: "#713200",
+            //   secondary: "#FFFAEE",
+            // },
           });
         }
       }
     } else {
-      toast("ESTA PRENDA NO ESTÁ EN LA ORDEN!", {
+      toast("ESTA PRENDA NO ESTÁ EN LA ORDEN! ", {
         icon: "⚠️",
         style: {
-          // border: "1px solid #bf1dff",
-          padding: "10px",
-          // borderRadius: "10px",
-          // borderRadius: "40px",
-          // color: "#0ccfb5",
+          border: "1px solid #713200",
+          padding: "12px",
+          color: "black",
+          fontSize: "17px",
+          background: "#fae7c7",
         },
+        // iconTheme: {
+        //   primary: "#713200",
+        //   secondary: "#FFFAEE",
+        // },
       });
     }
   };

@@ -8,6 +8,7 @@ import axios from "axios";
 import { api } from "../../../api";
 import toast from "react-hot-toast";
 import useStore from "../../../Context";
+import { data } from "autoprefixer";
 
 const HomeContainer = () => {
   const [resumeData, setresumeData] = useState({});
@@ -28,6 +29,13 @@ const HomeContainer = () => {
       return;
     }
     document.startViewTransition(() => flushSync(() => navigate("/packing")));
+  };
+  const gohistory = () => {
+    if (!document.startViewTransition) {
+      navigate("/history");
+      return;
+    }
+    document.startViewTransition(() => flushSync(() => navigate("/history")));
   };
   const goQRScanner = () => {
     if (!document.startViewTransition) {
@@ -58,7 +66,7 @@ const HomeContainer = () => {
       <div className="p-3  select-none">
         <div
           // onClick={() => setOpenOrders(1)}
-          className="w-full  rounded-sm transition-all relative hover:scale-95  bg-gray-100 shadow-lg"
+          className="w-full rounded-sm transition-all relative hover:scale-95  bg-gray-100 shadow-lg"
         >
           <div
             onClick={goPicking}
@@ -131,11 +139,34 @@ const HomeContainer = () => {
       <Chart />
       <div className="flex gap-2 mb-2 p-3">
         <div className="border-2 w-1/2 p-2 rounded-lg">
-          <strong>1</strong>
+          <strong className="flex items-center gap-1">
+            {resumeData.handledOrders}
+            <svg
+              fill="currentColor"
+              viewBox="0 0 16 16"
+              className="text-success w-6 h-6"
+              height="1em"
+              width="1em"
+            >
+              <path d="M8.97 4.97a.75.75 0 011.07 1.05l-3.99 4.99a.75.75 0 01-1.08.02L2.324 8.384a.75.75 0 111.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 01.02-.022zm-.92 5.14l.92.92a.75.75 0 001.079-.02l3.992-4.99a.75.75 0 10-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z" />
+            </svg>
+          </strong>
           <div>Ordenes alistadas</div>
         </div>{" "}
         <div className="border-2 w-1/2 p-2 rounded-lg">
-          <strong>777</strong>
+          <strong className="flex gap-1 items-center">
+            {resumeData.garments}
+            <svg
+              viewBox="0 0 512 512"
+              className="text-blue-700 h-6"
+              fill="currentColor"
+              height="1em"
+              width="1em"
+            >
+              <path d="M256 96c33.08 0 60.71-25.78 64-58 .3-3-3-6-6-6a13 13 0 00-4.74.9c-.2.08-21.1 8.1-53.26 8.1s-53.1-8-53.26-8.1a16.21 16.21 0 00-5.3-.9h-.06a5.69 5.69 0 00-5.38 6c3.35 32.16 31 58 64 58z" />
+              <path d="M485.29 89.9L356 44.64a4 4 0 00-5.27 3.16 96 96 0 01-189.38 0 4 4 0 00-5.35-3.16L26.71 89.9A16 16 0 0016.28 108l16.63 88a16 16 0 0013.92 12.9l48.88 5.52a8 8 0 017.1 8.19l-7.33 240.9a16 16 0 009.1 14.94A17.49 17.49 0 00112 480h288a17.49 17.49 0 007.42-1.55 16 16 0 009.1-14.94l-7.33-240.9a8 8 0 017.1-8.19l48.88-5.52a16 16 0 0013.92-12.9l16.63-88a16 16 0 00-10.43-18.1z" />
+            </svg>
+          </strong>
           <div>Prendas alistadas</div>
         </div>
       </div>
@@ -181,7 +212,10 @@ const HomeContainer = () => {
             </svg>
           </div>
         </div>{" "}
-        <div className="p-3 border-2 rounded-lg flex gap-2 items-center w-1/2">
+        <div
+          onClick={gohistory}
+          className="p-3 border-2 rounded-lg cursor-pointer flex gap-2 items-center w-1/2"
+        >
           <div>
             <svg
               width="23"

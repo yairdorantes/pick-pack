@@ -131,7 +131,22 @@ const EverthingTable = () => {
                           handleSelection(order);
                         }}
                       >
-                        <a>● Asignar Picker </a>
+                        <a>
+                          <svg
+                            fill="currentColor"
+                            viewBox="0 0 16 16"
+                            height="1em"
+                            width="1em"
+                          >
+                            <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 100-6 3 3 0 000 6z" />
+                            <path
+                              fillRule="evenodd"
+                              d="M5.216 14A2.238 2.238 0 015 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 005 9c-4 0-5 3-5 4s1 1 1 1h4.216z"
+                            />
+                            <path d="M4.5 8a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" />
+                          </svg>
+                          Asignar Picker{" "}
+                        </a>
                       </li>
                       <li
                         onClick={() => {
@@ -139,7 +154,26 @@ const EverthingTable = () => {
                           setShowModal(!showModal);
                         }}
                       >
-                        <a>● Agregar notas </a>
+                        <a>
+                          <svg
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            height="1em"
+                            width="1em"
+                          >
+                            <path
+                              fill="currentColor"
+                              d="M6 6a1 1 0 011-1h10a1 1 0 110 2H7a1 1 0 01-1-1zM6 10a1 1 0 011-1h10a1 1 0 110 2H7a1 1 0 01-1-1zM7 13a1 1 0 100 2h10a1 1 0 100-2H7zM6 18a1 1 0 011-1h4a1 1 0 110 2H7a1 1 0 01-1-1z"
+                            />
+                            <path
+                              fill="currentColor"
+                              fillRule="evenodd"
+                              d="M2 4a3 3 0 013-3h14a3 3 0 013 3v16a3 3 0 01-3 3H5a3 3 0 01-3-3V4zm3-1h14a1 1 0 011 1v16a1 1 0 01-1 1H5a1 1 0 01-1-1V4a1 1 0 011-1z"
+                              clipRule="evenodd"
+                            />
+                          </svg>{" "}
+                          Agregar notas{" "}
+                        </a>
                       </li>
                     </ul>
                   </div>
