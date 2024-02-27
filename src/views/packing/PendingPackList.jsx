@@ -14,6 +14,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import AlertScan from "../../components/AlertScan";
 import CardLoader from "../../components/CardLoader";
 import SmallCardItem from "../../components/SmallCardItem";
+import BarCodeCameraScanner from "../../components/BarCodeCameraScanner";
 const step = 10;
 
 const PendingPackList = () => {
@@ -22,8 +23,15 @@ const PendingPackList = () => {
 
   const { getProducts, loading } = useGetItems();
   const [showDetails, setShowDetails] = useState(true);
-  const { itemsList, setItemsList, packList, setPackList, user, codeScanned } =
-    useStore();
+  const {
+    itemsList,
+    setItemsList,
+    packList,
+    setPackList,
+    user,
+    codeScanned,
+    setBarcodeScanner,
+  } = useStore();
   // const [filteredItems, setFilteredItems] = useState([]);
   const [sendingInfo, setLoading] = useState(false);
   const [speechTxt, setSpeechTxt] = useState("");
@@ -68,6 +76,7 @@ const PendingPackList = () => {
           packed_item:
             (mapPackList.get(obj.id_item) || {}).packed_item || obj.packed_item,
         }));
+
         // console.log(updatedItems);
         setItemsList(updatedItems);
         // ends local update logic
@@ -85,6 +94,7 @@ const PendingPackList = () => {
     const productIndex = itemsList.findIndex(
       (product) => product.ean_item === codeScanned
     );
+
     if (productIndex !== -1) {
       if (!sendingInfo) {
         const product = itemsList[productIndex];
@@ -96,7 +106,7 @@ const PendingPackList = () => {
           ];
           // scanning
           // kkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
-
+          setLoading(true);
           axios
             .put(`${api}/pick-pack/pack_items`, {
               items: packList,
@@ -115,6 +125,8 @@ const PendingPackList = () => {
               );
               setItemScannedSaved(product);
               setItemsList(updateList);
+              setBarcodeScanner(false);
+
               const txtSpeech = `${
                 product.quantity_item - (product.packed_item + 1) === 0
                   ? `Felicidades haz terminado ${product.refId_item}`
@@ -130,7 +142,8 @@ const PendingPackList = () => {
               toast.error(
                 "error, no se puedo actualizar el empaquetado, intenta de nuevo"
               );
-            });
+            })
+            .finally(() => setLoading(false));
         } else {
           toast("ESTA PRENDA YA HA SIDO EMPACADA! ", {
             icon: "⚠️",
@@ -214,6 +227,7 @@ const PendingPackList = () => {
         sku={itemScannedSaved.refId_item}
         SpeechTxt={speechTxt}
       />
+      <BarCodeCameraScanner isLoading={loading} onBarcodeScan={scanAndPack} />
       <div className="sticky top-16  z-20">
         <div className=" w-full bg-white border-b border-b-gray-200 p-3 flex items-center justify-between">
           <div

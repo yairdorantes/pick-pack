@@ -13,6 +13,7 @@ import { firstScan } from "../../scripts/firstScan";
 import AlertScan from "../../components/AlertScan";
 import CardLoader from "../../components/CardLoader";
 import SmallCardItem from "../../components/SmallCardItem";
+import BarCodeCameraScanner from "../../components/BarCodeCameraScanner";
 const step = 10;
 const Scanner = () => {
   const { updateItemQuantity } = useUpdateItemQuantity();
@@ -33,7 +34,8 @@ const Scanner = () => {
   const { orderId } = useParams();
   const [itemSelected, setItemSelected] = useState({});
 
-  const { itemsList, setItemsList, codeScanned } = useStore();
+  const { itemsList, setItemsList, codeScanned, setBarcodeScanner } =
+    useStore();
 
   const { getProducts, loading } = useGetItems();
   const handleCode = async () => {
@@ -61,6 +63,7 @@ const Scanner = () => {
               };
               setItemsList(updatedOrders);
             }
+            setBarcodeScanner(false);
             setProductScanned(item);
             // const speechTxt =
             //   item.remaining_item - 1 === 0
@@ -138,6 +141,7 @@ const Scanner = () => {
         sku={productScanned.refId_item}
         SpeechTxt={txtSpeech}
       />
+      <BarCodeCameraScanner onBarcodeScan={handleCode} isLoading={savingItem} />
 
       <div className="sticky top-16 z-20">
         <div className="w-full z-20 border-2 border-opacity-100 rounded-md bg-white  border-gray-200 p-3 flex items-center justify-between">

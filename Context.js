@@ -74,6 +74,8 @@ const useStore = create((set) => {
     },
     fulFillmentUsers: [],
     setFulFillmentUsers: (users) => set({ fulFillmentUsers: users }),
+    barcodeScanner: false,
+    setBarcodeScanner: (value) => set({ barcodeScanner: value }),
   };
 });
 

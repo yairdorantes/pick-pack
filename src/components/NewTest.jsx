@@ -1,6 +1,10 @@
 import toast from "react-hot-toast";
-import Notifications from "./Notifications";
+// import Notifications from "./Notifications";
+import Html5QrcodePlugin from "../views/QR/Html5QrcodeScannerPlugin";
+import { useState } from "react";
+import BarCodeCameraScanner from "./BarCodeCameraScanner";
 const NewTest = () => {
+  const [res, setRes] = useState("res");
   const getToast = () => {
     toast("Prenda ya alistada  o no ", {
       icon: "⚠️",
@@ -17,12 +21,17 @@ const NewTest = () => {
       // },
     });
   };
+  const foo = (result) => {
+    toast.success(result);
+  };
   return (
     <div>
       {/* <Notifications></Notifications> */}
       <button onClick={getToast} className="btn">
         toast
       </button>
+      {/* {res} */}
+      <BarCodeCameraScanner onBarcodeScan={(result) => foo(result)} />
     </div>
   );
 };

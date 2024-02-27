@@ -66,11 +66,11 @@ const HomeContainer = () => {
       <div className="p-3  select-none">
         <div
           // onClick={() => setOpenOrders(1)}
-          className="w-full rounded-sm transition-all relative hover:scale-95  bg-gray-100 shadow-lg"
+          className="w-full rounded-sm transition-all relative hover:scale-95  bg-gray-100"
         >
           <div
             onClick={goPicking}
-            className="flex cursor-pointer  items-center gap-2 p-4 rounded-lg border-2"
+            className="flex cursor-pointer  items-center gap-2 p-4 rounded-lg border-2 border-blue-100"
           >
             <div className="text-xl">
               {" "}
@@ -108,7 +108,7 @@ const HomeContainer = () => {
 
       <div
         onClick={goQRScanner}
-        className="bg-gray-100 shadow-lg  flex w-[95%] mx-auto justify-between p-4 border-2 rounded-lg"
+        className="bg-gray-100   flex w-[95%] mx-auto justify-between p-4 border-2 border-blue-100 rounded-lg"
       >
         <div className="">Escanea tu orden</div>
         <div>
@@ -175,7 +175,7 @@ const HomeContainer = () => {
       <div className="px-2 flex gap-2 ">
         <div
           onClick={goPacking}
-          className="p-3 border-2 rounded-lg flex gap-2 items-center w-1/2"
+          className="p-3 border-2 border-blue-300 rounded-lg flex gap-2 items-center w-1/2"
         >
           <div>
             <svg
@@ -214,7 +214,7 @@ const HomeContainer = () => {
         </div>{" "}
         <div
           onClick={gohistory}
-          className="p-3 border-2 rounded-lg cursor-pointer flex gap-2 items-center w-1/2"
+          className="p-3 border-2 border-blue-300 rounded-lg cursor-pointer flex gap-2 items-center w-1/2"
         >
           <div>
             <svg
