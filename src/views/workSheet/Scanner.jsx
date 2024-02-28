@@ -102,6 +102,7 @@ const Scanner = () => {
             // },
           });
         }
+        setCodeScanned("");
       }
     } else {
       toast("ESTA PRENDA NO ESTÁ EN LA ORDEN! ", {
@@ -118,6 +119,7 @@ const Scanner = () => {
         //   secondary: "#FFFAEE",
         // },
       });
+      setCodeScanned("");
     }
   };
 
