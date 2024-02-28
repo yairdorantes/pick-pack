@@ -163,6 +163,7 @@ const PendingPackList = () => {
             //   secondary: "#FFFAEE",
             // },
           });
+          setCodeScanned("");
         }
       }
     } else {
@@ -180,6 +181,7 @@ const PendingPackList = () => {
         //   secondary: "#FFFAEE",
         // },
       });
+      setCodeScanned("");
     }
   }
   const remainingToPack = useMemo(() => {
