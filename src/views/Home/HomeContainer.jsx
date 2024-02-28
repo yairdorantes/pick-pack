@@ -13,6 +13,7 @@ import { data } from "autoprefixer";
 const HomeContainer = () => {
   const [resumeData, setresumeData] = useState({});
   const { user } = useStore();
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const goPicking = () => {
@@ -46,6 +47,7 @@ const HomeContainer = () => {
   };
 
   useEffect(() => {
+    setLoading(true);
     axios
       .get(`${api}/pick-pack/resume/${user.id}`)
       .then((res) => {
@@ -57,13 +59,14 @@ const HomeContainer = () => {
         // toast.error("Ocurrio un error al intentar recuperar la información", {
         //   position: "bottom-center",
         // });
-      });
+      })
+      .finally(() => setLoading(false));
   }, []);
 
   return (
     <NavBar>
       <div className="px-3 mt-3 font-semibold ">{user.username}</div>
-      <div className="p-3  select-none">
+      <div className="p-3 select-none">
         <div
           // onClick={() => setOpenOrders(1)}
           className="w-full rounded-sm transition-all relative hover:scale-95  bg-gray-100"
@@ -88,7 +91,13 @@ const HomeContainer = () => {
               </svg>
             </div>
             <div className="">
-              <div className="font-semibold"> {resumeData.pickingCurrent}</div>
+              <div className="font-semibold">
+                {!loading ? (
+                  resumeData.pickingCurrent
+                ) : (
+                  <span className="loading loading-ring loading-md"></span>
+                )}
+              </div>
               <div className="text-sm">Ordenes Pendientes</div>
             </div>
           </div>
@@ -105,7 +114,6 @@ const HomeContainer = () => {
           </div>
         </div>
       </div>
-
       <div
         onClick={goQRScanner}
         className="bg-gray-100   flex w-[95%] mx-auto justify-between p-4 border-2 border-blue-100 rounded-lg"
@@ -140,7 +148,11 @@ const HomeContainer = () => {
       <div className="flex gap-2 mb-2 p-3">
         <div className="border-2 w-1/2 p-2 rounded-lg">
           <strong className="flex items-center gap-1">
-            {resumeData.handledOrders}
+            {!loading ? (
+              resumeData.handledOrders
+            ) : (
+              <span className="loading loading-ring loading-md"></span>
+            )}
             <svg
               fill="currentColor"
               viewBox="0 0 16 16"
@@ -155,7 +167,11 @@ const HomeContainer = () => {
         </div>{" "}
         <div className="border-2 w-1/2 p-2 rounded-lg">
           <strong className="flex gap-1 items-center">
-            {resumeData.garments}
+            {!loading ? (
+              resumeData.garments
+            ) : (
+              <span className="loading loading-ring loading-md"></span>
+            )}
             <svg
               viewBox="0 0 512 512"
               className="text-blue-700 h-6"
@@ -194,7 +210,14 @@ const HomeContainer = () => {
             </svg>
           </div>
           <div>
-            <div>{resumeData.packingCurrent}</div>
+            <div>
+              {" "}
+              {!loading ? (
+                resumeData.packingCurrent
+              ) : (
+                <span className="loading loading-ring loading-md"></span>
+              )}
+            </div>
             <div>Para Empacar</div>
           </div>
           <div>

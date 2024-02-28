@@ -2,13 +2,25 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { create } from "zustand";
 import { api } from "./api";
+import { io } from "socket.io-client";
+import toast from "react-hot-toast";
 
 const useStore = create((set) => {
+  // const socketConn = io.connect("http://192.168.56.1:4000");
   let token = localStorage.getItem("authTokenFulfilment");
   if (token) {
     const data = jwtDecode(token);
     token = data.userData;
   } else token = null;
+
+  // socketConn.on("connect", () => {
+  //   console.log("Connected to server");
+  //   socketConn.emit("initial_data", token.id);
+  // });
+  // socketConn.on("receive_message", (data) => {
+  //   console.log(data);
+  //   toast.success(data.message);
+  // });
   return {
     codeScanned: "",
     setCodeScanned: (code) => set({ codeScanned: code }),
@@ -76,6 +88,8 @@ const useStore = create((set) => {
     setFulFillmentUsers: (users) => set({ fulFillmentUsers: users }),
     barcodeScanner: false,
     setBarcodeScanner: (value) => set({ barcodeScanner: value }),
+    socket: socketConn || undefined,
+    setSocket: (value) => set({ socket: value }),
   };
 });
 

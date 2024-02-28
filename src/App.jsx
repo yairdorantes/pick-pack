@@ -1,5 +1,6 @@
 import { Toaster } from "react-hot-toast";
 import Router from "../routes/Router";
+import WebSocket from "./components/WebSocket";
 
 function App() {
   return (
@@ -7,6 +8,8 @@ function App() {
       <div className="">
         <Router />
         <Toaster />
+        {/* <WebSocket></WebSocket> */}
+        {/* <WebSocket /> */}
       </div>
     </>
   );
