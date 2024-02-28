@@ -21,6 +21,7 @@ const useStore = create((set) => {
   //   console.log(data);
   //   toast.success(data.message);
   // });
+  const socketConn = "";
   return {
     codeScanned: "",
     setCodeScanned: (code) => set({ codeScanned: code }),
