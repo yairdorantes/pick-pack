@@ -130,6 +130,7 @@ const Scanner = () => {
 
   useEffect(() => {
     getProducts(orderId);
+    setCodeScanned("");
   }, []);
 
   useEffect(() => {
@@ -137,6 +138,7 @@ const Scanner = () => {
       handleCode();
     }
     console.log(codeScanned);
+    console.log("hereeee scanner got uuu");
   }, [codeScanned]);
 
   const filterList = useMemo(() => {

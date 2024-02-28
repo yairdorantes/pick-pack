@@ -194,7 +194,9 @@ const PendingPackList = () => {
   useEffect(() => {
     getProducts(orderId);
     setPackList([]);
+    setCodeScanned("");
   }, []);
+
   const filterList = useMemo(() => {
     const cleanedItems = itemsList.filter(
       (item) => item.packed_item !== item.quantity_item
