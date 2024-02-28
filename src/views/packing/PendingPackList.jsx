@@ -31,6 +31,7 @@ const PendingPackList = () => {
     user,
     codeScanned,
     setBarcodeScanner,
+    setCodeScanned,
   } = useStore();
   // const [filteredItems, setFilteredItems] = useState([]);
   const [sendingInfo, setLoading] = useState(false);
@@ -143,7 +144,10 @@ const PendingPackList = () => {
                 "error, no se puedo actualizar el empaquetado, intenta de nuevo"
               );
             })
-            .finally(() => setLoading(false));
+            .finally(() => {
+              setCodeScanned("");
+              setLoading(false);
+            });
         } else {
           toast("ESTA PRENDA YA HA SIDO EMPACADA! ", {
             icon: "⚠️",

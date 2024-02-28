@@ -41,7 +41,9 @@ const PendingPicking = () => {
         console.log(err);
         toast.error("Error");
       })
-      .finally(() => setLoading(false));
+      .finally(() => {
+        setLoading(false);
+      });
     // setTimeout(() => {
     // }, 1000);
     //! this is for test
@@ -100,6 +102,7 @@ const PendingPicking = () => {
 
         <div className="w-4 h-4 rounded-full bg-blue-600"></div>
       </h1> */}
+
       <form className=" mx-auto m-4 px-4">
         <label
           htmlFor="default-search"

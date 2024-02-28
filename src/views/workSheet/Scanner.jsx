@@ -34,11 +34,17 @@ const Scanner = () => {
   const { orderId } = useParams();
   const [itemSelected, setItemSelected] = useState({});
 
-  const { itemsList, setItemsList, codeScanned, setBarcodeScanner } =
-    useStore();
+  const {
+    itemsList,
+    setItemsList,
+    codeScanned,
+    setCodeScanned,
+    setBarcodeScanner,
+  } = useStore();
 
   const { getProducts, loading } = useGetItems();
   const handleCode = async () => {
+    console.log("function scan called!!!***");
     const orderIndex = itemsList.findIndex(
       (order) => order.ean_item === codeScanned
     );
@@ -67,6 +73,7 @@ const Scanner = () => {
             }
             setBarcodeScanner(false);
             setProductScanned(item);
+
             // const speechTxt =
             //   item.remaining_item - 1 === 0
             //     ? `Felicidades Has terminado  ${item.refId_item}`
@@ -77,6 +84,7 @@ const Scanner = () => {
             toast.error("Intenta de nuevo");
           } finally {
             setSavingItem(false);
+            setCodeScanned("");
           }
         } else {
           toast("PRENDA YA ALISTADA ", {
