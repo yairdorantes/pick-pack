@@ -67,7 +67,7 @@ const NavBar = ({ children }) => {
             onClick={goHome}
             className="btn btn-ghost text-sm capitalize sm:text-lg"
           >
-            Eurocotton Fulfillment
+            Eurocotton Fulfillment.
           </a>
         </div>
 
