@@ -4,8 +4,10 @@ import Html5QrcodePlugin from "../views/QR/Html5QrcodeScannerPlugin";
 import { useState } from "react";
 import BarCodeCameraScanner from "./BarCodeCameraScanner";
 import WebSocket from "./WebSocket";
+import useStore from "../../Context";
 const NewTest = () => {
   const [res, setRes] = useState("res");
+  const { socket } = useStore();
   const getToast = () => {
     toast.custom(
       (t) => (
@@ -70,6 +72,7 @@ const NewTest = () => {
       <button onClick={getToast} className="btn">
         toast
       </button>
+      <button onClick={() => console.log(socket.connected)}>sockete</button>
       {/* {res} */}
       {/* <BarCodeCameraScanner onBarcodeScan={(result) => foo(result)} /> */}
       {/* <WebSocket /> */}

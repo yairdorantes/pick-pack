@@ -1,27 +1,32 @@
 import { jwtDecode } from "jwt-decode";
 import { create } from "zustand";
-import { api } from "./api";
+import { api, serverURL } from "./api";
 import { io } from "socket.io-client";
 import toast from "react-hot-toast";
 import { NotifToast } from "./src/scripts/NotificationToast";
 import axios from "axios";
 
 const useStore = create((set) => {
-  const socketConn = io.connect("https://localhost:443");
+  let socketConn;
   let token = localStorage.getItem("authTokenFulfilment");
   if (token) {
     const data = jwtDecode(token);
     token = data.userData;
   } else token = null;
-
-  socketConn.on("connect", () => {
-    console.log("Connected to server");
-    socketConn.emit("initial_data", token.id);
-  });
-  socketConn.on("receive_message", (data) => {
-    console.log(data);
-    NotifToast(data);
-  });
+  if (token) {
+    setTimeout(() => {
+      socketConn = io.connect(serverURL);
+      set({ socket: socketConn });
+      socketConn.on("connect", () => {
+        console.log("Connected to server");
+        socketConn.emit("initial_data", token.id);
+      });
+      socketConn.on("receive_message", (data) => {
+        console.log(data);
+        NotifToast(data);
+      });
+    }, 2000);
+  }
   return {
     codeScanned: "",
     setCodeScanned: (code) => set({ codeScanned: code }),
@@ -89,7 +94,7 @@ const useStore = create((set) => {
     setFulFillmentUsers: (users) => set({ fulFillmentUsers: users }),
     barcodeScanner: false,
     setBarcodeScanner: (value) => set({ barcodeScanner: value }),
-    socket: socketConn || undefined,
+    socket: socketConn || null,
     setSocket: (value) => set({ socket: value }),
     newNotifications: false,
     setNewNotifications: (value) => set({ newNotifications: value }),

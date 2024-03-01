@@ -18,20 +18,21 @@ const SendNotification = ({ opening, changeState }) => {
   const [content, setContent] = useState("");
   function sendChanges() {
     // setLoading(true);
-    console.log(list);
-    console.log(content);
-    const wasSent = socket.emit("send_notification", {
-      users: list,
-      message: content,
-      sender_id: user.id,
-    });
-    console.log(wasSent);
-    if (wasSent) {
+    // console.log(list);
+    // console.log(content);
+    try {
+      socket.emit("send_notification", {
+        users: list,
+        message: content,
+        sender_id: user.id,
+      });
+
       changeState(false);
       toast.success("Notificacion enviada con Éxito");
       setContent("");
       setList([]);
-    } else {
+    } catch (error) {
+      console.log(error);
       toast.error("Error, Algo salio mal :(");
     }
   }
