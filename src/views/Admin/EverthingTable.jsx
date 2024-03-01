@@ -7,12 +7,14 @@ import toast from "react-hot-toast";
 import SearchInput from "../../components/SearchInput";
 import AddUser from "./AddUser";
 import ModalChatAdmin from "./ModalChatAdmin";
+import SendNotification from "../Notifications/SendNotification";
 const EverthingTable = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [rowSelected, setRowSelected] = useState({});
   const [loadingOrders, setLoadingOrders] = useState([]);
   const { fulFillmentUsers, setFulFillmentUsers } = useStore();
+  const [modalNotification, setModalNotification] = useState(false);
   const [orders, setOrders] = useState([]);
   const [filteredResults, setFilteredResults] = useState([]);
   function handleSelection(row) {
@@ -78,11 +80,29 @@ const EverthingTable = () => {
   return (
     <div className="">
       <AddUser />
+      <SendNotification
+        opening={modalNotification}
+        changeState={setModalNotification}
+      />
       <div className="sticky top-20  bg-white z-20">
         <SearchInput
           onHandleQuery={filterOrderId}
           placeHolderValue="Busca una orden"
         />
+      </div>
+      <div
+        onClick={() => setModalNotification(true)}
+        className="euro-btn flex items-center gap-2 w-fit ml-3 mb-4"
+      >
+        <svg
+          className="w-5 h-5"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="currentColor"
+          viewBox="0 0 14 20"
+        >
+          <path d="M12.133 10.632v-1.8A5.406 5.406 0 0 0 7.979 3.57.946.946 0 0 0 8 3.464V1.1a1 1 0 0 0-2 0v2.364a.946.946 0 0 0 .021.106 5.406 5.406 0 0 0-4.154 5.262v1.8C1.867 13.018 0 13.614 0 14.807 0 15.4 0 16 .538 16h12.924C14 16 14 15.4 14 14.807c0-1.193-1.867-1.789-1.867-4.175ZM3.823 17a3.453 3.453 0 0 0 6.354 0H3.823Z" />
+        </svg>
       </div>
 
       <div className="overflow-x-auto w-screen">

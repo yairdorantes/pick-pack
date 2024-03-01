@@ -1,5 +1,5 @@
 import { Sling as Hamburger } from "hamburger-react";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { flushSync } from "react-dom";
 import { useNavigate, useParams } from "react-router-dom";
 import MainIcon from "../assets/ReactIcons/MainIcon";
@@ -50,6 +50,7 @@ const NavBar = ({ children }) => {
     }
     document.startViewTransition(() => navigate("/"));
   }, [navigate]);
+
   return (
     <div className="flex flex-col h-screen ">
       {/* NavBar */}
@@ -72,9 +73,8 @@ const NavBar = ({ children }) => {
           </a>
         </div>
 
-        <a href="/notifications">
+        <div onClick={handleLink} href="/notifications">
           <button
-            onClick={handleLink}
             id="dropdownNotificationButton"
             data-dropdown-toggle="dropdownNotification"
             className="relative inline-flex items-center text-sm font-medium text-center text-gray-500 hover:text-gray-900 focus:outline-none"
@@ -91,7 +91,7 @@ const NavBar = ({ children }) => {
             </svg>
             <div className="absolute block w-3 h-3 bg-red-500 border-2 border-white rounded-full -top-0.5 start-2.5"></div>
           </button>
-        </a>
+        </div>
         {/* <div
           onClick={goHome}
           className="font-semibold  capitalize cursor-pointer text-sm w-16 ml-3 text-center"

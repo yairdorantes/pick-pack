@@ -58,7 +58,7 @@ const NewTest = () => {
           </div>
         </div>
       ),
-      { duration: 2500 }
+      { duration: Infinity }
     );
   };
   const foo = (result) => {
@@ -72,7 +72,7 @@ const NewTest = () => {
       </button>
       {/* {res} */}
       {/* <BarCodeCameraScanner onBarcodeScan={(result) => foo(result)} /> */}
-      <WebSocket />
+      {/* <WebSocket /> */}
     </div>
   );
 };

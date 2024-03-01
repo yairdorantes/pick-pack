@@ -1,8 +1,12 @@
 import { Toaster } from "react-hot-toast";
 import Router from "../routes/Router";
-import WebSocket from "./components/WebSocket";
+import { useEffect } from "react";
 
 function App() {
+  useEffect(() => {
+    console.log("APP RENDERED");
+  }, []);
+
   return (
     <>
       <div className="">

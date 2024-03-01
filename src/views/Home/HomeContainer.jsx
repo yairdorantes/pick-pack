@@ -1,18 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import NavBar from "../../components/NavBar";
 import Chart from "./Chart";
-import Stats from "./Stats";
 import { flushSync } from "react-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { api } from "../../../api";
-import toast from "react-hot-toast";
 import useStore from "../../../Context";
-import { data } from "autoprefixer";
 
 const HomeContainer = () => {
   const [resumeData, setresumeData] = useState({});
-  const { user } = useStore();
+  const { user, socket } = useStore();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -67,6 +64,13 @@ const HomeContainer = () => {
     <NavBar>
       <div className="px-3 mt-3 font-semibold ">{user.username}</div>
       <div className="p-3 select-none">
+        {/* <button
+          onClick={() => {
+            socket.emit("send_notification", [23, 27]);
+          }}
+        >
+          ajaja
+        </button> */}
         <div
           // onClick={() => setOpenOrders(1)}
           className="w-full rounded-sm transition-all relative hover:scale-95  bg-gray-100"
