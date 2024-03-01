@@ -18,7 +18,7 @@ const BarCodeCameraScanner = ({ onBarcodeScan, isLoading }) => {
             console.log(result);
             setCodeScanned(result);
             setCodeDetected(result);
-            !isLoading && onBarcodeScan();
+            !isLoading && codeScanned.length === 13 && onBarcodeScan();
           }}
         />
         <div className="max-w-full ml-2 truncate">

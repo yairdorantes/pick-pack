@@ -45,6 +45,8 @@ const Scanner = () => {
   const { getProducts, loading } = useGetItems();
   const handleCode = async () => {
     console.log("function scan called!!!***");
+    // console.log(codeScanned == itemsList[0].ean_item);
+
     const orderIndex = itemsList.findIndex(
       (order) => order.ean_item === codeScanned
     );
@@ -137,10 +139,11 @@ const Scanner = () => {
 
   useEffect(() => {
     if (codeScanned.length === 13) {
+      console.log("CODE SCANNED:", codeScanned);
       handleCode();
     }
-    console.log(codeScanned);
-    console.log("hereeee scanner got uuu");
+    // console.log(codeScanned);
+    // console.log("hereeee scanner got uuu");
   }, [codeScanned]);
 
   const filterList = useMemo(() => {
