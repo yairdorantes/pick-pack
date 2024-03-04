@@ -5,6 +5,7 @@ import FacialRec from "../src/components/FacialRec";
 import InventoryContainer from "../src/views/Inventory/InventoryContainer";
 import NotifContainer from "../src/views/Notifications/NotifContainer";
 import HistoryContainer from "../src/views/History/HistoryContainer";
+import PickUpcontainer from "../src/views/Pickup/PickUpcontainer";
 
 const Picking = lazy(() => import("../src/views/workSheet/Picking"));
 const LoginForm = lazy(() => import("../src/views/login/LoginForm"));
@@ -29,6 +30,7 @@ const Router = () => {
     <Routes>
       <Route path="/login" element={<LoginForm />} />
       <Route path="/test" element={<Test />} />
+      <Route path="/pickup" element={<PickUpcontainer />} />
       <Route element={<AuthRoutes />}>
         {/* <Suspense fallback={<div>Loading...</div>}> */}
         {/* <Route path="/pickup" element={<CameraPhoto />} /> */}
@@ -49,6 +51,7 @@ const Router = () => {
         <Route path="/inventory" element={<InventoryContainer />} />
         <Route path="/notifications" element={<NotifContainer />} />
         <Route path="/history" element={<HistoryContainer />} />
+
         {/* </Suspense> */}
       </Route>
       <Route path="/*" element={<Page404 />} />

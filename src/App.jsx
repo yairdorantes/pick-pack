@@ -12,8 +12,6 @@ function App() {
       <div className="">
         <Router />
         <Toaster />
-        {/* <WebSocket></WebSocket> */}
-        {/* <WebSocket /> */}
       </div>
     </>
   );

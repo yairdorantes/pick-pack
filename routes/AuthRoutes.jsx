@@ -4,7 +4,15 @@ import useStore from "../Context";
 const AuthRoutes = () => {
   const { user } = useStore();
 
+  if (user) {
+    if (user.id == "kk") {
+      return <Navigate to="/pickup" />;
+    } else {
+      return <Outlet />;
+    }
+  } else {
+    return <Navigate to="/login" />;
+  }
   // Suspense fallback for lazy loading
-  return user ? <Outlet /> : <Navigate to="/login" />;
 };
 export default AuthRoutes;

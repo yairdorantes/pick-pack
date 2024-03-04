@@ -6,6 +6,7 @@ import { flushSync } from "react-dom";
 import toast from "react-hot-toast";
 import { useGetItems } from "../../scripts/getProducts";
 import useStore from "../../../Context";
+import Filters from "./Filters";
 
 const PackingTable = () => {
   const navigate = useNavigate();
@@ -55,8 +56,47 @@ const PackingTable = () => {
     //! this is for test
     // setFilteredData(dataExample);
   }, []);
+  const getStatusString = (statusNumber) => {
+    switch (statusNumber) {
+      case 1:
+        return "Pendiente de pago";
+      case 2:
+        return "Ventana de cancelación";
+      case 3:
+        return "Listo para manejo ";
+      case 4:
+        return "Surtiendo ";
+      case 5:
+        return "Surtido ";
+      case 6:
+        return "Empacando ";
+      case 7:
+        return "Empacado ";
+      case 8:
+        return "Embarcado ";
+      case 9:
+        return "Entregado ";
+      case 10:
+        return "Ticket generado ";
+      case 11:
+        return "Facturado ";
+      case 12:
+        return "Solicitud de cancelación";
+      case 13:
+        return "Cancelado ";
+      case 14:
+        return "Reemplazado ";
+      case 15:
+        return "Incompleto ";
+      default:
+        return "";
+    }
+  };
   const handleOrderClick = (data) => {
-    if (data.packing_assigment && data.packing_assigment.includes(user.id)) {
+    if (
+      (data.packing_assigment && data.packing_assigment.includes(user.id)) ||
+      user.rol <= 3
+    ) {
       localStorage.setItem("ws-packing", data.idVtex_order);
       getProducts(data.idVtex_order);
       if (!document.startViewTransition) {
@@ -101,50 +141,12 @@ const PackingTable = () => {
 
         <div className="w-4 h-4 rounded-full bg-yellow-400"></div>
       </h1> */}
-      <form className=" mx-auto m-4 px-4">
-        <label
-          htmlFor="default-search"
-          className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
-        >
-          Search
-        </label>
-        <div className="relative">
-          <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-            <svg
-              className="w-4 h-4 text-gray-500 dark:text-gray-400"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 20 20"
-            >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-              />
-            </svg>
-          </div>
-          <input
-            type="search"
-            id="default-search"
-            className="block w-full transition-all duration-500 p-2 ps-10  text-gray-900 border border-gray-300 rounded-full bg-gray-50 focus:ring-blue-500 focus:border-blue-500  dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Busca una orden"
-            required
-            onChange={(e) => {
-              // setQuery(e.target.value);
-              filterTable(e.target.value);
-            }}
-          />
-          {/* <button
-              type="submit"
-              className="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >
-              Search
-            </button> */}
-        </div>
-      </form>
+
+      <Filters
+        changeFilteredData={setFilteredData}
+        originalData={pickingOrders}
+      />
+
       <div
         id="filterMyOrders"
         className="form-control mb-3 inline-block ml-4 border-2 rounded-lg shadow-sm "
@@ -185,8 +187,10 @@ const PackingTable = () => {
         >
           <thead>
             <tr className="text-black">
-              <th>Orden ID</th>
-              {/* <th>Picker</th> */}
+              <th className="">Orden ID</th>
+              <th className="">Sequence</th>
+              <th className="">Estatus</th>
+              <th className="">Paqueteria</th>
               <th>Colaboradores Asignados</th>
             </tr>
           </thead>
@@ -203,6 +207,10 @@ const PackingTable = () => {
                   //   } cursor-pointer hover `}
                 >
                   <td className="">{order.idVtex_order}</td>
+                  <td className="">{order.sequence_order}</td>
+                  <th className="">{getStatusString(order.status2_order)}</th>
+                  <td className="whitespace-nowrap">{order.courier_order}</td>
+
                   {/* <td className="">Tú</td> */}
                   <td>
                     {order.packing_assigment === null ||
