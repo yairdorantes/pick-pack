@@ -33,6 +33,7 @@ const Included = () => {
       ],
       image: pe,
     },
+
     {
       id: 3,
       name: "estafeta",
@@ -45,18 +46,31 @@ const Included = () => {
       ],
       image: estafeta,
     },
-    // {
-    //   id: 4,
-    //   name: "dhl",
-    //   options: [
-    //     { id: 4, name: "Estafeta Estandar Domicilio" },
-    //     { id: 5, name: "Estafeta Express" },
-    //     { id: 6, name: "Estafeta Estandar Ocurre" },
-    //     { id: 7, name: "Estafeta Zona Extendida" },
-    //     { id: 18, name: "Estafeta" },
-    //   ],
-    //   image: estafeta,
-    // },
+    {
+      id: 4,
+      name: "DHL",
+      options: [
+        { id: 4, name: "Estafeta Estandar Domicilio" },
+        { id: 5, name: "Estafeta Express" },
+        { id: 6, name: "Estafeta Estandar Ocurre" },
+        { id: 7, name: "Estafeta Zona Extendida" },
+        { id: 18, name: "Estafeta" },
+      ],
+      image:
+        "https://www.dhl.com/content/dam/dhl/global/core/images/teaser-image-main/dhl-logo.jpg",
+    },
+    {
+      id: 4,
+      name: "UPS",
+      options: [
+        { id: 4, name: "Estafeta Estandar Domicilio" },
+        { id: 5, name: "Estafeta Express" },
+        { id: 6, name: "Estafeta Estandar Ocurre" },
+        { id: 7, name: "Estafeta Zona Extendida" },
+        { id: 18, name: "Estafeta" },
+      ],
+      image: "https://thumbs.dreamstime.com/b/sube-insignia-93709604.jpg",
+    },
   ]);
   const navigate = useNavigate();
 

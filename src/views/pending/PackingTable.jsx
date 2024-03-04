@@ -180,7 +180,7 @@ const PackingTable = () => {
           </div>
         </div>
       )}
-      <div className="overflow-x-auto w-full  mx-auto">
+      <div className="overflow-x-auto w-screen  mx-auto">
         <table
           className="table text-center table-zebra  border-2 "
           data-theme=""
@@ -215,7 +215,7 @@ const PackingTable = () => {
                   <td>
                     {order.packing_assigment === null ||
                     order.packing_assigment.length === 0
-                      ? "..."
+                      ? "N/A"
                       : getUserNames(order.packing_assigment)}
                   </td>
                 </tr>

@@ -203,7 +203,7 @@ const PendingPicking = () => {
                   <td className="">
                     {order.picking_assigment === null ||
                     order.picking_assigment.length === 0
-                      ? "..."
+                      ? "N/A"
                       : getUserNames(order.picking_assigment)}
                   </td>
                 </tr>
