@@ -9,8 +9,7 @@ import OutsideClickHandler from "react-outside-click-handler";
 import { useState } from "react";
 const Included = () => {
   const [courierOptions, setCourierOptions] = useState(false);
-  const [optionsData, setOptionsData] = useState([]);
-  const [courierName, setCourierName] = useState("");
+
   const [couriers] = useState([
     {
       id: 1,

@@ -16,6 +16,7 @@ const PDFManifest = () => {
   const [loadingPDF, setLoadingPDF] = useState(false);
   const [modalReceipt, setModalReceipt] = useState(false);
   const [rowSelected, setRowSelected] = useState({});
+  const [courier, setCourier] = useState("");
   const base64pdf = "";
   function getManifest() {
     axios
@@ -49,6 +50,7 @@ const PDFManifest = () => {
 
   function delOrderFromManifest() {
     console.log(rowSelected.idVtex_order);
+    setModalDelConfirmation(false);
     axios
       .put(`${api}/pick-pack/remove_order_manifest`, {
         courier: courierId,
@@ -56,7 +58,7 @@ const PDFManifest = () => {
       })
       .then((result) => {
         toast.success("Manifiesto actualizado!");
-        setModalDelConfirmation(false);
+
         console.log(result);
         const newTableData = tableData.filter(
           (order) => order.idVtex_order !== rowSelected.idVtex_order
@@ -70,11 +72,24 @@ const PDFManifest = () => {
   }
   useEffect(() => {
     getManifest();
+    if (parseInt(courierId) === 1) {
+      setCourier("FEDEX");
+    } else if (parseInt(courierId) === 2) {
+      setCourier("PAQUETEXPRESS");
+    } else if (parseInt(courierId) === 3) {
+      setCourier("ESTAFETA");
+    } else if (parseInt(courierId) === 4) {
+      setCourier("DHL");
+    } else if (parseInt(courierId) === 5) {
+      setCourier("UPS");
+    }
   }, []);
   return (
     <NavBar>
       <div className="">
-        <div className="text-center m-5 font-bold">Manifiesto</div>
+        <div className="text-center m-5 font-semibold">
+          Manifiesto {courier}
+        </div>
         <div className="overflow-x-auto w-screen mx-auto">
           <table className="table table-zebra text-center table-sm">
             <thead>
