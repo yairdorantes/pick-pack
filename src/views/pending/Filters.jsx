@@ -119,14 +119,8 @@ const Filters = ({ originalData, filteredData, changeFilteredData }) => {
     const filtered = originalData.filter(
       (order) => order.status2_order === status
     );
-    if (filtered.length > 0) {
-      changeFilteredData(filtered);
-      console.log(filtered);
-      toast.success("Filtro aplicado", { duration: 1000 });
-    } else {
-      changeFilteredData(originalData);
-      toast.error("Sin resultados", { duration: 1000 });
-    }
+
+    changeFilteredData(filtered);
   };
   const filterByShipping = (shipping) => {
     let filtered = originalData.filter(
@@ -139,13 +133,9 @@ const Filters = ({ originalData, filteredData, changeFilteredData }) => {
       filtered = originalData.filter((order) =>
         order.courier_order.toLowerCase().includes(shipping.toLowerCase())
       );
-      if (filtered.length > 0) {
-        changeFilteredData(filtered);
-        toast.success("Filtro aplicado", { duration: 1300 });
-      } else {
-        changeFilteredData(originalData);
-        // toast.error("Sin resultados", { duration: 1000 });
-      }
+
+      changeFilteredData(filtered);
+      toast.success("Filtro aplicado", { duration: 1300 });
     }
   };
 

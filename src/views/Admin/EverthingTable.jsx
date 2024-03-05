@@ -134,8 +134,8 @@ const EverthingTable = () => {
 
       <div className="overflow-x-auto w-screen">
         <table className="table text-center table-pin-rows table-sm table-zebra">
-          <thead>
-            <tr className="">
+          <thead className="">
+            <tr className="font-bold">
               <th className="">Orden ID</th>
               <th className="">Sequence</th>
               <th className="">Estatus</th>
