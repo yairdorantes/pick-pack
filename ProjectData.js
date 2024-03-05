@@ -1,5 +1,5 @@
 // const testingMode = false;
-const testingMode = true;
+const testingMode = false;
 
 const rootCodes = { TCOMADC: "te coma dece", THEADAM: "de a dam" };
 
