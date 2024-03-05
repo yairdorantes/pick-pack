@@ -25,7 +25,7 @@ const PackingTable = () => {
   const getUserNames = (usersIdAssigment) => {
     const usersNames = usersIdAssigment.map((id) => {
       const user = usersList.find((user) => user.id_user === id);
-      return user ? user.name_user : "desconocido";
+      return user ? `${user.lastname_user} ${user.name_user}` : "desconocido";
     });
     return usersNames.join(", ");
   };
@@ -44,6 +44,7 @@ const PackingTable = () => {
         setPickingOrders(res.data.ordersList);
         setFilteredData(res.data.ordersList);
         setUsersList(res.data.usersList);
+        console.log(res.data.usersList);
         console.log(res.data.ordersList);
       })
       .catch((err) => {
