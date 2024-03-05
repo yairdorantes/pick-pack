@@ -118,10 +118,17 @@ const PendingPicking = () => {
       setFilteredData(pendingOrders);
     }
   };
+  function firstWord(str) {
+    // Split the string by whitespace and get the first element
+    const words = str.trim().split(/\s+/);
+    return words[0];
+  }
   const getUserNames = (usersIdAssigment) => {
     const usersNames = usersIdAssigment.map((id) => {
       const user = usersList.find((user) => user.id_user === id);
-      return user ? user.name_user : "desconocido";
+      return user
+        ? `${firstWord(user.lastname_user)} ${firstWord(user.name_user)}`
+        : "desconocido";
     });
     return usersNames.join(", ");
   };

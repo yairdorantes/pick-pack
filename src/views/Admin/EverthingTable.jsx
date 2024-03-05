@@ -76,6 +76,11 @@ const EverthingTable = () => {
       })
       .finally(() => setLoadingOrders(false));
   }
+  function firstWord(str) {
+    // Split the string by whitespace and get the first element
+    const words = str.trim().split(/\s+/);
+    return words[0];
+  }
   function filterOrderId(query) {
     const filteredOrder = orders.find((order) => order.idVtex_order === query);
     console.log(filteredOrder);
@@ -87,7 +92,9 @@ const EverthingTable = () => {
   const getUserNames = (usersIdAssigment) => {
     const usersNames = usersIdAssigment.map((id) => {
       const user = fulFillmentUsers.find((user) => user.id_user === id);
-      return user ? user.name_user : "desconocido";
+      return user
+        ? `${firstWord(user.lastname_user)} ${firstWord(user.name_user)}`
+        : "desconocido";
     });
     return usersNames.join(", ");
   };
