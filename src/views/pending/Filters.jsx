@@ -102,13 +102,14 @@ const Filters = ({ originalData, filteredData, changeFilteredData }) => {
         item.sequence_order === parseInt(value.replace(/\s+$/, ""))
     );
 
-    if (filtered.length > 0) {
-      changeFilteredData(filtered);
-      toast.success("Filtro aplicado", { duration: 1000 });
-    } else {
-      changeFilteredData(originalData);
-      // toast.error("Sin resultados", { duration: 1000 });
-    }
+    changeFilteredData(filtered);
+    // toast.success("Filtro aplicado", { duration: 1000 });
+    // if (filtered.length > 0) {
+    // }
+    // else {
+    //   changeFilteredData(originalData);
+    //   // toast.error("Sin resultados", { duration: 1000 });
+    // }
   };
   const filterByStatus = (status) => {
     const filtered = originalData.filter(
@@ -147,7 +148,7 @@ const Filters = ({ originalData, filteredData, changeFilteredData }) => {
   return (
     <div className="flex mt-4 mb-4 px-1 items-center gap-2 justify-start flex-wrap">
       <div id="search-id-order" className="">
-        <form className="">
+        <form onSubmit={(e) => e.preventDefault()} className="">
           <label
             htmlFor="default-search"
             className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"

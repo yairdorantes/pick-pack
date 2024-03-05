@@ -8,6 +8,7 @@ import SearchInput from "../../components/SearchInput";
 import AddUser from "./AddUser";
 import ModalChatAdmin from "./ModalChatAdmin";
 import SendNotification from "../Notifications/SendNotification";
+import Filters from "../pending/Filters";
 const EverthingTable = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -22,16 +23,39 @@ const EverthingTable = () => {
     setRowSelected(row);
   }
   const getStatusString = (statusNumber) => {
-    if (statusNumber === 3) {
-      return "Listo para manejo 🚚";
-    } else if (statusNumber === 4) {
-      return "Surtiendo 🛒";
-    } else if (statusNumber === 5) {
-      return "Surtido ✅";
-    } else if (statusNumber === 6) {
-      return "Empacando 📦";
-    } else if (statusNumber === 7) {
-      return "Empacado 📦✅";
+    switch (statusNumber) {
+      case 1:
+        return "Pendiente de pago";
+      case 2:
+        return "Ventana de cancelación";
+      case 3:
+        return "Listo para manejo ";
+      case 4:
+        return "Surtiendo ";
+      case 5:
+        return "Surtido ";
+      case 6:
+        return "Empacando ";
+      case 7:
+        return "Empacado ";
+      case 8:
+        return "Embarcado ";
+      case 9:
+        return "Entregado ";
+      case 10:
+        return "Ticket generado ";
+      case 11:
+        return "Facturado ";
+      case 12:
+        return "Solicitud de cancelación";
+      case 13:
+        return "Cancelado ";
+      case 14:
+        return "Reemplazado ";
+      case 15:
+        return "Incompleto ";
+      default:
+        return "";
     }
   };
 
@@ -60,12 +84,19 @@ const EverthingTable = () => {
       ? setFilteredResults([filteredOrder])
       : setFilteredResults(orders);
   }
+  const getUserNames = (usersIdAssigment) => {
+    const usersNames = usersIdAssigment.map((id) => {
+      const user = fulFillmentUsers.find((user) => user.id_user === id);
+      return user ? user.name_user : "desconocido";
+    });
+    return usersNames.join(", ");
+  };
 
   function getFullFillmentUsers() {
     axios
       .get(`${api}/pick-pack/fulfillment/users`)
       .then((res) => {
-        // console.log(res.data);s
+        console.log(res.data);
         setFulFillmentUsers(res.data);
       })
       .catch((err) => {
@@ -80,19 +111,11 @@ const EverthingTable = () => {
   return (
     <div className="">
       <AddUser />
-      <SendNotification
-        opening={modalNotification}
-        changeState={setModalNotification}
-      />
-      <div className="sticky top-20  bg-white z-20">
-        <SearchInput
-          onHandleQuery={filterOrderId}
-          placeHolderValue="Busca una orden"
-        />
-      </div>
+      <Filters originalData={orders} changeFilteredData={setFilteredResults} />
+
       <div
         onClick={() => setModalNotification(true)}
-        className="euro-btn flex items-center gap-2 w-fit ml-3 mb-4"
+        className="fixed euro-btn flex items-center gap-2 w-fit ml-3 mb-4  top-[70px] right-2 z-50"
       >
         <svg
           className="w-5 h-5"
@@ -104,13 +127,20 @@ const EverthingTable = () => {
           <path d="M12.133 10.632v-1.8A5.406 5.406 0 0 0 7.979 3.57.946.946 0 0 0 8 3.464V1.1a1 1 0 0 0-2 0v2.364a.946.946 0 0 0 .021.106 5.406 5.406 0 0 0-4.154 5.262v1.8C1.867 13.018 0 13.614 0 14.807 0 15.4 0 16 .538 16h12.924C14 16 14 15.4 14 14.807c0-1.193-1.867-1.789-1.867-4.175ZM3.823 17a3.453 3.453 0 0 0 6.354 0H3.823Z" />
         </svg>
       </div>
+      <SendNotification
+        opening={modalNotification}
+        changeState={setModalNotification}
+      />
 
       <div className="overflow-x-auto w-screen">
         <table className="table text-center table-pin-rows table-sm table-zebra">
           <thead>
             <tr className="">
-              <th className="">Orden</th>
-              <th>Estatus</th>
+              <th className="">Orden ID</th>
+              <th className="">Sequence</th>
+              <th className="">Estatus</th>
+              <th className="">Paqueteria</th>
+              <th>Colaboradores Asignados</th>
               <th>Acciones</th>
               {/* <th>Notas</th> */}
               {/* <th>Notas</th> */}
@@ -120,11 +150,17 @@ const EverthingTable = () => {
           <tbody>
             {filteredResults.map((order, i) => (
               <tr key={i}>
-                <td className="whitespace-nowrap">{order.idVtex_order}</td>
-                <td className="whitespace-nowrap">
-                  <span className="">
-                    {getStatusString(order.status2_order)}
-                  </span>
+                <td className="">{order.idVtex_order}</td>
+                <td className="">{order.sequence_order}</td>
+                <th className="">{getStatusString(order.status2_order)}</th>
+                <td className="whitespace-nowrap">{order.courier_order}</td>
+
+                {/* <td className="">Tú</td> */}
+                <td>
+                  {order.packing_assigment === null ||
+                  order.packing_assigment.length === 0
+                    ? "N/A"
+                    : getUserNames(order.packing_assigment)}
                 </td>
                 <td>
                   <div className="dropdown dropdown-left">
