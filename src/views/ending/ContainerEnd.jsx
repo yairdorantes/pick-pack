@@ -7,18 +7,37 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { api } from "../../../api";
 import { flushSync } from "react-dom";
+import Select from "react-select";
+const options = [
+  { value: 1, label: "FedEx" },
+  { value: 2, label: "PAQUETEXPRESS" },
+  { value: 3, label: "estafeta" },
+  { value: 4, label: "DHL" },
+  { value: 5, label: "UPS" },
+];
+
+const customStyles = {
+  control: (provided, state) => ({
+    ...provided,
+    borderRadius: "100px",
+    height: "34px",
+    "min-height": "34px",
+  }),
+};
 
 const ContainerEnd = () => {
   const navigate = useNavigate();
 
+  const [courierSelected, setCourierSelected] = useState(0);
   const { orderId } = useParams();
   const [optionSelected, setOptionSelected] = useState(1);
   const [loading, setLoading] = useState(false);
   const [receivedAnswer, setReceivedAnswer] = useState(false);
   async function addToManifest() {
+    console.log(courierSelected);
     const fetchData = async () => {
       const response = await axios.post(
-        `${api}/pick-pack/add_to_manifest/${orderId}`
+        `${api}/pick-pack/add_to_manifest/${orderId}/${courierSelected}`
       );
       console.log({ response }, "here");
 
@@ -26,7 +45,6 @@ const ContainerEnd = () => {
     };
     const callFunction = fetchData();
     setLoading(true);
-
     toast
       .promise(callFunction, {
         loading: "Enviando Datos...",
@@ -89,16 +107,40 @@ const ContainerEnd = () => {
             </div>
           </label>
         </div>
+        {optionSelected === 1 && (
+          <>
+            <div className="font-semibold text-lg mt-2">
+              Selecciona una paqueteria
+            </div>
+            <div className="">
+              <Select
+                placeholder="Paqueteria"
+                options={options}
+                onChange={(option) => {
+                  console.log("status:", option);
+                  setCourierSelected(option.value);
+                }}
+                isSearchable={true}
+                isClearable={true}
+                styles={customStyles}
+                className="text-sm text-gray-500 w-full"
+              />
+            </div>
+          </>
+        )}
       </div>
-      <div className="text-center">
-        <button
-          disabled={loading || receivedAnswer}
-          onClick={send}
-          className="btn btn-success text-white w-40 mt-4"
-        >
-          Enviar
-        </button>
-      </div>
+      {(courierSelected > 0 || optionSelected === 2) && (
+        <div className="text-center">
+          <button
+            disabled={loading || receivedAnswer}
+            onClick={send}
+            className="euro-btn  text-white w-40 mt-4"
+          >
+            Enviar
+          </button>
+        </div>
+      )}
+
       {/* <ReturnSheet route={"/packing"} ws={orderId} /> */}
     </NavBar>
   );

@@ -5,13 +5,17 @@ import { useEffect, useState } from "react";
 import Modal from "../../components/Modal";
 import Receipt from "./Receipt";
 import NavBar from "../../components/NavBar";
+import toast from "react-hot-toast";
 
 const PDFManifest = () => {
   const { courierId } = useParams();
+  const [modalDelConfirmation, setModalDelConfirmation] = useState(false);
+
   const [base64PDF, setBase64PDF] = useState("");
   const [tableData, setTableData] = useState([]);
   const [loadingPDF, setLoadingPDF] = useState(false);
   const [modalReceipt, setModalReceipt] = useState(false);
+  const [rowSelected, setRowSelected] = useState({});
   const base64pdf = "";
   function getManifest() {
     axios
@@ -43,6 +47,27 @@ const PDFManifest = () => {
       });
   }
 
+  function delOrderFromManifest() {
+    console.log(rowSelected.idVtex_order);
+    axios
+      .put(`${api}/pick-pack/remove_order_manifest`, {
+        courier: courierId,
+        order: rowSelected.idVtex_order,
+      })
+      .then((result) => {
+        toast.success("Manifiesto actualizado!");
+        setModalDelConfirmation(false);
+        console.log(result);
+        const newTableData = tableData.filter(
+          (order) => order.idVtex_order !== rowSelected.idVtex_order
+        );
+        setTableData(newTableData);
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("Algo salio mal, intenta de nuevo");
+      });
+  }
   useEffect(() => {
     getManifest();
   }, []);
@@ -51,7 +76,7 @@ const PDFManifest = () => {
       <div className="">
         <div className="text-center m-5 font-bold">Manifiesto</div>
         <div className="overflow-x-auto w-screen mx-auto">
-          <table className="table   text-center table-sm">
+          <table className="table table-zebra text-center table-sm">
             <thead>
               <tr>
                 <th>orden</th>
@@ -59,16 +84,40 @@ const PDFManifest = () => {
                 <th className="">cliente</th>
                 <th>guia</th>
                 <th>paqueteria</th>
+                <th>Acciones</th>
               </tr>
             </thead>
             <tbody>
               {tableData.map((order, i) => (
-                <tr className="border-b-2" key={i}>
+                <tr
+                  onClick={() => setRowSelected(order)}
+                  className="border-b-2"
+                  key={i}
+                >
                   <td>{order.idVtex_order}</td>
                   <td>{"018190"}</td>
                   <td className="">{order.customerName_order}</td>
                   <td>{128198}</td>
                   <td>{order.courier_order}</td>
+                  <td
+                    className=""
+                    onClick={() => setModalDelConfirmation(true)}
+                  >
+                    {" "}
+                    <div
+                      // onClick={() => changeFilteredData(originalData)}
+                      className="mx-auto bg-red-500 border w-fit border-red-500 p-2 rounded-full text-white cursor-pointer hover:bg-white hover:text-red-500"
+                    >
+                      <svg
+                        fill="currentColor"
+                        viewBox="0 0 16 16"
+                        height="1em"
+                        width="1em"
+                      >
+                        <path d="M2.5 1a1 1 0 00-1 1v1a1 1 0 001 1H3v9a2 2 0 002 2h6a2 2 0 002-2V4h.5a1 1 0 001-1V2a1 1 0 00-1-1H10a1 1 0 00-1-1H7a1 1 0 00-1 1H2.5zm3 4a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7a.5.5 0 01.5-.5zM8 5a.5.5 0 01.5.5v7a.5.5 0 01-1 0v-7A.5.5 0 018 5zm3 .5v7a.5.5 0 01-1 0v-7a.5.5 0 011 0z" />
+                      </svg>
+                    </div>{" "}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -80,6 +129,7 @@ const PDFManifest = () => {
           Sin ordenes registradas...
         </div>
       )}
+
       {/* tableData.length > 0 */}
       {tableData.length > 0 && (
         <div className="text-center mt-10 space-x-2">
@@ -101,6 +151,31 @@ const PDFManifest = () => {
           )}
         </div>
       )}
+      <Modal isOpen={modalDelConfirmation} setIsOpen={setModalDelConfirmation}>
+        <div data-theme="" className="card mx-auto  w-full bg-gray-200">
+          <div className="card-body items-center text-center ">
+            <h2 className="card-title text-gray-600">
+              ¿Estás seguro de eliminar la orden {rowSelected.idVtex_order} del
+              manifiesto?
+            </h2>
+            {/* <p>¿Deseas llevar a cabo esta accion?</p> */}
+            <div className="card-actions justify-end">
+              <button
+                onClick={delOrderFromManifest}
+                className="btn btn-success text-white"
+              >
+                Aceptar
+              </button>
+              <button
+                className="btn btn-error text-white"
+                onClick={() => setModalDelConfirmation(false)}
+              >
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      </Modal>
       <Modal isOpen={modalReceipt} setIsOpen={setModalReceipt}>
         <div
           onClick={() => setModalReceipt(false)}
