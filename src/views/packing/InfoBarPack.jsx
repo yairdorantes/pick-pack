@@ -9,14 +9,14 @@ const InfoBarPack = () => {
   }
   return (
     <div className="border-t-2">
-      <div className="grid grid-cols-3  text-center  cursor-pointer">
+      <div className="grid grid-cols-3 items-center  text-center  cursor-pointer">
         <div
           className={`p-3 ${
             selection === 1 && "border-b-4  border-b-blue-600 text-blue-600"
           }  `}
           onClick={() => handleSelection(1)}
         >
-          Items pendientes
+          Prendas pendientes
         </div>
         <div
           className={`p-3 ${
@@ -32,7 +32,7 @@ const InfoBarPack = () => {
           }`}
           onClick={() => handleSelection(3)}
         >
-          Items empacados
+          Prendas empacadas
         </div>
       </div>
 

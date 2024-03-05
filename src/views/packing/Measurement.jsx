@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 
-const NewTest = () => {
+const Measurement = ({ setValues, toggleView }) => {
   const {
     register,
     handleSubmit,
@@ -8,10 +8,16 @@ const NewTest = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => console.log(data);
-
+  const onSubmit = (data) => {
+    console.log(data);
+    setValues(data);
+    toggleView(false);
+  };
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="w-full">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="fixed bottom-0 bg-white w-full pt-2 z-20"
+    >
       <div className="flex gap-2 justify-center items-center">
         <div className="w-16 ">
           <label
@@ -21,7 +27,11 @@ const NewTest = () => {
             Largo:
           </label>
           <input
-            {...register("length", { required: true })}
+            {...register("length", {
+              required: true,
+              valueAsNumber: true,
+              min: 0.01,
+            })}
             type="number"
             id="number-input"
             aria-describedby="helper-text-explanation"
@@ -39,7 +49,11 @@ const NewTest = () => {
             Ancho:
           </label>
           <input
-            {...register("width", { required: true })}
+            {...register("width", {
+              required: true,
+              valueAsNumber: true,
+              min: 0.01,
+            })}
             type="number"
             id="number-input"
             aria-describedby="helper-text-explanation"
@@ -57,7 +71,11 @@ const NewTest = () => {
             Profundidad:
           </label>
           <input
-            {...register("depth", { required: true })}
+            {...register("depth", {
+              required: true,
+              valueAsNumber: true,
+              min: 0.01,
+            })}
             type="number"
             id="number-input"
             aria-describedby="helper-text-explanation"
@@ -76,7 +94,11 @@ const NewTest = () => {
           Peso (kg):
         </label>
         <input
-          {...register("weigth", { required: true })}
+          {...register("weigth", {
+            required: true,
+            valueAsNumber: true,
+            min: 0.01,
+          })}
           type="number"
           id="number-input"
           aria-describedby="helper-text-explanation"
@@ -85,9 +107,13 @@ const NewTest = () => {
           required
         />
       </div>
-      <button type="submit">send</button>
+      <div className="text-center p-2">
+        <button type="submit" className="euro-btn">
+          Confirmar medidas de embalaje
+        </button>
+      </div>
     </form>
   );
 };
 
-export default NewTest;
+export default Measurement;

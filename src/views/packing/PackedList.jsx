@@ -9,11 +9,15 @@ import axios from "axios";
 import { api } from "../../../api";
 import { useNavigate, useParams } from "react-router-dom";
 import { flushSync } from "react-dom";
+import Measurement from "./Measurement";
+import { motion, AnimatePresence } from "framer-motion";
 
 const PackedList = () => {
   const { itemsList } = useStore();
   const [loading, setLoading] = useState(false);
   const [confirmButton, setConfirmButton] = useState(true);
+  const [measureView, setMeasureView] = useState(true);
+  const [measurementData, setMeasurementData] = useState({});
   const { orderId } = useParams();
   const navigate = useNavigate();
 
@@ -64,6 +68,9 @@ const PackedList = () => {
     });
     return countQuantity === packedQuantity;
   }
+  function isEmpty(obj) {
+    return JSON.stringify(obj) === "{}";
+  }
 
   return (
     <div>
@@ -75,13 +82,34 @@ const PackedList = () => {
             </DragReducePack>
           )
       )}
-      {packedQuantity() && (
-        <SwipeConfirm
-          onConfirm={confirmPacking}
-          loading={loading}
-          presence={confirmButton}
-        />
-      )}
+
+      <AnimatePresence>
+        {measureView && packedQuantity() && (
+          <motion.div
+            className=""
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <Measurement
+              toggleView={setMeasureView}
+              setValues={setMeasurementData}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <div className="">
+        {packedQuantity() && !measureView && (
+          <SwipeConfirm
+            onConfirm={confirmPacking}
+            loading={loading}
+            presence={confirmButton}
+          />
+        )}
+      </div>
+
       <ModalPack packing={false} />
     </div>
   );
