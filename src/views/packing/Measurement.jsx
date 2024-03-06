@@ -1,6 +1,14 @@
+import axios from "axios";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { api } from "../../../api";
+import { useParams } from "react-router-dom";
+import { useState } from "react";
 
 const Measurement = ({ setValues, toggleView }) => {
+  const { orderId } = useParams();
+  const [loading, setLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -9,9 +17,27 @@ const Measurement = ({ setValues, toggleView }) => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
     setValues(data);
-    toggleView(false);
+    const { length, width, depth, weight } = data;
+    setLoading(true);
+    axios
+      .post(`${api}/pick-pack/create_pack`, {
+        length,
+        width,
+        depth,
+        weight,
+        orderId,
+      })
+      .then((result) => {
+        console.log(result);
+        toast.success("Información enviada con éxito!");
+        toggleView(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("Ups algo salió mal, intenta de nuevo");
+      })
+      .finally(() => setLoading(false));
   };
   return (
     <form
@@ -110,7 +136,7 @@ const Measurement = ({ setValues, toggleView }) => {
           Peso (kg):
         </label>
         <input
-          {...register("weigth", {
+          {...register("weight", {
             required: true,
             valueAsNumber: true,
             min: 0.01,
@@ -125,9 +151,13 @@ const Measurement = ({ setValues, toggleView }) => {
         />
       </div>
       <div className="text-center p-2">
-        <button type="submit" className="euro-btn">
-          Confirmar medidas de embalaje
-        </button>
+        {!loading ? (
+          <button type="submit" className="euro-btn">
+            Confirmar medidas de embalaje
+          </button>
+        ) : (
+          <span className="loading loading-spinner  text-info"></span>
+        )}
       </div>
     </form>
   );
