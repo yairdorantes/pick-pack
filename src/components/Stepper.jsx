@@ -49,7 +49,7 @@ const Stepper = ({ stepGiven = 1 }) => {
 
   return (
     <div className="relative ">
-      <div className="breadcrumb flat">
+      <div className="breadcrumb text-xs flat">
         <a
           onClick={() => {
             testingMode && handleOrderClick(`/picking/${orderId}`);
@@ -68,7 +68,7 @@ const Stepper = ({ stepGiven = 1 }) => {
             step !== 2 && "!text-gray-300"
           }  select-none`}
         >
-          Empaqueado
+          Empaquetado
         </a>
         <a
           onClick={() => {
@@ -78,7 +78,7 @@ const Stepper = ({ stepGiven = 1 }) => {
             step !== 3 && "!text-gray-300"
           } select-none `}
         >
-          Finalizado
+          Finalizar
         </a>
       </div>
       <div className="w-full  border-2 border-blue-700" />

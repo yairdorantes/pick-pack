@@ -3,9 +3,9 @@ import Router from "../routes/Router";
 import { useEffect } from "react";
 
 function App() {
-  useEffect(() => {
-    console.log("APP RENDERED");
-  }, []);
+  // useEffect(() => {
+  //   console.log("APP RENDERED");
+  // }, []);
 
   return (
     <>
