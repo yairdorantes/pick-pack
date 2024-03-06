@@ -199,7 +199,8 @@ const PackingTable = () => {
               <th className="">Sequence</th>
               <th className="">Estatus</th>
               <th className="">Paqueteria</th>
-              <th>Colaboradores Asignados</th>
+              <th>Colaboradores Asignados(PICKING)</th>
+              <th>Colaboradores Asignados(PACKING)</th>
             </tr>
           </thead>
 
@@ -218,8 +219,13 @@ const PackingTable = () => {
                   <td className="">{order.sequence_order}</td>
                   <th className="">{getStatusString(order.status2_order)}</th>
                   <td className="whitespace-nowrap">{order.courier_order}</td>
-
                   {/* <td className="">Tú</td> */}
+                  <td>
+                    {order.picking_assigment === null ||
+                    order.picking_assigment.length === 0
+                      ? "N/A"
+                      : getUserNames(order.picking_assigment)}
+                  </td>
                   <td>
                     {order.packing_assigment === null ||
                     order.packing_assigment.length === 0
