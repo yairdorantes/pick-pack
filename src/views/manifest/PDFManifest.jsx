@@ -94,6 +94,7 @@ const PDFManifest = () => {
           <table className="table table-zebra text-center table-sm">
             <thead>
               <tr>
+                <th></th>
                 <th>orden</th>
                 <th>sec</th>
                 <th className="">cliente</th>
@@ -109,6 +110,7 @@ const PDFManifest = () => {
                   className="border-b-2"
                   key={i}
                 >
+                  <td>{i + 1}</td>
                   <td>{order.idVtex_order}</td>
                   <td>{"018190"}</td>
                   <td className="">{order.customerName_order}</td>
@@ -139,11 +141,15 @@ const PDFManifest = () => {
           </table>
         </div>
       </div>
+
       {tableData.length === 0 && (
         <div className="text-center  mt-20 font-bold">
           Sin ordenes registradas...
         </div>
       )}
+      <div className="m-3 font-bold">
+        Ordenes en manifiesto: {tableData.length}
+      </div>
 
       {/* tableData.length > 0 */}
       {tableData.length > 0 && (
