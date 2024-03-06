@@ -160,11 +160,13 @@ const PDFManifest = () => {
 
           {base64PDF.length > 0 && (
             <a
-              download="Manifiesto"
-              className="btn capitalize"
               href={`data:application/pdf;base64,${base64PDF}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn capitalize"
             >
-              {!loadingPDF && "Descargar PDF"}
+              {!loadingPDF && "Abrir PDF"}{" "}
+              {/* <-- Modify the text accordingly */}
               {loadingPDF && (
                 <span className="loading loading-dots loading-md" />
               )}
