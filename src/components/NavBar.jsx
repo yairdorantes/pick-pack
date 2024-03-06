@@ -12,14 +12,20 @@ import LogoutIcon from "../assets/ReactIcons/LogoutIcon";
 import oms from "/oms.png";
 import ModalChat from "./ModalChat";
 import useStore from "../../Context";
-import Notifications from "./Notifications";
-import WebSocket from "./WebSocket";
+
 const NavBar = ({ children }) => {
   // console.log("naaba");
   const navigate = useNavigate();
   const { orderId } = useParams();
   const [showSideMenu, setShowSideMenu] = useState(false);
   const { user, logout } = useStore();
+  const [internetConnection, setInternetConnection] = useState(true);
+
+  useEffect(() => {
+    navigator.onLine
+      ? setInternetConnection(true)
+      : setInternetConnection(false);
+  }, [navigator.onLine]);
 
   const handleLink = useCallback(
     (e) => {
@@ -54,6 +60,11 @@ const NavBar = ({ children }) => {
   return (
     <div className="flex flex-col h-screen ">
       {/* NavBar */}
+      {!internetConnection && (
+        <div className="fixed top-0 w-full bg-red-500 z-50 text-white p-1 text-center">
+          Sin conexion a internet
+        </div>
+      )}
 
       <div
         className="navbar select-none z-40 fixed bg-base-100 shadow-md"
