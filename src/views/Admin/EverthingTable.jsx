@@ -93,7 +93,7 @@ const EverthingTable = () => {
     const usersNames = usersIdAssigment.map((id) => {
       const user = fulFillmentUsers.find((user) => user.id_user === id);
       return user
-        ? `${firstWord(user.lastname_user)} ${firstWord(user.name_user)}`
+        ? `${firstWord(user.lastname_user)} ${user.name_user}`
         : "desconocido";
     });
     return usersNames.join(", ");

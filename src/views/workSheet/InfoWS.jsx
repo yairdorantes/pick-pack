@@ -53,6 +53,10 @@ const InfoWS = () => {
             <strong>{order.sequence_order}</strong>
           </div>
           <div className="flex py-1 justify-between border-b-2 border-dashed">
+            <div>Numero de prendas</div>
+            <strong>{order.qtyItems_order}</strong>
+          </div>
+          <div className="flex py-1 justify-between border-b-2 border-dashed">
             <div>cliente</div>
             <div>{order.receiverName_order}</div>
           </div>

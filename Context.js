@@ -15,16 +15,16 @@ const useStore = create((set) => {
   } else token = null;
   if (token) {
     setTimeout(() => {
-      socketConn = io.connect(serverURL);
-      set({ socket: socketConn });
-      socketConn.on("connect", () => {
-        console.log("Connected to server");
-        socketConn.emit("initial_data", token.id);
-      });
-      socketConn.on("receive_message", (data) => {
-        console.log(data);
-        NotifToast(data);
-      });
+      // socketConn = io.connect(serverURL);
+      // set({ socket: socketConn });
+      // socketConn.on("connect", () => {
+      //   console.log("Connected to server");
+      //   socketConn.emit("initial_data", token.id);
+      // });
+      // socketConn.on("receive_message", (data) => {
+      //   console.log(data);
+      //   NotifToast(data);
+      // });
     }, 2000);
   }
   return {
