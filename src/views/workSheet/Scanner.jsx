@@ -409,8 +409,10 @@ const Scanner = () => {
               </div>
               <div>
                 Página {limit.start / step + 1} de{" "}
-                {Math.ceil(filterList.cleanedItems.length / step)} (
-                {filterList.cleanedItems.length} ítems)
+                {Math.ceil(filterList.cleanedItems.length / step)}
+                {/* (
+                {filterList.cleanedItems.length} ítems) */}{" "}
+                ({countItemsMemoized} prendas)
               </div>
               <div
                 onClick={() =>

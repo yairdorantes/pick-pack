@@ -362,7 +362,7 @@ const PendingPackList = () => {
             <div>
               Página {limit.start / step + 1} de{" "}
               {Math.ceil(filterList.cleanedItems.length / step)} (
-              {filterList.cleanedItems.length} ítems)
+              {remainingToPack} prendas)
             </div>
             <div
               onClick={() =>

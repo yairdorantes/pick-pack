@@ -161,8 +161,9 @@ const PDFManifest = () => {
           {base64PDF.length > 0 && (
             <a
               href={`data:application/pdf;base64,${base64PDF}`}
-              target="_blank"
-              rel="noopener noreferrer"
+              // target="_blank"
+              download={"Manifiesto"}
+              // rel="noopener noreferrer"
               className="btn capitalize"
             >
               {!loadingPDF && "Abrir PDF"}{" "}
