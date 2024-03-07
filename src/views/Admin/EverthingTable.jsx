@@ -147,6 +147,7 @@ const EverthingTable = () => {
               <th className="">Sequence</th>
               <th className="">Estatus</th>
               <th className="">Paqueteria</th>
+              {/* <th>Embalaje</th> */}
               <th>Colaboradores Asignados(PICKING)</th>
               <th>Colaboradores Asignados(PACKING)</th>
               <th>Acciones</th>
@@ -162,6 +163,7 @@ const EverthingTable = () => {
                 <td className="">{order.sequence_order}</td>
                 <th className="">{getStatusString(order.status2_order)}</th>
                 <td className="whitespace-nowrap">{order.courier_order}</td>
+                {/* <th className="">10x10x10 - 10kg</th> */}
                 {/* <td className="">Tú</td> */}
                 <td>
                   {order.picking_assigment === null ||
