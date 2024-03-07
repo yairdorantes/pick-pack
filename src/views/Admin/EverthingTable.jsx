@@ -9,6 +9,7 @@ import AddUser from "./AddUser";
 import ModalChatAdmin from "./ModalChatAdmin";
 import SendNotification from "../Notifications/SendNotification";
 import Filters from "../pending/Filters";
+import ExportCSVPack from "./ExportCSVPack";
 const EverthingTable = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -138,6 +139,7 @@ const EverthingTable = () => {
         opening={modalNotification}
         changeState={setModalNotification}
       />
+      <ExportCSVPack users={fulFillmentUsers} />
 
       <div className="overflow-x-auto w-screen">
         <table className="table text-center table-pin-rows table-sm table-zebra">
@@ -147,7 +149,6 @@ const EverthingTable = () => {
               <th className="">Sequence</th>
               <th className="">Estatus</th>
               <th className="">Paqueteria</th>
-              {/* <th>Embalaje</th> */}
               <th>Colaboradores Asignados(PICKING)</th>
               <th>Colaboradores Asignados(PACKING)</th>
               <th>Acciones</th>
@@ -163,7 +164,6 @@ const EverthingTable = () => {
                 <td className="">{order.sequence_order}</td>
                 <th className="">{getStatusString(order.status2_order)}</th>
                 <td className="whitespace-nowrap">{order.courier_order}</td>
-                {/* <th className="">10x10x10 - 10kg</th> */}
                 {/* <td className="">Tú</td> */}
                 <td>
                   {order.picking_assigment === null ||

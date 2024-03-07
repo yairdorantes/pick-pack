@@ -15,6 +15,7 @@
     "dotenv": "^16.3.1",
     "echarts-for-react": "^3.0.2",
     "emoji-picker-element": "^1.21.0",
+    "export-to-csv": "^1.2.4",
     "framer-motion": "^10.16.16",
     "hamburger-react": "^2.5.0",
     "html5-qrcode": "^2.3.8",
