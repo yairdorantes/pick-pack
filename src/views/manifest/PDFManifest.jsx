@@ -84,6 +84,15 @@ const PDFManifest = () => {
       setCourier("UPS");
     }
   }, []);
+
+  const handleOpenPDF = () => {
+    let pdfWindow = window.open("");
+    pdfWindow.document.write(
+      "<iframe width='100%' height='100%' src='data:application/pdf;base64, " +
+        encodeURI(base64PDF) +
+        "'></iframe>"
+    );
+  };
   return (
     <NavBar>
       <div className="">
@@ -153,26 +162,76 @@ const PDFManifest = () => {
 
       {/* tableData.length > 0 */}
       {tableData.length > 0 && (
-        <div className="text-center mt-10 space-x-2">
-          <div className="btn capitalize" onClick={() => setModalReceipt(true)}>
-            Firmar Manifiesto
+        <div className="text-center mt-10 flex justify-center gap-4">
+          <div
+            className="btn btn-outline btn-info hover:!text-white"
+            onClick={() => setModalReceipt(true)}
+          >
+            <svg
+              viewBox="0 0 576 512"
+              fill="currentColor"
+              height="1em"
+              className="w-8 h-8"
+              width="1em"
+            >
+              <path d="M64 0C28.7 0 0 28.7 0 64v384c0 35.3 28.7 64 64 64h256c35.3 0 64-28.7 64-64v-19.3c-2.7 1.1-5.4 2-8.2 2.7l-60.1 15c-3 .7-6 1.2-9 1.4-.9.1-1.8.2-2.7.2h-64c-6.1 0-11.6-3.4-14.3-8.8l-8.8-17.7c-1.7-3.4-5.1-5.5-8.8-5.5s-7.2 2.1-8.8 5.5l-8.8 17.7c-2.9 5.9-9.2 9.4-15.7 8.8s-12.1-5.1-13.9-11.3L144 381l-9.8 32.8c-6.1 20.3-24.8 34.2-46 34.2H80c-8.8 0-16-7.2-16-16s7.2-16 16-16h8.2c7.1 0 13.3-4.6 15.3-11.4l14.9-49.5c3.4-11.3 13.8-19.1 25.6-19.1s22.2 7.8 25.6 19.1l11.6 38.6c7.4-6.2 16.8-9.7 26.8-9.7 15.9 0 30.4 9 37.5 23.2l4.4 8.8h8.9c-3.1-8.8-3.7-18.4-1.4-27.8l15-60.1c2.8-11.3 8.6-21.5 16.8-29.7l94.8-94.8V160H256c-17.7 0-32-14.3-32-32V0H64zm192 0v128h128L256 0zm293.8 139.7c-15.6-15.6-40.9-15.6-56.6 0l-29.4 29.4 71 71 29.4-29.4c15.6-15.6 15.6-40.9 0-56.6l-14.4-14.4zM311.9 321c-4.1 4.1-7 9.2-8.4 14.9l-15 60.1c-1.4 5.5.2 11.2 4.2 15.2s9.7 5.6 15.2 4.2l60.1-15c5.6-1.4 10.8-4.3 14.9-8.4l129.2-129.3-71-71L311.9 321z" />
+            </svg>
           </div>
 
-          {base64PDF.length > 0 && (
+          <div
+            onClick={handleOpenPDF}
+            className={`btn btn-outline ${
+              base64PDF.length === 0 && "btn-disabled"
+            }  btn-error hover:!text-white`}
+          >
+            {!loadingPDF && (
+              <svg
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                height="1em"
+                width="1em"
+                className="w-8 h-8"
+              >
+                <path d="M8.267 14.68c-.184 0-.308.018-.372.036v1.178c.076.018.171.023.302.023.479 0 .774-.242.774-.651 0-.366-.254-.586-.704-.586zm3.487.012c-.2 0-.33.018-.407.036v2.61c.077.018.201.018.313.018.817.006 1.349-.444 1.349-1.396.006-.83-.479-1.268-1.255-1.268z" />
+                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zM9.498 16.19c-.309.29-.765.42-1.296.42a2.23 2.23 0 01-.308-.018v1.426H7v-3.936A7.558 7.558 0 018.219 14c.557 0 .953.106 1.22.319.254.202.426.533.426.923-.001.392-.131.723-.367.948zm3.807 1.355c-.42.349-1.059.515-1.84.515-.468 0-.799-.03-1.024-.06v-3.917A7.947 7.947 0 0111.66 14c.757 0 1.249.136 1.633.426.415.308.675.799.675 1.504 0 .763-.279 1.29-.663 1.615zM17 14.77h-1.532v.911H16.9v.734h-1.432v1.604h-.906V14.03H17v.74zM14 9h-1V4l5 5h-4z" />
+              </svg>
+            )}
+            {/* <-- Modify the text accordingly */}
+            {loadingPDF && <span className="loading loading-dots loading-md" />}
+          </div>
+
+          <div
+            className={`btn btn-outline ${
+              base64PDF.length === 0 && "btn-disabled"
+            }  btn-success hover:!text-white`}
+          >
             <a
               href={`data:application/pdf;base64,${base64PDF}`}
               // target="_blank"
               download={"Manifiesto"}
-              // rel="noopener noreferrer"
-              className="btn capitalize"
+              rel="noopener noreferrer"
+              className=""
+              // onClick={handleOpenPDF}
             >
-              {!loadingPDF && "Abrir PDF"}{" "}
-              {/* <-- Modify the text accordingly */}
+              {!loadingPDF && (
+                <svg
+                  viewBox="0 0 16 16"
+                  fill="currentColor"
+                  height="1em"
+                  width="1em"
+                  className="w-8 h-8"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M9 4L7 2H0v13h16V4H9zm-1 9.5L4.5 10H7V6h2v4h2.5L8 13.5z"
+                  />
+                </svg>
+              )}
               {loadingPDF && (
                 <span className="loading loading-dots loading-md" />
               )}
             </a>
-          )}
+          </div>
         </div>
       )}
       <Modal isOpen={modalDelConfirmation} setIsOpen={setModalDelConfirmation}>
