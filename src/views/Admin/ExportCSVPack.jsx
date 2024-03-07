@@ -56,7 +56,7 @@ const ExportCSVPack = ({ users }) => {
 
   return (
     <div
-      className={`btn btn-sm ${
+      className={`btn btn-sm mb-2 ${
         isLoading && "btn-disabled"
       } btn-outline btn-success hover:!text-white`}
       onClick={handleExportCSV}

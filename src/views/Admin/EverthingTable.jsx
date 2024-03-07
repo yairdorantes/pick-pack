@@ -149,8 +149,17 @@ const EverthingTable = () => {
               <th className="">Sequence</th>
               <th className="">Estatus</th>
               <th className="">Paqueteria</th>
-              <th>Colaboradores Asignados(PICKING)</th>
-              <th>Colaboradores Asignados(PACKING)</th>
+              <th>
+                <abbr title="Colaboradores Asignados (PICKING)">
+                  Col. Asignados (PICKING)
+                </abbr>
+              </th>
+              <th>
+                <abbr title="Colaboradores Asignados (PACKING)">
+                  Col. Asignados (PACKING)
+                </abbr>
+              </th>
+
               <th>Acciones</th>
               {/* <th>Notas</th> */}
               {/* <th>Notas</th> */}
