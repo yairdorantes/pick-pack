@@ -162,9 +162,9 @@ const PDFManifest = () => {
 
       {/* tableData.length > 0 */}
       {tableData.length > 0 && (
-        <div className="text-center mt-10 flex justify-center gap-4">
+        <div className="text-center mt-10 mb-10 flex justify-center gap-4">
           <div
-            className="btn btn-outline btn-info hover:!text-white"
+            className="px-4 py-2 text-info hover:bg-info hover:text-white border-info border rounded-lg "
             onClick={() => setModalReceipt(true)}
           >
             <svg
@@ -180,8 +180,8 @@ const PDFManifest = () => {
 
           <div
             onClick={handleOpenPDF}
-            className={`btn btn-outline ${
-              base64PDF.length === 0 && "btn-disabled"
+            className={`px-4 py-2 text-error cursor-pointer hover:bg-error hover:text-white border-error border rounded-lg ${
+              base64PDF.length === 0 && "pointer-events-none"
             }  btn-error hover:!text-white`}
           >
             {!loadingPDF && (
@@ -201,13 +201,14 @@ const PDFManifest = () => {
           </div>
 
           <div
-            className={`btn btn-outline ${
-              base64PDF.length === 0 && "btn-disabled"
+            className={`px-4 py-2 cursor-pointer text-success hover:bg-success hover:text-white border-success border rounded-lg ${
+              base64PDF.length === 0 && "pointer-events-none"
             }  btn-success hover:!text-white`}
           >
             <a
               href={`data:application/pdf;base64,${base64PDF}`}
               // target="_blank"
+              onClick={() => toast.success("Generando PDF ")}
               download={"Manifiesto"}
               rel="noopener noreferrer"
               className=""
