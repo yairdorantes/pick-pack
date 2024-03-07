@@ -3,10 +3,6 @@ import { Viewer } from "@react-pdf-viewer/core";
 
 // Import styles
 
-const pdfjs = await import("pdfjs-dist/build/pdf");
-const pdfjsWorker = await import("pdfjs-dist/build/pdf.worker.entry");
-
-pdfjs.GlobalWorkerOptions.workerSrc = pdfjsWorker;
 const NewTest = () => {
   return (
     <div>
