@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Included from "./Included";
 import NoIncluded from "./NoIncluded";
 import Construction from "../../components/Construction";
+import Shipped from "./Shipped";
 
 const TopBarM = ({ view = 2 }) => {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ const TopBarM = ({ view = 2 }) => {
   };
   return (
     <div className="border-t-2 ">
-      <div className="grid grid-cols-1  text-center  cursor-pointer">
+      <div className="grid grid-cols-2  text-center  cursor-pointer">
         {/* <div
           className={`p-3 inner-shadow ${
             selection === 1 && "border-b-4  border-b-blue-600 text-blue-600"
@@ -34,20 +35,20 @@ const TopBarM = ({ view = 2 }) => {
           }`}
           onClick={() => handleSelection(2)}
         >
-          Incluidos
+          Activos
         </div>
-        {/* <div
+        <div
           className={`p-3   ${
             selection === 3 && "border-b-4 border-b-blue-600 text-blue-600"
           }`}
           onClick={() => handleSelection(3)}
         >
           Embarcado
-        </div> */}
+        </div>
       </div>
       {selection === 1 && <NoIncluded />}
       {selection === 2 && <Included />}
-      {selection === 3 && <Construction />}
+      {selection === 3 && <Shipped />}
     </div>
   );
 };

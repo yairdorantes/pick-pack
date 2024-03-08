@@ -123,7 +123,7 @@ const PDFManifest = () => {
                 <th></th>
                 <th>orden</th>
                 <th>sec</th>
-                <th className="">cliente</th>
+                {/* <th className="">cliente</th> */}
                 <th>guia</th>
                 <th>paqueteria</th>
                 <th>Acciones</th>
@@ -138,8 +138,8 @@ const PDFManifest = () => {
                 >
                   <td>{i + 1}</td>
                   <td>{order.idVtex_order}</td>
-                  <td>{"018190"}</td>
-                  <td className="">{order.customerName_order}</td>
+                  <td>{order.sequence_order}</td>
+                  {/* <td className="">{order.customerName_order}</td> */}
                   <td>{128198}</td>
                   <td>{order.courier_order}</td>
                   <td
