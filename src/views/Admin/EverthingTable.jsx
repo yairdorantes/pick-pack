@@ -4,12 +4,11 @@ import axios from "axios";
 import { api } from "../../../api";
 import useStore from "../../../Context";
 import toast from "react-hot-toast";
-import SearchInput from "../../components/SearchInput";
 import AddUser from "./AddUser";
 import ModalChatAdmin from "./ModalChatAdmin";
 import SendNotification from "../Notifications/SendNotification";
 import Filters from "../pending/Filters";
-import ExportCSVPack from "./ExportCSVPack";
+import ExtraInfoOrder from "./ExtraInfoOrder";
 const EverthingTable = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -18,6 +17,7 @@ const EverthingTable = () => {
   const { fulFillmentUsers, setFulFillmentUsers } = useStore();
   const [modalNotification, setModalNotification] = useState(false);
   const [orders, setOrders] = useState([]);
+  const [modalInfo, setModalInfo] = useState(false);
   const [filteredResults, setFilteredResults] = useState([]);
   function handleSelection(row) {
     setModalOpen(true);
@@ -120,6 +120,11 @@ const EverthingTable = () => {
     <div className="">
       <AddUser />
       <Filters originalData={orders} changeFilteredData={setFilteredResults} />
+      <ExtraInfoOrder
+        isOpen={modalInfo}
+        toggleOpen={setModalInfo}
+        rowSelected={rowSelected}
+      />
 
       {/* <div
         onClick={() => setModalNotification(true)}
@@ -145,6 +150,7 @@ const EverthingTable = () => {
         <table className="table text-center table-pin-rows table-sm table-zebra">
           <thead className="">
             <tr className="font-bold">
+              <th>Info</th>
               <th className="">Orden ID</th>
               <th className="">Sequence</th>
               <th className="">Estatus</th>
@@ -169,6 +175,25 @@ const EverthingTable = () => {
           <tbody>
             {filteredResults.map((order, i) => (
               <tr key={i}>
+                <td
+                  className="flex justify-center cursor-pointer items-center"
+                  onClick={() => {
+                    setRowSelected(order);
+                    setModalInfo(true);
+                  }}
+                >
+                  <div className="pt-1 text-blue-600 ">
+                    <svg
+                      className="w-5 h-5"
+                      fill="currentColor"
+                      viewBox="0 0 16 16"
+                      height="1em"
+                      width="1em"
+                    >
+                      <path d="M8 16A8 8 0 108 0a8 8 0 000 16zm.93-9.412l-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 110-2 1 1 0 010 2z" />
+                    </svg>
+                  </div>
+                </td>
                 <td className="">{order.idVtex_order}</td>
                 <td className="">{order.sequence_order}</td>
                 <th className="">{getStatusString(order.status2_order)}</th>

@@ -98,7 +98,7 @@ const PackingCard = ({ product, itemSelected }) => {
           </div>
         </div>
 
-        <div
+        {/* <div
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           className="absolute bottom-3 right-2 flex px-1 pt-10  items-center cursor-pointer"
@@ -142,7 +142,7 @@ const PackingCard = ({ product, itemSelected }) => {
               </svg>
             </div>
           )}
-        </div>
+        </div> */}
       </div>
     </>
   );

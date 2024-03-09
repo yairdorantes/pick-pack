@@ -501,7 +501,7 @@ const PendingPackList = () => {
           </div>
         )}
 
-        <div
+        {/* <div
           className={`flex shadow-md ${
             countSelected > 0 ? "bottom-2 " : "-bottom-16"
           } transition-all duration-150  text-black justify-between items-center bg-gray-100 fixed w-[98%] rounded-sm left-1/2 -translate-x-1/2 p-3  `}
@@ -536,7 +536,7 @@ const PendingPackList = () => {
               )}
             </button>
           </div>
-        </div>
+        </div> */}
       </div>
       <ModalPack packing={true} />
     </div>
