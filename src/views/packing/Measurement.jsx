@@ -8,7 +8,7 @@ import { useState } from "react";
 const Measurement = ({
   setValues,
   toggleView,
-  packData = { length: 0, width: 0, weight: 0, depth: 0 },
+  packData = { id_pack: 0, length: 0, width: 0, weight: 0, depth: 0 },
 }) => {
   const { orderId } = useParams();
   const [loading, setLoading] = useState(false);
@@ -38,6 +38,7 @@ const Measurement = ({
         depth,
         weight,
         orderId,
+        packId: packData.id_pack,
       })
       .then((result) => {
         console.log(result);
