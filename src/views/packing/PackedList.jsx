@@ -11,7 +11,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import { flushSync } from "react-dom";
 import Measurement from "./Measurement";
 import { motion, AnimatePresence } from "framer-motion";
-
+const variants = {
+  hidden: { opacity: 0, y: 100 },
+  visible: { opacity: 1, y: 0 },
+};
 const PackedList = () => {
   const { itemsList } = useStore();
   const [loading, setLoading] = useState(false);
@@ -93,6 +96,9 @@ const PackedList = () => {
     getPacks();
   }, []);
 
+  const addPackList = (pack) => {
+    setPacksData([...packsData, pack]);
+  };
   return (
     <div className="mb-20 pt-4">
       {!measureView && packedQuantity() && (
@@ -103,7 +109,6 @@ const PackedList = () => {
               onClick={() => {
                 setMeasureView(true);
                 setPackData(pack);
-                console.log(pack.id_pack);
               }}
               className="bg-blue-500 p-3 flex items-center gap-2 rounded-md"
             >
@@ -122,22 +127,28 @@ const PackedList = () => {
             </div>
           ))}
 
-          <div
-            onClick={() => setMeasureView(true)}
-            className="border text-blue-500 border-blue-500 p-3 hover:bg-blue-500 hover:text-white flex items-center gap-2 rounded-md"
-          >
-            <svg
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              height="1em"
-              width="1em"
-              className="w-6 h-6"
+          {!loadingPacks && (
+            <div
+              onClick={() => {
+                setMeasureView(true);
+                setPackData({});
+              }}
+              className="border text-blue-500 border-blue-500 p-3 hover:bg-blue-500 hover:text-white flex items-center gap-2 rounded-md"
             >
-              <path d="M13 19.3v-6.7l6-3.4V13c.7 0 1.4.1 2 .4V7.5c0-.4-.2-.7-.5-.9l-7.9-4.4c-.2-.1-.4-.2-.6-.2s-.4.1-.6.2L3.5 6.6c-.3.2-.5.5-.5.9v9c0 .4.2.7.5.9l7.9 4.4c.2.1.4.2.6.2s.4-.1.6-.2l.9-.5c-.3-.6-.4-1.3-.5-2M12 4.2l6 3.3-2 1.1-5.9-3.4 1.9-1m-1 15.1l-6-3.4V9.2l6 3.4v6.7m1-8.5L6 7.5l2-1.2 6 3.5-2 1m8 4.2v3h3v2h-3v3h-2v-3h-3v-2h3v-3h2z" />
-            </svg>
-          </div>
+              <svg
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                height="1em"
+                width="1em"
+                className="w-6 h-6"
+              >
+                <path d="M13 19.3v-6.7l6-3.4V13c.7 0 1.4.1 2 .4V7.5c0-.4-.2-.7-.5-.9l-7.9-4.4c-.2-.1-.4-.2-.6-.2s-.4.1-.6.2L3.5 6.6c-.3.2-.5.5-.5.9v9c0 .4.2.7.5.9l7.9 4.4c.2.1.4.2.6.2s.4-.1.6-.2l.9-.5c-.3-.6-.4-1.3-.5-2M12 4.2l6 3.3-2 1.1-5.9-3.4 1.9-1m-1 15.1l-6-3.4V9.2l6 3.4v6.7m1-8.5L6 7.5l2-1.2 6 3.5-2 1m8 4.2v3h3v2h-3v3h-2v-3h-3v-2h3v-3h2z" />
+              </svg>
+            </div>
+          )}
         </div>
       )}
+
       {itemsList.map(
         (product, i) =>
           product.packed_item !== 0 && (
@@ -153,19 +164,20 @@ const PackedList = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
+            exit={{ opacity: 0 }}
             // style={{ position: "absolute" m}}
           >
             <Measurement
               toggleView={setMeasureView}
-              setValues={setMeasurementData}
               packData={packData}
+              addPackList={addPackList}
             />
           </motion.div>
         )}
       </AnimatePresence>
 
       <div className="">
-        {packedQuantity() && !measureView && !isEmpty(measurementData) && (
+        {packedQuantity() && !measureView && packsData.length > 0 && (
           <SwipeConfirm
             onConfirm={confirmPacking}
             loading={loading}

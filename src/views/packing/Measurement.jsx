@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 
 const Measurement = ({
-  setValues,
+  addPackList,
   toggleView,
   packData = { id_pack: 0, length: 0, width: 0, weight: 0, depth: 0 },
 }) => {
@@ -16,6 +16,7 @@ const Measurement = ({
   const {
     register,
     handleSubmit,
+    reset,
     watch,
     formState: { errors },
   } = useForm({
@@ -28,7 +29,6 @@ const Measurement = ({
   });
 
   const onSubmit = (data) => {
-    setValues(data);
     const { length, width, depth, weight } = data;
     setLoading(true);
     axios
@@ -38,18 +38,21 @@ const Measurement = ({
         depth,
         weight,
         orderId,
-        packId: packData.id_pack,
+        packId: packData.id_pack || 0,
       })
       .then((result) => {
-        console.log(result);
         toast.success("Información enviada con éxito!");
         toggleView(false);
+        !packData.id_pack && addPackList(result.data.data);
       })
       .catch((err) => {
         console.log(err);
         toast.error("Ups algo salió mal, intenta de nuevo");
       })
-      .finally(() => setLoading(false));
+      .finally(() => {
+        setLoading(false);
+        reset();
+      });
   };
   return (
     <form
@@ -69,6 +72,12 @@ const Measurement = ({
           />
         </svg>
       </div>
+      <div className="text-center text-black font-semibold text-lg mb-2">
+        {packData.id_pack
+          ? "•Actualizar• Embalaje"
+          : "•Crear• un nuevo embalaje"}
+      </div>
+
       <div className="flex gap-2 justify-center items-center">
         <div className="w-16 ">
           <label
@@ -165,7 +174,7 @@ const Measurement = ({
       <div className="text-center p-2">
         {!loading ? (
           <button type="submit" className="euro-btn">
-            Confirmar medidas de embalaje
+            Confirmar datos de embalaje
           </button>
         ) : (
           <span className="loading loading-spinner  text-info"></span>
