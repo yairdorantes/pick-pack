@@ -13,7 +13,7 @@ const EverthingTable = () => {
   const [showModal, setShowModal] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [rowSelected, setRowSelected] = useState({});
-  const [loadingOrders, setLoadingOrders] = useState([]);
+  const [loadingOrders, setLoadingOrders] = useState(false);
   const { fulFillmentUsers, setFulFillmentUsers } = useStore();
   const [modalNotification, setModalNotification] = useState(false);
   const [orders, setOrders] = useState([]);

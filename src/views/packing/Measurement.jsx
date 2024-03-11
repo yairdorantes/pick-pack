@@ -5,7 +5,11 @@ import { api } from "../../../api";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
 
-const Measurement = ({ setValues, toggleView }) => {
+const Measurement = ({
+  setValues,
+  toggleView,
+  packData = { length: 0, width: 0 },
+}) => {
   const { orderId } = useParams();
   const [loading, setLoading] = useState(false);
 
@@ -14,7 +18,14 @@ const Measurement = ({ setValues, toggleView }) => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    defaultValues: {
+      length: 0,
+      width: 0,
+      weight: 0,
+      depth: 0,
+    },
+  });
 
   const onSubmit = (data) => {
     setValues(data);

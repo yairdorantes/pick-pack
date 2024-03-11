@@ -58,7 +58,7 @@ const ExtraInfoOrder = ({ isOpen, toggleOpen, rowSelected }) => {
               </svg>
             </div>
           </div>
-          <div>{data.length === 0 && "Sin paquetes :("}</div>
+          <div>{data.length === 0 && "0 embalajes"}</div>
           {data.map((pack, i) => (
             <div key={i} className="space-y-1 mb-2 text-black">
               Paquete {i + 1}
