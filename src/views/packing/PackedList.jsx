@@ -158,6 +158,7 @@ const PackedList = () => {
             <Measurement
               toggleView={setMeasureView}
               setValues={setMeasurementData}
+              packData={packData}
             />
           </motion.div>
         )}

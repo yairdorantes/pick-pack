@@ -8,7 +8,7 @@ import { useState } from "react";
 const Measurement = ({
   setValues,
   toggleView,
-  packData = { length: 0, width: 0 },
+  packData = { length: 0, width: 0, weight: 0, depth: 0 },
 }) => {
   const { orderId } = useParams();
   const [loading, setLoading] = useState(false);
@@ -20,10 +20,10 @@ const Measurement = ({
     formState: { errors },
   } = useForm({
     defaultValues: {
-      length: 0,
-      width: 0,
-      weight: 0,
-      depth: 0,
+      length: packData.length,
+      width: packData.width,
+      weight: packData.weight,
+      depth: packData.depth,
     },
   });
 
