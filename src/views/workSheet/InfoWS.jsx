@@ -58,7 +58,7 @@ const InfoWS = () => {
           </div>
           <div className="flex py-1 justify-between border-b-2 border-dashed">
             <div>cliente</div>
-            <div>{order.receiverName_order}</div>
+            <div>{order.customerName_order}</div>
           </div>
           <div className="flex py-1 justify-between border-b-2 border-dashed">
             <div>Paqueteria</div>
