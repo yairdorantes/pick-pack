@@ -6,6 +6,7 @@ function App() {
   // useEffect(() => {
   //   console.log("APP RENDERED");
   // }, []);
+  // Check if the Vibration API is supported by the browser
 
   return (
     <>

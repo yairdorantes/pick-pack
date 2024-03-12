@@ -58,7 +58,7 @@ const PackingCard = ({ product, itemSelected }) => {
             itemSelected.id_item === product.id_item
               ? "opacity-100 "
               : "opacity-0"
-          }  transition-all   font-bold flex bg-opacity-90 text-white text-2xl justify-center items-center flex-col absolute left-0 w-full h-full bg-gray-900 `}
+          }  transition-all   font-bold flex  text-black text-2xl justify-center items-center flex-col absolute left-0 w-full h-full bg-white`}
         >
           <div>{product.refId_item}</div>
           <div className="">

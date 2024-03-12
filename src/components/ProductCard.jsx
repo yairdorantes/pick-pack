@@ -15,7 +15,7 @@ const ProductCard = ({ order, itemSelected }) => {
       <div
         className={`${
           itemSelected.id_item === order.id_item ? "opacity-100" : "opacity-0"
-        }  transition-all   font-bold flex bg-opacity-90 text-black text-2xl justify-center items-center flex-col absolute border border-gray-300 left-0 w-full h-full bg-gray-100`}
+        }  transition-all   font-bold flex  text-black text-2xl justify-center items-center flex-col absolute border border-gray-300 left-0 w-full h-full bg-white`}
       >
         <div>{order.refId_item}</div>
         <div className="">
