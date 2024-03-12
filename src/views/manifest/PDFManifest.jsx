@@ -110,6 +110,12 @@ const PDFManifest = () => {
         "'></iframe>"
     );
   };
+  const trimName = (fullName) => {
+    const nameParts = fullName.trim().split(" ");
+    const firstName = nameParts[0];
+    const lastName = nameParts[nameParts.length - 2];
+    return `${firstName} ${lastName}`;
+  };
   return (
     <NavBar>
       <div className="">
@@ -123,7 +129,7 @@ const PDFManifest = () => {
                 <th></th>
                 <th>orden</th>
                 <th>sec</th>
-                {/* <th className="">cliente</th> */}
+                <th className="">cliente</th>
                 <th>guia</th>
                 <th>paqueteria</th>
                 <th>Acciones</th>
@@ -139,7 +145,7 @@ const PDFManifest = () => {
                   <td>{i + 1}</td>
                   <td>{order.idVtex_order}</td>
                   <td>{order.sequence_order}</td>
-                  {/* <td className="">{order.customerName_order}</td> */}
+                  <td className="">{trimName(order.customerName_order)}</td>
                   <td>{128198}</td>
                   <td>{order.courier_order}</td>
                   <td

@@ -44,6 +44,7 @@ const Measurement = ({
         toast.success("Información enviada con éxito!");
         toggleView(false);
         !packData.id_pack && addPackList(result.data.data);
+        reset();
       })
       .catch((err) => {
         console.log(err);
@@ -51,7 +52,6 @@ const Measurement = ({
       })
       .finally(() => {
         setLoading(false);
-        reset();
       });
   };
   return (

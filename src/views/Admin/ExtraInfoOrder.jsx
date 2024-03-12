@@ -37,7 +37,7 @@ const ExtraInfoOrder = ({ isOpen, toggleOpen, rowSelected }) => {
         )}
         <div className="m-4">
           <div className="text-xl mb-4 text-black font-semibold">
-            Orden: 1876186851-01
+            Orden: {rowSelected.idVtex_order}
           </div>
           <div className="w-full mb-2 flex justify-between items-center p-2 bg-gray-200 rounded-lg">
             <div>Embalaje</div>
