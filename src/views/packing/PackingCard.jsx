@@ -71,7 +71,7 @@ const PackingCard = ({ product, itemSelected }) => {
                 background="#fffefeb8"
                 width={1}
                 value={product.ean_item}
-                fontSize={0}
+                fontSize={10}
                 lineColor="black"
               />
             )}
