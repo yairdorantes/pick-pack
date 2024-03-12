@@ -15,7 +15,7 @@ const ProductCard = ({ order, itemSelected }) => {
       <div
         className={`${
           itemSelected.id_item === order.id_item ? "opacity-100" : "opacity-0"
-        }  transition-all   font-bold flex bg-opacity-90 text-white text-2xl justify-center items-center flex-col absolute left-0 w-full h-full bg-gray-900 `}
+        }  transition-all   font-bold flex bg-opacity-90 text-black text-2xl justify-center items-center flex-col absolute border border-gray-300 left-0 w-full h-full bg-gray-100`}
       >
         <div>{order.refId_item}</div>
         <div className="">
@@ -28,7 +28,7 @@ const ProductCard = ({ order, itemSelected }) => {
               background="#fffefeb8"
               width={1}
               value={order.ean_item}
-              fontSize={0}
+              fontSize={10}
               lineColor="black"
             />
           )}
