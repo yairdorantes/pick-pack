@@ -63,7 +63,7 @@ const QrScan = () => {
           </div>
         </div>
         <Html5QrcodePlugin
-          fps={1}
+          fps={10}
           qrbox={250}
           disableFlip={false}
           qrCodeSuccessCallback={(result) => {
