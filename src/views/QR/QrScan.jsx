@@ -11,40 +11,40 @@ const QrScan = () => {
   const { user } = useStore();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [allowScan, setAllowScan] = useState(true);
+  const [txtQr, setTxtQr] = useState("");
+  const [showResult, setShowResult] = useState(false);
 
   const instance = axios.create({
     timeout: 10000, // Tiempo de espera en milisegundos (10 segundos en este ejemplo)
   });
 
-
-  const handleQRCode = (resultQR) => {
+  const handleQRCode = () => {
     setLoading(true);
-    console.log("request");
+
     instance
       .post(`${api}/pick-pack/assigment/qr`, {
         userId: user.id,
-        orderId: resultQR,
+        orderId: txtQr,
       })
       .then((result) => {
         console.log(result);
-        toast.success(`Se te ha asignado la order ${resultQR}`, {
+        toast.success(`Se te ha asignado la order ${txtQr}`, {
           duration: 3000,
         });
         if (!document.startViewTransition) {
-          navigate(`/picking/${resultQR}`);
+          navigate(`/picking/${txtQr}`);
           return;
         }
         document.startViewTransition(() =>
-          flushSync(() => navigate(`/picking/${resultQR}`))
+          flushSync(() => navigate(`/picking/${txtQr}`))
         );
       })
       .catch((err) => {
         console.log(err);
-
-        err.code == 'ECONNABORTED'
-        ? toast.error("Alta latencia, verifica tu conexión", {})
-        : 
-        err.response.status === 403
+        err.code == "ECONNABORTED"
+          ? toast.error("Alta latencia, verifica tu conexión", {})
+          : err.response.status === 403
           ? toast.error("Orden ya asignada", { id: 1 })
           : toast.error("Ups algo salio mal, intenta de nuevo", {});
 
@@ -54,6 +54,10 @@ const QrScan = () => {
         setLoading(false);
       });
   };
+
+  useEffect(() => {
+    setShowResult(true);
+  }, [txtQr]);
 
   return (
     <NavBar>
@@ -94,10 +98,55 @@ const QrScan = () => {
           qrbox={250}
           disableFlip={false}
           qrCodeSuccessCallback={(result) => {
-            console.log("QR result:", result);
-            !loading && handleQRCode(result);
+            setTxtQr(result);
           }}
         />
+        <div
+          className={`fixed transition-all flex gap-2 justify-center flex-col items-center  ${
+            showResult ? "bottom-0" : "-bottom-44"
+          } h-44 bg-white w-full rounded-t-xl p-4`}
+        >
+          <div
+            onClick={() => setShowResult(false)}
+            className="absolute top-2 right-3"
+          >
+            <svg
+              className="text-error w-7 h-7"
+              fill="none"
+              viewBox="0 0 15 15"
+              height="1em"
+              width="1em"
+            >
+              <path
+                fill="currentColor"
+                fillRule="evenodd"
+                d="M11.782 4.032a.575.575 0 10-.813-.814L7.5 6.687 4.032 3.218a.575.575 0 00-.814.814L6.687 7.5l-3.469 3.468a.575.575 0 00.814.814L7.5 8.313l3.469 3.469a.575.575 0 00.813-.814L8.313 7.5l3.469-3.468z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </div>
+          <div>Valor detectado:</div>
+          <div className="font-semibold text-lg truncate max-w-full">
+            {txtQr}
+          </div>
+          <div className="flex gap-4 w-full justify-center">
+            {/* <div className="btn btn-error w-1/2 text-white">
+              Escanear de nuevo
+            </div> */}
+            <div
+              className={`btn w-1/2 ${
+                loading && "btn-disabled"
+              } btn-success text-white`}
+              onClick={handleQRCode}
+            >
+              {loading ? (
+                <span className="loading loading-spinner text-info"></span>
+              ) : (
+                "Aceptar"
+              )}
+            </div>
+          </div>
+        </div>
       </div>
     </NavBar>
   );
