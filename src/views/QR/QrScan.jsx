@@ -107,7 +107,10 @@ const QrScan = () => {
           } h-44 bg-white w-full rounded-t-xl p-4`}
         >
           <div
-            onClick={() => setShowResult(false)}
+            onClick={() => {
+              setTxtQr("");
+              setShowResult(false);
+            }}
             className="absolute top-2 right-3"
           >
             <svg
