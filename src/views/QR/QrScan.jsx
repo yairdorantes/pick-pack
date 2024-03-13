@@ -56,7 +56,7 @@ const QrScan = () => {
   };
 
   useEffect(() => {
-    setShowResult(true);
+    txtQr.length > 0 && setShowResult(true);
   }, [txtQr]);
 
   return (
