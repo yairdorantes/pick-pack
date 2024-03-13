@@ -93,7 +93,7 @@ const PackingCard = ({ product, itemSelected }) => {
             <h5 className="text-sm font-semibold">{product.name_item}</h5>
             <p className="text-sm text-gray-500">SKU: {product.refId_item}</p>
             <p className="font-semibold text-sm">
-              {packQuantity} de {product.quantity_item}
+              {product.packed_item} de {product.quantity_item}
             </p>
           </div>
         </div>

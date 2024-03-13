@@ -64,7 +64,7 @@ const Shipped = () => {
           <ul className="list-disc columns-2">
             {orders.map((order, i) => (
               <li key={i} className="mb-2">
-                917971918-01
+                {order}
               </li>
             ))}
           </ul>

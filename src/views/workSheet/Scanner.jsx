@@ -227,7 +227,7 @@ const Scanner = () => {
           </div>
         </div>
       </div>
-      <div className="overflow-x-hidden">
+      <div className="">
         <ModalItem
           isOpen={productModalOpen}
           setIsOpen={setProductModalOpen}
@@ -264,6 +264,27 @@ const Scanner = () => {
         )}
         {/* show this when fetching items */}
 
+        <div className="sticky flex justify-center items-center gap-1 font-semibold top-[116px] z-20 bg-blue-500 text-white text-center w-full">
+          <svg
+            viewBox="0 0 512 512"
+            fill="currentColor"
+            height="1em"
+            width="1em"
+          >
+            <path d="M256 42c-33.88 0-64-10-64-10v2a64 64 0 00128 0v-2s-30.12 10-64 10z" />
+            <path d="M352 44c-5.49 47.76-46.79 85-96 85s-90.51-37.24-96-85L16 94l18 114 61.71 7.42c7.08.9 7.1.9 7.1 8.19L96 480h320l-6.81-256.39c-.21-7-.21-7 7.1-8.19L478 208l18-114z" />
+          </svg>
+          Alistamiento{" "}
+          <svg
+            viewBox="0 0 512 512"
+            fill="currentColor"
+            height="1em"
+            width="1em"
+          >
+            <path d="M256 42c-33.88 0-64-10-64-10v2a64 64 0 00128 0v-2s-30.12 10-64 10z" />
+            <path d="M352 44c-5.49 47.76-46.79 85-96 85s-90.51-37.24-96-85L16 94l18 114 61.71 7.42c7.08.9 7.1.9 7.1 8.19L96 480h320l-6.81-256.39c-.21-7-.21-7 7.1-8.19L478 208l18-114z" />
+          </svg>
+        </div>
         <div className="flex  mx-auto flex-col mb-16 ">
           {countItemsMemoized === 0 && !loading && (
             <div>
@@ -342,7 +363,7 @@ const Scanner = () => {
             {filterList.displayItems.map(
               (order, i) =>
                 order.remaining_item > 0 && (
-                  <div key={i} className="relative">
+                  <div key={i} className="relative overflow-x-hidden">
                     <motion.div
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, x: -100 }}

@@ -13,6 +13,7 @@ const QrScan = () => {
   const [loading, setLoading] = useState(false);
   const handleQRCode = (resultQR) => {
     setLoading(true);
+    console.log("request");
     axios
       .post(`${api}/pick-pack/assigment/qr`, {
         userId: user.id,
@@ -33,7 +34,10 @@ const QrScan = () => {
       })
       .catch((err) => {
         console.log(err);
-        toast.error("Ups algo salio mal, intenta de nuevo", {});
+        err.response.status === 403
+          ? toast.error("Orden ya asignada", { id: 1 })
+          : toast.error("Ups algo salio mal, intenta de nuevo", {});
+
         // toast.remove();
       })
       .finally(() => {
@@ -62,12 +66,13 @@ const QrScan = () => {
             </svg>
           </div>
         </div>
+        <div>{loading ? "loading" : "finished"}</div>
         <Html5QrcodePlugin
           fps={10}
           qrbox={250}
           disableFlip={false}
           qrCodeSuccessCallback={(result) => {
-            console.log(result);
+            console.log("QR result:", result);
             !loading && handleQRCode(result);
           }}
         />

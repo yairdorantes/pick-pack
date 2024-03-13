@@ -82,14 +82,7 @@ const EverthingTable = () => {
     const words = str.trim().split(/\s+/);
     return words[0];
   }
-  function filterOrderId(query) {
-    const filteredOrder = orders.find((order) => order.idVtex_order === query);
-    console.log(filteredOrder);
 
-    filteredOrder
-      ? setFilteredResults([filteredOrder])
-      : setFilteredResults(orders);
-  }
   const getUserNames = (usersIdAssigment) => {
     const usersNames = usersIdAssigment.map((id) => {
       const user = fulFillmentUsers.find((user) => user.id_user === id);

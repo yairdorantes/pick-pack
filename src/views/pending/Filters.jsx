@@ -102,8 +102,8 @@ const Filters = ({ originalData, filteredData, changeFilteredData }) => {
   const filterByOrderId = (value) => {
     const filtered = originalData.filter(
       (item) =>
-        item.idVtex_order === value.replace(/\s+$/, "") ||
-        item.sequence_order === parseInt(value.replace(/\s+$/, ""))
+        item.idVtex_order.includes(value.replace(/\s+$/, "")) ||
+        String(item.sequence_order).includes(value.replace(/\s+$/, ""))
     );
 
     changeFilteredData(filtered);

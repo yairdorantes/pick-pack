@@ -18,6 +18,9 @@ const PDFManifest = () => {
   const [modalReceipt, setModalReceipt] = useState(false);
   const [rowSelected, setRowSelected] = useState({});
   const [courier, setCourier] = useState("");
+  const [modalAdd, setModalAdd] = useState(false);
+  const [orderToAdd, setOrderToAdd] = useState("");
+  const [loaderAddOrder, setLoaderAddOrder] = useState(false);
   const base64pdf = "";
   function getManifest() {
     axios
@@ -116,6 +119,30 @@ const PDFManifest = () => {
     const lastName = nameParts[nameParts.length - 2];
     return `${firstName} ${lastName}`;
   };
+  const addToManifest = () => {
+    const res =
+      tableData.find((order) => order.idVtex_order === orderToAdd) ||
+      tableData.find((order) => order.sequence_order === parseInt(orderToAdd));
+    if (res) {
+      toast.error("Esa orden ya está en el manfiesto");
+    } else {
+      setLoaderAddOrder(true);
+      axios
+        .post(`${api}/pick-pack/add_to_manifest/${orderToAdd}/${courierId}`)
+        .then(() => {
+          setModalAdd(false);
+          getManifest();
+          toast.success("Orden agregada al manifiesto");
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error("Ups algo salio mal, intenta de nuevo");
+        })
+        .finally(() => {
+          setLoaderAddOrder(false);
+        });
+    }
+  };
   return (
     <NavBar>
       <div className="">
@@ -187,6 +214,20 @@ const PDFManifest = () => {
       {tableData.length > 0 && (
         <div className="text-center mt-10 mb-10 flex justify-center flex-wrap gap-4">
           <div
+            onClick={() => setModalAdd(true)}
+            className="px-4 flex items-center py-2 cursor-pointer text-blue-500 hover:bg-blue-500 hover:text-white border-blue-500 border rounded-lg "
+          >
+            <svg
+              className="w-7 h-7"
+              viewBox="0 0 1024 1024"
+              fill="currentColor"
+              height="1em"
+              width="1em"
+            >
+              <path d="M880 112H144c-17.7 0-32 14.3-32 32v736c0 17.7 14.3 32 32 32h736c17.7 0 32-14.3 32-32V144c0-17.7-14.3-32-32-32zM704 536c0 4.4-3.6 8-8 8H544v152c0 4.4-3.6 8-8 8h-48c-4.4 0-8-3.6-8-8V544H328c-4.4 0-8-3.6-8-8v-48c0-4.4 3.6-8 8-8h152V328c0-4.4 3.6-8 8-8h48c4.4 0 8 3.6 8 8v152h152c4.4 0 8 3.6 8 8v48z" />
+            </svg>
+          </div>
+          <div
             className="px-4 py-2 text-info hover:bg-info hover:text-white border-info border rounded-lg "
             onClick={() => setModalReceipt(true)}
           >
@@ -255,6 +296,7 @@ const PDFManifest = () => {
               )}
             </a>
           </div>
+
           <div
             onClick={() => setModalDelEverthing(true)}
             className="px-4 flex items-center py-2 cursor-pointer text-error hover:bg-error hover:text-white border-error border rounded-lg "
@@ -348,6 +390,39 @@ const PDFManifest = () => {
           </svg>
         </div>
         <Receipt setModal={setModalReceipt} courierId={courierId} />
+      </Modal>
+      <Modal isOpen={modalAdd} setIsOpen={setModalAdd}>
+        <div className="p-4 space-y-4 ">
+          <label className="form-control w-full max-w-xs">
+            <div className="label">
+              <span className="label-text text-md">
+                Introduce el identificador de la orden que deseas agregar al
+                manifiesto (Vtex id o Sequence):
+              </span>
+            </div>
+            <input
+              type="text"
+              value={orderToAdd}
+              onChange={(e) => setOrderToAdd(e.target.value.trim())}
+              placeholder="Ingresa el identificador"
+              className="input input-bordered w-full max-w-xs"
+            />
+          </label>
+          <div className="text-center">
+            <button
+              onClick={addToManifest}
+              className={`btn btn-info text-white ${
+                loaderAddOrder && "btn-disabled"
+              } `}
+            >
+              {loaderAddOrder ? (
+                <span className="loading loading-spinner text-info"></span>
+              ) : (
+                "  Agregar al manifiesto"
+              )}
+            </button>
+          </div>
+        </div>
       </Modal>
     </NavBar>
   );
