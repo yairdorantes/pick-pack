@@ -66,14 +66,18 @@ const QrScan = () => {
             </svg>
           </div>
         </div>
-        {loading && (
-          <div className="fixed flex flex-col gap-4 justify-center items-center top-0 z-40 w-screen h-screen bg-black bg-opacity-95">
+        {
+          <div
+            className={`fixed transition-all ${
+              loading ? "opacity-100 z-40" : " opacity-0 -z-10"
+            } flex top-0 flex-col gap-4 justify-center items-center  w-screen h-screen bg-black bg-opacity-95`}
+          >
             <div className="text-white font-semibold">
               Procesando código, por favor espera...
             </div>
             <span className="loading loading-bars loading-lg text-white"></span>
           </div>
-        )}
+        }
         {/* <div>{loading ? "loading" : "finished"}</div> */}
         <Html5QrcodePlugin
           fps={10}
