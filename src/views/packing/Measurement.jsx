@@ -4,6 +4,20 @@ import toast from "react-hot-toast";
 import { api } from "../../../api";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
+import Select from "react-select";
+
+const customStyles = {
+  control: (provided, state) => ({
+    ...provided,
+    borderRadius: "100px",
+    height: "34px",
+    "min-height": "34px",
+  }),
+};
+const options = [
+  { value: 1, label: "Caja CH" },
+  { value: 2, label: "Caja G" },
+];
 
 const Measurement = ({
   addPackList,
@@ -18,6 +32,7 @@ const Measurement = ({
     handleSubmit,
     reset,
     watch,
+    setValue,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -54,6 +69,18 @@ const Measurement = ({
         setLoading(false);
       });
   };
+
+  const handleBoxSelected = (box) => {
+    if (box === 1) {
+      setValue("length", 60);
+      setValue("width", 40);
+      setValue("depth", 15);
+    } else if (box === 2) {
+      setValue("length", 60);
+      setValue("width", 40);
+      setValue("depth", 27);
+    }
+  };
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -78,6 +105,17 @@ const Measurement = ({
           : "•Crear• un nuevo embalaje"}
       </div>
 
+      <div className="flex justify-center mb-2">
+        <Select
+          placeholder="Caja"
+          options={options}
+          onChange={(option) => handleBoxSelected(option.value)}
+          isSearchable={true}
+          isClearable={true}
+          styles={customStyles}
+          className="text-sm text-gray-500 w-44"
+        />
+      </div>
       <div className="flex gap-2 justify-center items-center">
         <div className="w-16 ">
           <label
