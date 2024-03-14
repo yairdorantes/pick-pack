@@ -11,10 +11,16 @@ const QrScan = () => {
   const { user } = useStore();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+
+  const instance = axios.create({
+    timeout: 10000, // Tiempo de espera en milisegundos (10 segundos en este ejemplo)
+  });
+
+
   const handleQRCode = (resultQR) => {
     setLoading(true);
     console.log("request");
-    axios
+    instance
       .post(`${api}/pick-pack/assigment/qr`, {
         userId: user.id,
         orderId: resultQR,
@@ -34,6 +40,10 @@ const QrScan = () => {
       })
       .catch((err) => {
         console.log(err);
+
+        err.code == 'ECONNABORTED'
+        ? toast.error("Alta latencia, verifica tu conexión", {})
+        : 
         err.response.status === 403
           ? toast.error("Orden ya asignada", { id: 1 })
           : toast.error("Ups algo salio mal, intenta de nuevo", {});
