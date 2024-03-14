@@ -110,7 +110,7 @@ const Measurement = ({
           placeholder="Caja"
           options={options}
           onChange={(option) => handleBoxSelected(option.value)}
-          isSearchable={true}
+          isSearchable={false}
           isClearable={true}
           styles={customStyles}
           className="text-sm text-gray-500 w-44"
