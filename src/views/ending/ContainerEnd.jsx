@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import NavBar from "../../components/NavBar";
 import ReturnSheet from "../../components/ReturnSheet";
 import Stepper from "../../components/Stepper";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { api } from "../../../api";
@@ -33,6 +33,8 @@ const ContainerEnd = () => {
   const [optionSelected, setOptionSelected] = useState(1);
   const [loading, setLoading] = useState(false);
   const [receivedAnswer, setReceivedAnswer] = useState(false);
+  const [searchingLoader, setSearchingLoader] = useState(false);
+  const [wasFound, setWasFound] = useState(false);
   async function addToManifest() {
     console.log(courierSelected);
     const fetchData = async () => {
@@ -72,63 +74,93 @@ const ContainerEnd = () => {
       navigate(`/picking`);
     }
   }
+  useEffect(() => {
+    setSearchingLoader(true);
+    axios
+      .get(`${api}/pick-pack/seek_manifest/${orderId}`)
+      .then((res) => {
+        console.log(res);
+        setWasFound(true);
+      })
+      .catch((err) => {
+        console.log(err);
+        err.response.status !== 404 && toast.error("Error obtener información");
+      })
+      .finally(() => setSearchingLoader(false));
+  }, []);
+
   return (
     <NavBar>
       <Stepper stepGiven={3} />
-      <div className="w-72 mt-5 mx-auto border-2 p-4">
-        <div className="font-semibold text-lg">
-          ¿Deseas agregar la orden al manifiesto?
+      {searchingLoader ? (
+        <div className="flex justify-center text-lg   mt-36">
+          <span className="loading loading-bars loading-lg text-info"></span>
         </div>
-        <div className="flex justify-start flex-col gap-3 mt-4">
-          <label htmlFor="yes">
-            <div className="flex items-center gap-3 bg-slate-200 p-3 rounded-full">
-              <input
-                type="radio"
-                name="radio-7"
-                className="radio radio-info"
-                checked={optionSelected === 1}
-                id="yes"
-                onChange={() => setOptionSelected(1)}
-              />
-              SI
+      ) : (
+        <div className="w-72 mt-5 mx-auto border-2 p-4">
+          {wasFound ? (
+            <div className="font-semibold text-lg">
+              Orden {orderId} ya incluida en manifiesto
             </div>
-          </label>
-          <label htmlFor="no">
-            <div className="flex items-center gap-3 bg-slate-200 p-3 rounded-full">
-              <input
-                type="radio"
-                name="radio-7"
-                className="radio radio-info"
-                onChange={() => setOptionSelected(2)}
-                checked={optionSelected === 2}
-                id="no"
-              />
-              NO
-            </div>
-          </label>
+          ) : (
+            <>
+              <div className="font-semibold text-lg">
+                ¿Deseas agregar la orden {orderId} al manifiesto?
+              </div>
+              <div className="flex justify-start flex-col gap-3 mt-4">
+                <label htmlFor="yes">
+                  <div className="flex items-center gap-3 bg-slate-200 p-3 rounded-full">
+                    <input
+                      type="radio"
+                      name="radio-7"
+                      className="radio radio-info"
+                      checked={optionSelected === 1}
+                      id="yes"
+                      onChange={() => setOptionSelected(1)}
+                    />
+                    SI
+                  </div>
+                </label>
+                <label htmlFor="no">
+                  <div className="flex items-center gap-3 bg-slate-200 p-3 rounded-full">
+                    <input
+                      type="radio"
+                      name="radio-7"
+                      className="radio radio-info"
+                      onChange={() => setOptionSelected(2)}
+                      checked={optionSelected === 2}
+                      id="no"
+                    />
+                    NO
+                  </div>
+                </label>
+              </div>
+              {optionSelected === 1 && (
+                <>
+                  <div className="font-semibold text-lg mt-2">
+                    Selecciona una paqueteria
+                  </div>
+                  <div className="">
+                    <Select
+                      placeholder="Paqueteria"
+                      options={options}
+                      onChange={(option) => {
+                        console.log("status:", option);
+                        setCourierSelected(option.value);
+                      }}
+                      isSearchable={true}
+                      isClearable={true}
+                      styles={customStyles}
+                      className="text-sm text-gray-500 w-full"
+                    />
+                  </div>
+                </>
+              )}
+            </>
+          )}
         </div>
-        {optionSelected === 1 && (
-          <>
-            <div className="font-semibold text-lg mt-2">
-              Selecciona una paqueteria
-            </div>
-            <div className="">
-              <Select
-                placeholder="Paqueteria"
-                options={options}
-                onChange={(option) => {
-                  console.log("status:", option);
-                  setCourierSelected(option.value);
-                }}
-                isSearchable={true}
-                isClearable={true}
-                styles={customStyles}
-                className="text-sm text-gray-500 w-full"
-              />
-            </div>
-          </>
-        )}
-      </div>
+      )}
+
       {(courierSelected > 0 || optionSelected === 2) && (
         <div className="text-center">
           <button

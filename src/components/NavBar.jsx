@@ -84,7 +84,7 @@ const NavBar = ({ children }) => {
           </a>
         </div>
 
-        <div onClick={handleLink} href="/notifications">
+        {/* <div onClick={handleLink} href="/notifications">
           <button
             id="dropdownNotificationButton"
             data-dropdown-toggle="dropdownNotification"
@@ -102,7 +102,7 @@ const NavBar = ({ children }) => {
             </svg>
             <div className="absolute block w-3 h-3 bg-red-500 border-2 border-white rounded-full -top-0.5 start-2.5"></div>
           </button>
-        </div>
+        </div> */}
         {/* <div
           onClick={goHome}
           className="font-semibold  capitalize cursor-pointer text-sm w-16 ml-3 text-center"
