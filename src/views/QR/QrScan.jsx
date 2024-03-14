@@ -11,7 +11,6 @@ const QrScan = () => {
   const { user } = useStore();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const [allowScan, setAllowScan] = useState(true);
   const [txtQr, setTxtQr] = useState("");
   const [showResult, setShowResult] = useState(false);
 
@@ -42,11 +41,28 @@ const QrScan = () => {
       })
       .catch((err) => {
         console.log(err);
-        err.code == "ECONNABORTED"
-          ? toast.error("Alta latencia, verifica tu conexión", {})
-          : err.response.status === 403
-          ? toast.error("Orden ya asignada", { id: 1 })
-          : toast.error("Ups algo salio mal, intenta de nuevo", {});
+        if (err.code === "ECONNABORTED") {
+          toast.error("Alta latencia, verifica tu conexión", {});
+        } else {
+          if (err.response.status === 403) {
+            setShowResult(false);
+            setTxtQr("");
+            toast.error("Alguien ya está alistando esta orden ", {
+              style: {
+                border: "1px solid red",
+                padding: "16px",
+                color: "white",
+                backgroundColor: "#ce5439",
+              },
+              iconTheme: {
+                primary: "#a84110",
+                secondary: "#FFFAEE",
+              },
+            });
+          } else {
+            toast.error("Ups algo salio mal, intenta de nuevo", {});
+          }
+        }
 
         // toast.remove();
       })
@@ -128,7 +144,7 @@ const QrScan = () => {
               />
             </svg>
           </div>
-          <div>Valor detectado:</div>
+          <div>Orden detectada:</div>
           <div className="font-semibold text-lg truncate max-w-full">
             {txtQr}
           </div>

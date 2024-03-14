@@ -69,7 +69,7 @@ const ModalAssigment = ({ opening, changeState, rowSelected }) => {
               : "bg-blue-500 text-white"
           } `}
         >
-          Pickeo
+          Picking
         </div>
         <div
           onClick={() => setSelection(2)}
@@ -129,7 +129,9 @@ const ModalAssigment = ({ opening, changeState, rowSelected }) => {
                 </td>
                 <td>
                   <div>
-                    <div className="font-bold">{user.name_user}</div>
+                    <div className="font-bold">
+                      {user.name_user} {user.lastname_user}
+                    </div>
                     <div className="text-sm opacity-50">027</div>
                   </div>
                 </td>
