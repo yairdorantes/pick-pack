@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { io } from "socket.io-client";
 import useStore from "../Context";
 import { serverURL } from "../api";
+import { pickImage } from "../ProjectData";
 
 function App() {
   const { user, setSocket } = useStore();
@@ -32,7 +33,8 @@ function App() {
                     <div className="flex-shrink-0 pt-0.5">
                       <img
                         className="h-10 w-10 rounded-full"
-                        src="https://cdn.discordapp.com/avatars/1171876442586501121/7025947bea56fc3149a39f3d4ec2a656.webp?size=80"
+                        // src="https://cdn.discordapp.com/avatars/1171876442586501121/7025947bea56fc3149a39f3d4ec2a656.webp?size=80"
+                        src={pickImage()}
                         alt=""
                       />
                     </div>

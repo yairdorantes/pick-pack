@@ -121,7 +121,7 @@ const EverthingTable = () => {
 
       <div
         onClick={() => setModalNotification(true)}
-        className="fixed euro-btn flex items-center gap-2 w-fit ml-3 mb-4  top-[70px] right-2 z-50"
+        className="fixed euro-btn flex items-center gap-2 w-fit ml-3 mb-4  top-[70px] right-2 z-30"
       >
         <svg
           className="w-5 h-5"
