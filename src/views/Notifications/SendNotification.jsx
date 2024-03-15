@@ -120,7 +120,12 @@ const SendNotification = ({ opening, changeState }) => {
           {loading ? (
             <span className="loading loading-infinity loading-lg text-green-500"></span>
           ) : (
-            <div onClick={sendChanges} className="euro-btn ">
+            <div
+              onClick={sendChanges}
+              className={`btn bg-blue-500 text-white ${
+                (list.length === 0 || content.length === 0) && "btn-disabled"
+              }`}
+            >
               <button disabled={list.length === 0 || content.length === 0}>
                 Enviar Notificación
               </button>

@@ -12,6 +12,8 @@ import LogoutIcon from "../assets/ReactIcons/LogoutIcon";
 import oms from "/oms.png";
 import ModalChat from "./ModalChat";
 import useStore from "../../Context";
+import axios from "axios";
+import { api } from "../../api";
 
 const NavBar = ({ children }) => {
   // console.log("naaba");
@@ -20,6 +22,7 @@ const NavBar = ({ children }) => {
   const [showSideMenu, setShowSideMenu] = useState(false);
   const { user, logout } = useStore();
   const [internetConnection, setInternetConnection] = useState(true);
+  const [pendingNotfs, setPendingNotfs] = useState(false);
 
   useEffect(() => {
     navigator.onLine
@@ -57,6 +60,18 @@ const NavBar = ({ children }) => {
     document.startViewTransition(() => navigate("/"));
   }, [navigate]);
 
+  useEffect(() => {
+    axios
+      .get(`${api}/pick-pack/notifications/pending/${user.id}`)
+      .then((res) => {
+        console.log(res.data);
+        setPendingNotfs(res.data.pendingNotifs);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
     <div className="flex flex-col h-screen ">
       {/* NavBar */}
@@ -84,7 +99,7 @@ const NavBar = ({ children }) => {
           </a>
         </div>
 
-        {/* <div onClick={handleLink} href="/notifications">
+        <div onClick={handleLink} href="/notifications">
           <button
             id="dropdownNotificationButton"
             data-dropdown-toggle="dropdownNotification"
@@ -100,9 +115,11 @@ const NavBar = ({ children }) => {
             >
               <path d="M12.133 10.632v-1.8A5.406 5.406 0 0 0 7.979 3.57.946.946 0 0 0 8 3.464V1.1a1 1 0 0 0-2 0v2.364a.946.946 0 0 0 .021.106 5.406 5.406 0 0 0-4.154 5.262v1.8C1.867 13.018 0 13.614 0 14.807 0 15.4 0 16 .538 16h12.924C14 16 14 15.4 14 14.807c0-1.193-1.867-1.789-1.867-4.175ZM3.823 17a3.453 3.453 0 0 0 6.354 0H3.823Z" />
             </svg>
-            <div className="absolute block w-3 h-3 bg-red-500 border-2 border-white rounded-full -top-0.5 start-2.5"></div>
+            {pendingNotfs && (
+              <div className="absolute block w-3 h-3 bg-red-500 border-2 border-white rounded-full -top-0.5 start-2.5" />
+            )}
           </button>
-        </div> */}
+        </div>
         {/* <div
           onClick={goHome}
           className="font-semibold  capitalize cursor-pointer text-sm w-16 ml-3 text-center"

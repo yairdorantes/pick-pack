@@ -1,162 +1,93 @@
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import Router from "../routes/Router";
 import { useEffect } from "react";
+import { io } from "socket.io-client";
+import useStore from "../Context";
+import { serverURL } from "../api";
 
 function App() {
-  // useEffect(() => {
-  //   console.log("APP RENDERED");
-  // }, []);
-  // Check if the Vibration API is supported by the browser
+  const { user, setSocket } = useStore();
 
-  function scannerTranslator() {
-    const traducciones = [
-      // Html5QrcodeStrings
-      {
-        original: "QR code parse error, error =",
-        traduccion: "Error al analizar el código QR, error =",
-      },
-      {
-        original: "Error getting userMedia, error =",
-        traduccion: "Error al obtener userMedia, error =",
-      },
-      {
-        original:
-          "The device doesn't support navigator.mediaDevices , only supported cameraIdOrConfig in this case is deviceId parameter (string).",
-        traduccion:
-          "El dispositivo no admite navigator.mediaDevices, en este caso sólo se admite cameraIdOrConfig como parámetro deviceId (cadena).",
-      },
-      {
-        original: "Camera streaming not supported by the browser.",
-        traduccion: "El navegador no admite la transmisión de la cámara.",
-      },
-      {
-        original: "Unable to query supported devices, unknown error.",
-        traduccion:
-          "No se puede consultar los dispositivos compatibles, error desconocido.",
-      },
-      {
-        original:
-          "Camera access is only supported in secure context like https or localhost.",
-        traduccion:
-          "El acceso a la cámara sólo es compatible en un contexto seguro como https o localhost.",
-      },
-      { original: "Scanner paused", traduccion: "Escáner en pausa" },
+  useEffect(() => {
+    const currentPath = window.location.pathname;
+    if (currentPath !== "/login") {
+      let socketConn;
+      const connectSocket = () => {
+        socketConn = io.connect(serverURL);
+        socketConn.on("connect", () => {
+          console.log("Connected to server");
+          socketConn.emit("initial_data", user.id);
+        });
+        socketConn.on("receive_message", (data) => {
+          console.log(data);
+          toast.custom(
+            (t) => (
+              <div
+                className={`transition-all duration-200 ${
+                  t.visible ? "fadeInScale" : "fadeOutScale"
+                } max-w-md w-full bg-white shadow-lg rounded-lg pointer-events-auto flex ring-1 ring-black ring-opacity-5`}
+              >
+                <div className="flex-1 w-0 p-4">
+                  <div className="flex items-start">
+                    <div className="flex-shrink-0 pt-0.5">
+                      <img
+                        className="h-10 w-10 rounded-full"
+                        src="https://cdn.discordapp.com/avatars/1171876442586501121/7025947bea56fc3149a39f3d4ec2a656.webp?size=80"
+                        alt=""
+                      />
+                    </div>
+                    <div className="ml-3 flex-1">
+                      <p className="text-sm font-medium text-gray-900">
+                        Adrian Mejia
+                      </p>
+                      <p className="mt-1 text-sm text-gray-500">
+                        {data.message}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex border-l border-gray-200">
+                  <button
+                    onClick={() => toast.dismiss(t.id)}
+                    className="w-full border border-transparent rounded-none rounded-r-lg p-4 flex items-center justify-center text-sm font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  >
+                    <svg
+                      viewBox="0 0 512 512"
+                      fill="currentColor"
+                      height="1em"
+                      width="1em"
+                      className="w-6 h-6"
+                    >
+                      <path
+                        fill="none"
+                        stroke="currentColor"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={32}
+                        d="M368 368L144 144M368 144L144 368"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            ),
+            { duration: Infinity }
+          );
+        });
+        setSocket(socketConn);
+      };
 
-      // Html5QrcodeScannerStrings
-      { original: "Scanning", traduccion: "Escaneando" },
-      { original: "Idle", traduccion: "Inactivo" },
-      { original: "Error", traduccion: "Error" },
-      { original: "Permission", traduccion: "Permiso" },
-      { original: "No Cameras", traduccion: "Sin cámaras" },
-      { original: "Last Match:", traduccion: "Última coincidencia:" },
-      { original: "Code Scanner", traduccion: "Escáner de código" },
-      {
-        original: "Request Camera Permissions",
-        traduccion: "Solicitar permisos de cámara",
-      },
-      {
-        original: "Requesting camera permissions...",
-        traduccion: "Solicitando permisos de cámara...",
-      },
-      {
-        original: "No camera found",
-        traduccion: "No se encontró ninguna cámara",
-      },
-      { original: "Stop Scanning", traduccion: "Detener escaneo" },
-      { original: "Start Scanning", traduccion: "Iniciar escaneo" },
-      { original: "Switch On Torch", traduccion: "Encender linterna" },
-      { original: "Switch Off Torch", traduccion: "Apagar linterna" },
-      {
-        original: "Failed to turn on torch",
-        traduccion: "Error al encender la linterna",
-      },
-      {
-        original: "Failed to turn off torch",
-        traduccion: "Error al apagar la linterna",
-      },
-      { original: "Launching Camera...", traduccion: "Iniciando cámara..." },
-      {
-        original: "Scan an Image File",
-        traduccion: "Escanear un archivo de imagen",
-      },
-      {
-        original: "Scan using camera directly",
-        traduccion: "Escanear usando la cámara directamente",
-      },
-      { original: "Select Camera", traduccion: "Seleccionar cámara" },
-      { original: "Choose Image", traduccion: "Elegir imagen" },
-      { original: "Choose Another", traduccion: "Elegir otra" },
-      {
-        original: "No image choosen",
-        traduccion: "Ninguna imagen seleccionada",
-      },
-      { original: "Anonymous Camera", traduccion: "Cámara anónima" },
-      {
-        original: "Or drop an image to scan",
-        traduccion: "O arrastra una imagen para escanear",
-      },
-      {
-        original: "Or drop an image to scan (other files not supported)",
-        traduccion:
-          "O arrastra una imagen para escanear (otros archivos no soportados)",
-      },
-      { original: "zoom", traduccion: "zoom" },
-      { original: "Loading image...", traduccion: "Cargando imagen..." },
-      { original: "Camera based scan", traduccion: "Escaneo basado en cámara" },
-      { original: "Fule based scan", traduccion: "Escaneo basado en archivo" },
+      const connectTimeout = setTimeout(connectSocket, 2500);
 
-      // LibraryInfoStrings
-      { original: "Powered by ", traduccion: "Desarrollado por " },
-      { original: "Report issues", traduccion: "Informar de problemas" },
-
-      // Others
-      {
-        original: "NotAllowedError: Permission denied",
-        traduccion: "Permiso denegado para acceder a la cámara",
-      },
-    ];
-
-    // Función para traducir un texto
-    function traducirTexto(texto) {
-      const traduccion = traducciones.find((t) => t.original === texto);
-      return traduccion ? traduccion.traduccion : texto;
-    }
-
-    // Función para traducir los nodos de texto
-    function traducirNodosDeTexto(nodo) {
-      if (nodo.nodeType === Node.TEXT_NODE) {
-        nodo.textContent = traducirTexto(nodo.textContent.trim());
-      } else {
-        for (let i = 0; i < nodo.childNodes.length; i++) {
-          traducirNodosDeTexto(nodo.childNodes[i]);
+      // Clean up function
+      return () => {
+        clearTimeout(connectTimeout);
+        if (socketConn) {
+          socketConn.disconnect();
         }
-      }
+      };
     }
-
-    // Crear el MutationObserver
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.type === "childList") {
-          mutation.addedNodes.forEach((nodo) => {
-            traducirNodosDeTexto(nodo);
-          });
-        }
-      });
-    });
-
-    // Configurar y ejecutar el observer
-    const config = { childList: true, subtree: true };
-    observer.observe(document.body, config);
-
-    // Traducir el contenido inicial
-    traducirNodosDeTexto(document.body);
-  }
-
-  document.addEventListener("DOMContentLoaded", function () {
-    // Utilizando la función scannerTranslator
-    scannerTranslator(document.querySelector("#qr-reader"));
-  });
-
+  }, []);
   return (
     <>
       <div className="">

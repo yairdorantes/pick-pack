@@ -15,9 +15,26 @@ const NotifContainer = () => {
       .get(`${api}/pick-pack/notifications/${user.id}`)
       .then((res) => {
         setNotifications(res.data);
+        const pending = res.data.some(
+          (notification) => notification.read === false
+        );
+
+        pending && readNotifications();
         console.log(res.data);
       })
       .catch((err) => console.log("error"));
+  };
+
+  const readNotifications = () => {
+    axios
+      .post(`${api}/pick-pack/notifications/read/${user.id}`)
+      .then((res) => {
+        console.log(res.data);
+        // setPendingNotfs(res.data.pendingNotifs);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   useEffect(() => {
     getNotifications();
