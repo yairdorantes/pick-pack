@@ -5,6 +5,8 @@ import { Fragment } from "react";
 import axios from "axios";
 import { api } from "../../../api";
 import toast from "react-hot-toast";
+import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch";
+
 const Shipped = () => {
   const [tableData, setTableData] = useState([]);
   const [modalOrders, setModalOrders] = useState(false);
@@ -125,11 +127,15 @@ const Shipped = () => {
                   </div>
                   <div className="flex  flex-wrap justify-center items-center gap-1  ">
                     <div className="p-4 ">
-                      <img
-                        src={images.card}
-                        alt="Identificación"
-                        className=" object-contain h-56 w-96  "
-                      />
+                      <TransformWrapper>
+                        <TransformComponent>
+                          <img
+                            src={images.card}
+                            alt="Identificación"
+                            className=" object-contain h-56 w-96  "
+                          />
+                        </TransformComponent>
+                      </TransformWrapper>
                     </div>
                     <div className="divider divider-horizontal"></div>
 
