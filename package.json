@@ -12,6 +12,7 @@
   "dependencies": {
     "@headlessui/react": "^1.7.17",
     "@react-pdf-viewer/core": "^3.12.0",
+    "@yudiel/react-qr-scanner": "^2.0.0-beta.3",
     "axios": "^1.6.2",
     "dotenv": "^16.3.1",
     "echarts-for-react": "^3.0.2",

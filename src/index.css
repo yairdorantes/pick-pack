@@ -396,3 +396,31 @@ input::-webkit-inner-spin-button {
 .heart {
   animation: heartbeat 3.5s infinite;
 }
+
+button.html5-qrcode-element {
+  color: "red";
+  border: "1px solid red";
+  background-color: #3b82f6;
+  padding: 10px;
+  color: white;
+  border-radius: 10px;
+  /* margin-top: 100px; */
+}
+span.html5-qrcode-element {
+  /* background-color: red;
+  text-decoration: none !important; */
+  display: none !important;
+}
+
+#html5-qrcode-button-camera-start::after {
+  content: "Comenzar a escanear";
+  font-size: initial;
+}
+#html5-qrcode-button-camera-stop::after {
+  content: "Detener";
+  font-size: initial;
+}
+#html5-qrcode-button-camera-start,
+#html5-qrcode-button-camera-stop {
+  font-size: 0;
+}
