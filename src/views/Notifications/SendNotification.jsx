@@ -72,6 +72,26 @@ const SendNotification = ({ opening, changeState }) => {
               <th></th>
               <th>Nombre</th>
               <th></th>
+              <th>
+                <label>
+                  <input
+                    onClick={(e) => {
+                      if (e.target.checked) {
+                        const allUsers = fulFillmentUsers.map(
+                          (user) => user.id_user
+                        );
+                        setList(allUsers);
+                      } else {
+                        setList([]);
+                      }
+                    }}
+                    type="checkbox"
+                    className="checkbox checkbox-info"
+                    readOnly
+                    // checked={list && list.includes(user.id_user)}
+                  />
+                </label>
+              </th>
             </tr>
           </thead>
           <tbody>
