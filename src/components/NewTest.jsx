@@ -1,17 +1,20 @@
-import { Scanner } from "@yudiel/react-qr-scanner";
+import usePagination from "../scripts/Paginator";
 
 const NewTest = () => {
+  const itemsPerPage = 10; // Assuming you want to display 10 items per page
+  const {
+    currentPage,
+    nextPage,
+    prevPage,
+    jumpToPage,
+    currentData,
+    maxPage,
+    getPageNumbers,
+  } = usePagination([1, 2, 3], itemsPerPage);
+
   return (
     <div>
-      <Scanner
-        components={{}}
-        // options={{ delayBetweenScanAttempts: 100 }}
-        onResult={(text, result) => {
-          alert(text, result);
-          console.log(text, result);
-        }}
-        onError={(error) => console.log(error?.message)}
-      />
+      <div>why get this </div>
     </div>
   );
 };

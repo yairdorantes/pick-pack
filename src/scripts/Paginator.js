@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const usePagination = (data, itemsPerPage) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -16,12 +16,15 @@ const usePagination = (data, itemsPerPage) => {
   const jumpToPage = (pageNumber) => {
     setCurrentPage(Math.min(Math.max(1, pageNumber), maxPage));
   };
-  // const filteredData = await
 
   const currentData = data.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
+  useEffect(() => {
+    console.log(itemsPerPage);
+    setCurrentPage(1);
+  }, [itemsPerPage]);
 
   const getPageNumbers = () => {
     const delta = 2;

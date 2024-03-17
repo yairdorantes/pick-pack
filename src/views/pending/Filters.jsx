@@ -3,6 +3,8 @@ import Select from "react-select";
 let options;
 
 const customStyles = {
+  menu: (provided) => ({ ...provided, zIndex: 9999 }),
+
   control: (provided, state) => ({
     ...provided,
     borderRadius: "100px",
