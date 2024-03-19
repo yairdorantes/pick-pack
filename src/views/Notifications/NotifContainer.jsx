@@ -5,7 +5,7 @@ import axios from "axios";
 import { api } from "../../../api";
 import useStore from "../../../Context";
 import toast from "react-hot-toast";
-import { pickImage } from "../../../ProjectData";
+import { adrianImg, monoImg, pickImage } from "../../../ProjectData";
 
 const NotifContainer = () => {
   const [loading, setLoading] = useState(false);
@@ -88,7 +88,13 @@ const NotifContainer = () => {
                 <img
                   className="rounded-full w-11 h-11"
                   // src={logo}
-                  src={pickImage()}
+                  src={
+                    notification.sender_id === 2
+                      ? adrianImg
+                      : notification.sender_id === 5
+                      ? monoImg
+                      : logo
+                  }
                   alt="Jese image"
                 />
 

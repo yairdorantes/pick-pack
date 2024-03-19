@@ -17,7 +17,7 @@ const pickImage = () => {
   }
 };
 
-export { testingMode, pickImage };
+export { testingMode, pickImage, monoImg, adrianImg };
 
 // manifest courier ids
 // 1 = fedex

@@ -1,10 +1,11 @@
 import toast, { Toaster } from "react-hot-toast";
 import Router from "../routes/Router";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { io } from "socket.io-client";
 import useStore from "../Context";
 import { serverURL } from "../api";
-import { pickImage } from "../ProjectData";
+import { adrianImg, pickImage, monoImg } from "../ProjectData";
+import logo from "/oms.png";
 
 function App() {
   const { user, setSocket } = useStore();
@@ -34,13 +35,23 @@ function App() {
                       <img
                         className="h-10 w-10 rounded-full"
                         // src="https://cdn.discordapp.com/avatars/1171876442586501121/7025947bea56fc3149a39f3d4ec2a656.webp?size=80"
-                        src={pickImage()}
+                        src={
+                          data.userId === 2
+                            ? adrianImg
+                            : data.userId === 5
+                            ? monoImg
+                            : logo
+                        }
                         alt=""
                       />
                     </div>
                     <div className="ml-3 flex-1">
                       <p className="text-sm font-medium text-gray-900">
-                        Adrian Mejia
+                        {data.userId === 2
+                          ? "Adrian Mejia"
+                          : data.userId === 5
+                          ? "Mónica Meina"
+                          : "Sistema"}
                       </p>
                       <p className="mt-1 text-sm text-gray-500">
                         {data.message}
@@ -90,6 +101,9 @@ function App() {
       };
     }
   }, []);
+
+  const memoizedPickImage = useMemo(() => pickImage, []);
+
   return (
     <>
       <div className="">
