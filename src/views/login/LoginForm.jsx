@@ -58,6 +58,7 @@ const LoginForm = () => {
       // video.loop = true;
       // video.muted = true;
     }
+    console.log(user);
   }, []);
 
   function welcomeToast() {

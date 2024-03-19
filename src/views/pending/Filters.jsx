@@ -173,7 +173,7 @@ const Filters = ({ originalData, filteredData, changeFilteredData }) => {
               type="search"
               id="default-search"
               className="block w-full transition-all duration-500 p-1 ps-10  text-gray-900 border border-gray-300 rounded-full bg-gray-50 focus:ring-blue-500 focus:border-blue-500  dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder=" orden o Sequence ID"
+              placeholder="Orden o Sequence ID"
               required
               onChange={(e) => {
                 // setQuery(e.target.value);
