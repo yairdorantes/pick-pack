@@ -34,7 +34,7 @@ const Stepper = ({ stepGiven = 1 }) => {
         } else if (statusNumber === 6 || statusNumber === 5) {
           setLineStep(2);
           !testingMode && handleOrderClick(`/pack/${orderId}`);
-        } else if (statusNumber === 7) {
+        } else if (statusNumber >= 7) {
           setLineStep(3);
           !testingMode && handleOrderClick(`/end/${orderId}`);
         }
