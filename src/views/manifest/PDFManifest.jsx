@@ -149,10 +149,14 @@ const PDFManifest = () => {
         <div className="text-center m-5 font-semibold">
           Manifiesto {courier}
         </div>
-        <div className="overflow-x-auto w-screen mx-auto">
-          <table className="table table-zebra text-center table-sm">
+        <div className="m-3 font-semibold">
+          Ordenes en manifiesto: {tableData.length}
+        </div>
+
+        <div className="overflow-x-auto w-screen mx-auto h-[75vh]">
+          <table className="table table-zebra mb-16 text-center table-pin-rows table-sm">
             <thead>
-              <tr>
+              <tr className="text-black">
                 <th></th>
                 <th>orden</th>
                 <th>sec</th>
@@ -169,7 +173,7 @@ const PDFManifest = () => {
                   className="border-b-2"
                   key={i}
                 >
-                  <td>{i + 1}</td>
+                  <td className="text-black font-semibold">{i + 1}</td>
                   <td>{order.idVtex_order}</td>
                   <td>{order.sequence_order}</td>
                   <td className="">{trimName(order.customerName_order)}</td>
@@ -206,13 +210,10 @@ const PDFManifest = () => {
           Sin ordenes registradas...
         </div>
       )}
-      <div className="m-3 font-bold">
-        Ordenes en manifiesto: {tableData.length}
-      </div>
 
       {/* tableData.length > 0 */}
       {tableData.length > 0 && (
-        <div className="text-center mt-10 mb-10 flex justify-center flex-wrap gap-4">
+        <div className="fixed bottom-0 bg-white border-2 sm:w-fit w-full rounded-lg left-1/2 -translate-x-1/2  text-center   p-2  flex justify-center flex-wrap gap-4">
           <div
             onClick={() => setModalAdd(true)}
             className="px-4 flex items-center py-2 cursor-pointer text-blue-500 hover:bg-blue-500 hover:text-white border-blue-500 border rounded-lg "

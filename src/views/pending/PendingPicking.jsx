@@ -142,23 +142,25 @@ const PendingPicking = () => {
         <div className="w-4 h-4 rounded-full bg-blue-600"></div>
       </h1> */}
 
-      <Filters
-        changeFilteredData={setFilteredData}
-        originalData={pendingOrders}
-      />
-      <div
-        id="filterMyOrders"
-        className="form-control mb-3 inline-block ml-4 border-2 rounded-lg shadow-sm"
-      >
-        <label className="cursor-pointer label">
-          <span className="label-text mr-2  font-semibold">Mis ordenes:</span>
-          <input
-            onChange={(e) => filterMyOrders(e.target.checked)}
-            type="checkbox"
-            // checked="checked"
-            className="checkbox checkbox-info"
-          />
-        </label>
+      <div className="sticky top-20 z-30 bg-white">
+        <Filters
+          changeFilteredData={setFilteredData}
+          originalData={pendingOrders}
+        />
+        <div
+          id="filterMyOrders"
+          className="form-control mb-3 inline-block ml-4 border-2 rounded-lg shadow-sm"
+        >
+          <label className="cursor-pointer label">
+            <span className="label-text mr-2  font-semibold">Mis ordenes:</span>
+            <input
+              onChange={(e) => filterMyOrders(e.target.checked)}
+              type="checkbox"
+              // checked="checked"
+              className="checkbox checkbox-info"
+            />
+          </label>
+        </div>
       </div>
       {wsSelected.length > 0 && (
         <div className="text-center mb-3">
@@ -180,8 +182,11 @@ const PendingPicking = () => {
         Total: {pendingOrders.length} ordenes{" "}
       </div>
 
-      <div className="overflow-x-auto w-screen   mx-auto">
-        <table className="table table-zebra border-2 text-center" data-theme="">
+      <div className="overflow-x-auto w-screen h-[55vh]  mx-auto">
+        <table
+          className="table table-zebra table-pin-rows border-2 text-center"
+          data-theme=""
+        >
           <thead>
             <tr className="text-black">
               <th className="">Orden ID</th>

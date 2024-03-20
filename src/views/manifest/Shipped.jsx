@@ -63,7 +63,7 @@ const Shipped = () => {
       <Modal isOpen={modalOrders} setIsOpen={setModalOrders}>
         <div className="m-10 ">
           {orders.length === 0 && "Sin ordenes"}
-          <ul className="list-disc columns-2">
+          <ul className="list-disc grid grid-cols-2 overflow-y-auto  max-h-96">
             {orders.map((order, i) => (
               <li key={i} className="mb-2">
                 {order}
@@ -110,7 +110,7 @@ const Shipped = () => {
                 >
                   <div
                     onClick={() => setModalImages(false)}
-                    className="absolute top-2 right-2 text-red-500 "
+                    className="absolute z-30 top-2 right-2 text-red-500 "
                   >
                     <svg
                       fill="none"

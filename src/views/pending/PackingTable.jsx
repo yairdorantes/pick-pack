@@ -150,24 +150,25 @@ const PackingTable = () => {
         <div className="w-4 h-4 rounded-full bg-yellow-400"></div>
       </h1> */}
 
-      <Filters
-        changeFilteredData={setFilteredData}
-        originalData={pickingOrders}
-      />
-
-      <div
-        id="filterMyOrders"
-        className="form-control mb-3 inline-block ml-4 border-2 rounded-lg shadow-sm "
-      >
-        <label className="cursor-pointer label ">
-          <span className="label-text mr-2  font-semibold">Mis ordenes:</span>
-          <input
-            onChange={(e) => filterMyOrders(e.target.checked)}
-            type="checkbox"
-            // checked="checked"
-            className="checkbox checkbox-info"
-          />
-        </label>
+      <div className="sticky top-20 z-20 bg-white">
+        <Filters
+          changeFilteredData={setFilteredData}
+          originalData={pickingOrders}
+        />
+        <div
+          id="filterMyOrders"
+          className="form-control mb-3 inline-block ml-4 border-2 rounded-lg shadow-sm "
+        >
+          <label className="cursor-pointer label ">
+            <span className="label-text mr-2  font-semibold">Mis ordenes:</span>
+            <input
+              onChange={(e) => filterMyOrders(e.target.checked)}
+              type="checkbox"
+              // checked="checked"
+              className="checkbox checkbox-info"
+            />
+          </label>
+        </div>
       </div>
       {wsSelected.length > 0 && (
         <div className="text-center mb-3">
@@ -188,9 +189,9 @@ const PackingTable = () => {
           </div>
         </div>
       )}
-      <div className="overflow-x-auto w-screen  mx-auto">
+      <div className="overflow-x-auto w-screen h-[55vh] mx-auto">
         <table
-          className="table text-center table-zebra  border-2 "
+          className="table text-center table-zebra table-pin-rows  border-2 "
           data-theme=""
         >
           <thead>
