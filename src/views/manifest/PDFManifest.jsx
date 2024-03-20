@@ -153,7 +153,7 @@ const PDFManifest = () => {
           Ordenes en manifiesto: {tableData.length}
         </div>
 
-        <div className="overflow-x-auto w-screen mx-auto h-[75vh]">
+        <div className="overflow-x-auto w-screen mx-auto h-[65vh]">
           <table className="table table-zebra mb-16 text-center table-pin-rows table-sm">
             <thead>
               <tr className="text-black">

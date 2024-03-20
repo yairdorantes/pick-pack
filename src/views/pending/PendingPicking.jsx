@@ -142,7 +142,7 @@ const PendingPicking = () => {
         <div className="w-4 h-4 rounded-full bg-blue-600"></div>
       </h1> */}
 
-      <div className="sticky top-20 z-30 bg-white">
+      <div className="sticky top-20 z-20 bg-white">
         <Filters
           changeFilteredData={setFilteredData}
           originalData={pendingOrders}
