@@ -45,6 +45,7 @@ const EverthingTable = () => {
   const [menuOptions, setMenuOptions] = useState(false);
   const [orders, setOrders] = useState([]);
   const [modalInfo, setModalInfo] = useState(false);
+  const [statusLogs, setStatusLogs] = useState([]);
   const [filteredResults, setFilteredResults] = useState([]);
   const {
     currentPage,
@@ -140,9 +141,61 @@ const EverthingTable = () => {
         console.log(err);
       });
   }
+  const dateStartPicking = (orderId) => {
+    const log = statusLogs.find(
+      (stat) => stat.status_logso === 4 && stat.order_logso === orderId
+    );
+    if (log) {
+      const date = new Date(log.datetime_logso);
+      const options = {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+        second: "numeric",
+        timeZone: "UTC",
+      };
+      return date.toLocaleDateString("es-ES", options);
+    } else {
+      return "N/A";
+    }
+  };
+  const dateStartPacking = (orderId) => {
+    const log = statusLogs.find(
+      (stat) => stat.status_logso === 6 && stat.order_logso === orderId
+    );
+    if (log) {
+      const date = new Date(log.datetime_logso);
+      const options = {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+        second: "numeric",
+        timeZone: "UTC",
+      };
+      return date.toLocaleDateString("es-ES", options);
+    } else {
+      return "N/A";
+    }
+  };
+  const getStatusChanges = () => {
+    axios
+      .get(`${api}/pick-pack/status/change_time`)
+      .then((res) => {
+        setStatusLogs(res.data);
+        console.log(res.data.length, "length");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   useEffect(() => {
     getOrders();
     getFullFillmentUsers();
+    getStatusChanges();
   }, []);
 
   return (
@@ -274,11 +327,13 @@ const EverthingTable = () => {
                   Col. Asignados (PICKING)
                 </abbr>
               </th>
+              <th>Inicio Picking</th>
               <th>
                 <abbr title="Colaboradores Asignados (PACKING)">
                   Col. Asignados (PACKING)
                 </abbr>
               </th>
+              <th>Inicio Packing</th>
 
               <th>Acciones</th>
               {/* <th>Notas</th> */}
@@ -322,12 +377,14 @@ const EverthingTable = () => {
                     ? "N/A"
                     : getUserNames(order.picking_assigment)}
                 </td>{" "}
+                <td>{dateStartPicking(order.idVtex_order)}</td>
                 <td>
                   {order.packing_assigment === null ||
                   order.packing_assigment.length === 0
                     ? "N/A"
                     : getUserNames(order.packing_assigment)}
                 </td>
+                <td>{dateStartPacking(order.idVtex_order)}</td>
                 <td>
                   <div className="dropdown dropdown-left">
                     <div
@@ -402,43 +459,6 @@ const EverthingTable = () => {
                 </td>
                 {/* <td>Picker 1, picker 2, picker uno</td>
                 <td>Picker 3, picker 4,picker 5</td> */}
-                {/* <td>
-                  <div
-                    className="btn btn-sm"
-                    onClick={() => {
-                      handleSelection(order);
-                    }}
-                  >
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      height="1em"
-                      width="1em"
-                      className="w-7 h-7"
-                    >
-                      <path d="M21.7 13.35l-1 1-2.05-2.05 1-1a.55.55 0 01.77 0l1.28 1.28c.21.21.21.56 0 .77M12 18.94l6.06-6.06 2.05 2.05L14.06 21H12v-2.06M12 14c-4.42 0-8 1.79-8 4v2h6v-1.89l4-4c-.66-.08-1.33-.11-2-.11m0-10a4 4 0 00-4 4 4 4 0 004 4 4 4 0 004-4 4 4 0 00-4-4z" />
-                    </svg>
-                  </div>
-                </td> */}
-                {/* <td
-                  onClick={() => {
-                    console.log("clic");
-                    setRowSelected(order);
-                    setShowModal(!showModal);
-                  }}
-                >
-                  <div className="btn btn-sm">
-                    <svg
-                      className="w-7 h-7"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      height="1em"
-                      width="1em"
-                    >
-                      <path d="M8.5 18l3.5 4 3.5-4H19c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2H5c-1.103 0-2 .897-2 2v12c0 1.103.897 2 2 2h3.5zM7 7h10v2H7V7zm0 4h7v2H7v-2z" />
-                    </svg>
-                  </div>
-                </td> */}
               </tr>
             ))}
           </tbody>
