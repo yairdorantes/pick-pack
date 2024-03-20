@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import toast from "react-hot-toast";
 import Select from "react-select";
 let options;
@@ -59,6 +60,7 @@ const shippingOptions = [
 ];
 
 const Filters = ({ originalData, filteredData, changeFilteredData }) => {
+  const refSelect = useRef();
   if (window.location.pathname === "/picking") {
     options = [
       { value: 1, label: "Pendiente de pago" },
@@ -201,6 +203,7 @@ const Filters = ({ originalData, filteredData, changeFilteredData }) => {
           isClearable={true}
           styles={customStyles}
           className="text-sm text-gray-500 w-44"
+          ref={refSelect}
         />
       </div>
       <div>
@@ -218,7 +221,10 @@ const Filters = ({ originalData, filteredData, changeFilteredData }) => {
         />
       </div>
       <div
-        onClick={() => changeFilteredData(originalData)}
+        onClick={() => {
+          // refSelect.current.clearValue();
+          changeFilteredData(originalData);
+        }}
         className="bg-red-500 border border-red-500 p-2 rounded-full text-white cursor-pointer hover:bg-white hover:text-red-500"
       >
         <svg fill="currentColor" viewBox="0 0 16 16" height="1em" width="1em">

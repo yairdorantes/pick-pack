@@ -23,7 +23,7 @@ const Paginator = (step) => {
     <div>
       <div
         id="paginator"
-        className="flex mt-4 items-center gap-4 justify-center"
+        className="flex mt-4  items-center gap-4 justify-center"
       >
         <div
           onClick={() => {

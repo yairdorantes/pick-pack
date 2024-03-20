@@ -18,7 +18,7 @@ export default defineConfig({
     mkcert(),
     VitePWA({
       devOptions: {
-        enabled: false,
+        enabled: true,
         // type: "module",
       },
       // add this to cache all the imports
@@ -52,8 +52,8 @@ export default defineConfig({
         // start_url: ".",
         start_url: "/picking",
         display: "standalone",
-        theme_color: "#FF5733",
-        background_color: "#FF5733",
+        theme_color: "#e20e17",
+        background_color: "#e20e17",
       },
     }),
   ],
