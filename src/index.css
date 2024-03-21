@@ -424,3 +424,21 @@ span.html5-qrcode-element {
 #html5-qrcode-button-camera-stop {
   font-size: 0;
 }
+
+.animation-sides {
+  animation: rotateWheel 0.8s infinite ease-in-out;
+}
+@keyframes rotateWheel {
+  0% {
+    transform: rotate(-30deg);
+    transform: translateX(-30px);
+  }
+  50% {
+    transform: rotate(30deg);
+    /* transform: translateX(-30px); */
+  }
+  100% {
+    transform: rotate(-30deg);
+    transform: translateX(-30px);
+  }
+}

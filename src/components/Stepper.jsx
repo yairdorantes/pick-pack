@@ -5,6 +5,10 @@ import useStore from "../../Context";
 import axios from "axios";
 import { api } from "../../api";
 import { testingMode } from "../../ProjectData";
+import toast from "react-hot-toast";
+import logo from "/oms.png";
+import { AnimatePresence, motion } from "framer-motion";
+
 const Stepper = ({ stepGiven = 1 }) => {
   const { itemsList } = useStore();
 
@@ -12,6 +16,7 @@ const Stepper = ({ stepGiven = 1 }) => {
   const [step, setStep] = useState(stepGiven);
   const [currentSatus, setCurrentSatus] = useState(0);
   const [lineStep, setLineStep] = useState(1);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const handleOrderClick = (route) => {
     if (!document.startViewTransition) {
@@ -21,6 +26,7 @@ const Stepper = ({ stepGiven = 1 }) => {
     document.startViewTransition(() => flushSync(() => navigate(route)));
   };
   function getOrderStatus() {
+    setLoading(true);
     axios
       .get(`${api}/pick-pack/order_status/${orderId}`)
       .then((res) => {
@@ -41,6 +47,12 @@ const Stepper = ({ stepGiven = 1 }) => {
       })
       .catch((err) => {
         console.log(err);
+        toast.error("No pudimos obtener el status de la orden");
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setLoading(false);
+        }, 500);
       });
   }
   useEffect(() => {
@@ -48,7 +60,24 @@ const Stepper = ({ stepGiven = 1 }) => {
   }, []);
 
   return (
-    <div className="relative ">
+    <div className="relative">
+      <AnimatePresence>
+        {loading && (
+          <motion.div
+            className="fixed flex z-30 bg-white items-center justify-center top-0 h-screen w-screen"
+            transition={{ duration: 0.4 }}
+            // initial={{ opacity: 0, x: -100 }} // Initial position and opacity
+            // animate={{ opacity: 1, x: 0 }} // Animation when component enters
+            exit={{ y: "-100%" }} // Animation when component exits
+          >
+            <div className="">
+              <div className="animation-sides">
+                <img src={logo} className="w-20" alt="" />
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
       <div className="breadcrumb text-xs flat">
         <a
           onClick={() => {

@@ -1,5 +1,5 @@
 import usePagination from "../scripts/Paginator";
-
+import logo from "/oms.png";
 const NewTest = () => {
   const itemsPerPage = 10; // Assuming you want to display 10 items per page
   const {
@@ -13,8 +13,10 @@ const NewTest = () => {
   } = usePagination([1, 2, 3], itemsPerPage);
 
   return (
-    <div>
-      <div>why get this </div>
+    <div className="fixed flex items-center justify-center top-0 h-screen w-screen">
+      <div className="animation-sides ">
+        <img src={logo} className="w-20" alt="" />
+      </div>
     </div>
   );
 };
