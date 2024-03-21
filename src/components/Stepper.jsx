@@ -70,10 +70,8 @@ const Stepper = ({ stepGiven = 1 }) => {
             // animate={{ opacity: 1, x: 0 }} // Animation when component enters
             exit={{ y: "-100%" }} // Animation when component exits
           >
-            <div className="">
-              <div className="animation-sides">
-                <img src={logo} className="w-20" alt="" />
-              </div>
+            <div className="animation-sides">
+              <img src={logo} className="w-20" alt="" />
             </div>
           </motion.div>
         )}

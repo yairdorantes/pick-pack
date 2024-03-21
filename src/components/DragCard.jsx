@@ -44,7 +44,7 @@ const DragCard = ({ children, setModal, productData }) => {
   }, [offset]);
 
   return (
-    <div className="relative">
+    <div className="relative overflow-hidden">
       {/* Background container */}
       <div
         id="1"

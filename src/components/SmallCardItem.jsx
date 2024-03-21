@@ -9,7 +9,7 @@ const SmallCardItem = ({ order, itemSelected }) => {
 
   return (
     <div
-      className={`overflow-hidden shadow-desktop flex transition-all  duration-150 h-10 border-b border-gray-200 group cursor-pointer relative items-center  space-x-2  bg-white`}
+      className={`relative overflow-hidden  shadow-desktop flex transition-all  duration-150 h-10 border-b border-gray-200 group cursor-pointer items-center  space-x-2  bg-white`}
     >
       <div
         className={`${
@@ -18,7 +18,7 @@ const SmallCardItem = ({ order, itemSelected }) => {
       >
         <div>{order.refId_item}</div>
       </div>
-      <div className={`w-full flex flex-row justify-between pr-5`}>
+      <div className={`w-full  flex flex-row justify-between pr-5`}>
         <span className="text-sm text-left  text-gray-700 font-semibold capitalize">
           <p className="text-black ">SKU: {order.refId_item}</p>{" "}
         </span>
