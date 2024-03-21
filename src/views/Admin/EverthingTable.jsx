@@ -13,6 +13,7 @@ import usePagination from "../../scripts/Paginator";
 import Select from "react-select";
 import ModalUsers from "./ModalUsers";
 import OutsideClickHandler from "react-outside-click-handler";
+import ModalOrderInfo from "./ModalOrderInfo";
 const customStyles = {
   // menuPortal: (provided) => ({ ...provided, zIndex: 9999 }),
   menu: (provided) => ({ ...provided, zIndex: 9999 }),
@@ -47,6 +48,7 @@ const EverthingTable = () => {
   const [modalInfo, setModalInfo] = useState(false);
   const [statusLogs, setStatusLogs] = useState([]);
   const [filteredResults, setFilteredResults] = useState([]);
+  const [oldOrderInfo, setOldOrderInfo] = useState(false);
   const {
     currentPage,
     nextPage,
@@ -278,6 +280,20 @@ const EverthingTable = () => {
                 width="1em"
               >
                 <path d="M144 160c-44.2 0-80-35.8-80-80S99.8 0 144 0s80 35.8 80 80-35.8 80-80 80zm368 0c-44.2 0-80-35.8-80-80s35.8-80 80-80 80 35.8 80 80-35.8 80-80 80zM0 298.7C0 239.8 47.8 192 106.7 192h42.7c15.9 0 31 3.5 44.6 9.7-1.3 7.2-1.9 14.7-1.9 22.3 0 38.2 16.8 72.5 43.3 96H21.3C9.6 320 0 310.4 0 298.7zM405.3 320h-.7c26.6-23.5 43.3-57.8 43.3-96 0-7.6-.7-15-1.9-22.3 13.6-6.3 28.7-9.7 44.6-9.7h42.7c58.9 0 106.7 47.8 106.7 106.7 0 11.8-9.6 21.3-21.3 21.3H405.3zm10.7-96c0 53-43 96-96 96s-96-43-96-96 43-96 96-96 96 43 96 96zM128 485.3c0-73.6 59.7-133.3 133.3-133.3h117.4c73.6 0 133.3 59.7 133.3 133.3 0 14.7-11.9 26.7-26.7 26.7H154.7c-14.7 0-26.7-11.9-26.7-26.7z" />
+              </svg>
+            </div>{" "}
+            <div
+              onClick={() => setOldOrderInfo(true)}
+              className="p-3 cursor-pointer bg-blue-500 text-white rounded-lg"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="w-5 h-5"
+                height="1em"
+                width="1em"
+              >
+                <path d="M15 16H9a1 1 0 000 2h6a1 1 0 000-2zm-6-6h1a1 1 0 000-2H9a1 1 0 000 2zm6 2H9a1 1 0 000 2h6a1 1 0 000-2zm4.71 3.29a1 1 0 00-.33-.21.92.92 0 00-.76 0 1 1 0 00-.33.21 1.15 1.15 0 00-.21.33 1 1 0 00.21 1.09A1 1 0 0019 17a1 1 0 00.38-.08 1.15 1.15 0 00.33-.21 1 1 0 00.21-1.09 1.15 1.15 0 00-.21-.33zM20 8.94a1.31 1.31 0 00-.06-.27v-.09a1.07 1.07 0 00-.19-.28l-6-6a1.07 1.07 0 00-.28-.19.32.32 0 00-.09 0 .88.88 0 00-.33-.11H7a3 3 0 00-3 3v14a3 3 0 003 3h8a1 1 0 000-2H7a1 1 0 01-1-1V5a1 1 0 011-1h5v3a3 3 0 003 3h3v2a1 1 0 002 0V9v-.06zM15 8a1 1 0 01-1-1V5.41L16.59 8zm4 10a1 1 0 00-1 1v2a1 1 0 002 0v-2a1 1 0 00-1-1z" />
               </svg>
             </div>
           </div>
@@ -539,6 +555,11 @@ const EverthingTable = () => {
         isOpen={showModal}
         orderId={rowSelected.idVtex_order}
         setIsOpen={setShowModal}
+      />
+      <ModalOrderInfo
+        isOpen={oldOrderInfo}
+        setIsOpen={setOldOrderInfo}
+        changeTable={setFilteredResults}
       />
     </div>
   );
