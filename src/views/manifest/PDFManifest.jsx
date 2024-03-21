@@ -27,12 +27,9 @@ const PDFManifest = () => {
       .get(`${api}/pick-pack/manifest/${courierId}`)
       .then((res) => {
         // console.log(res.data);
-        let data = res.data.sort((a, b) => b.sequence_order - a.sequence_order);
-
+        let data = res.data.sort((a, b) => a.sequence_order - b.sequence_order);
         setTableData(data);
-
         const orders = res.data.map((order) => order.idVtex_order);
-        // console.log(orders);
         setLoadingPDF(true);
         axios
           .post(`${api}/pick-pack/pdf`, {
