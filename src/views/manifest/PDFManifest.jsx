@@ -7,6 +7,14 @@ import Receipt from "./Receipt";
 import NavBar from "../../components/NavBar";
 import toast from "react-hot-toast";
 
+const courierNames = {
+  1: "FEDEX",
+  2: "PAQUETEXPRESS",
+  3: "ESTAFETA",
+  4: "DHL",
+  5: "UPS",
+};
+
 const PDFManifest = () => {
   const { courierId } = useParams();
   const [modalDelConfirmation, setModalDelConfirmation] = useState(false);
@@ -21,7 +29,6 @@ const PDFManifest = () => {
   const [modalAdd, setModalAdd] = useState(false);
   const [orderToAdd, setOrderToAdd] = useState("");
   const [loaderAddOrder, setLoaderAddOrder] = useState(false);
-  const base64pdf = "";
   function getManifest() {
     axios
       .get(`${api}/pick-pack/manifest/${courierId}`)
@@ -74,19 +81,10 @@ const PDFManifest = () => {
         toast.error("Algo salio mal, intenta de nuevo");
       });
   }
+
   useEffect(() => {
     getManifest();
-    if (parseInt(courierId) === 1) {
-      setCourier("FEDEX");
-    } else if (parseInt(courierId) === 2) {
-      setCourier("PAQUETEXPRESS");
-    } else if (parseInt(courierId) === 3) {
-      setCourier("ESTAFETA");
-    } else if (parseInt(courierId) === 4) {
-      setCourier("DHL");
-    } else if (parseInt(courierId) === 5) {
-      setCourier("UPS");
-    }
+    setCourier(courierNames[parseInt(courierId)]);
   }, []);
 
   const delEverthing = () => {
@@ -105,14 +103,6 @@ const PDFManifest = () => {
       .finally(() => setLoading(false));
   };
 
-  const handleOpenPDF = () => {
-    let pdfWindow = window.open("");
-    pdfWindow.document.write(
-      "<iframe width='100%' height='100%' src='data:application/pdf;base64, " +
-        encodeURI(base64PDF) +
-        "'></iframe>"
-    );
-  };
   const trimName = (fullName) => {
     const nameParts = fullName.trim().split(" ");
     const firstName = nameParts[0];
@@ -143,11 +133,10 @@ const PDFManifest = () => {
         });
     }
   };
-
   return (
     <NavBar>
       <div className="">
-        <div className="text-center m-5 font-semibold">
+        <div className="text-center w-full p-3    font-semibold">
           Manifiesto {courier}
         </div>
         <div className="m-3 font-semibold">
@@ -195,14 +184,13 @@ const PDFManifest = () => {
                   <td className="text-black font-semibold">{i + 1}</td>
                   <td>{order.idVtex_order}</td>
                   <td>{order.sequence_order}</td>
-                  <td className="">{trimName(order.customerName_order)}</td>
+                  <td className="">{order.customerName_order}</td>
                   <td>{128198}</td>
                   <td>{order.courier_order}</td>
                   <td
                     className=""
                     onClick={() => setModalDelConfirmation(true)}
                   >
-                    {" "}
                     <div
                       // onClick={() => changeFilteredData(originalData)}
                       className="mx-auto bg-red-500 border w-fit border-red-500 p-2 rounded-full text-white cursor-pointer hover:bg-white hover:text-red-500"

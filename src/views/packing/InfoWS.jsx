@@ -28,7 +28,7 @@ const InfoWS = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`${api}/pick-pack/order/${orderId}`)
+      .get(`${api}/pick-pack/orderInfo/${orderId}`)
       .then((res) => {
         setOrder(res.data);
         console.log(res.data);
