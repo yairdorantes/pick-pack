@@ -6,6 +6,7 @@ import Modal from "../../components/Modal";
 import Receipt from "./Receipt";
 import NavBar from "../../components/NavBar";
 import toast from "react-hot-toast";
+import SearchInput from "../../components/SearchInput";
 
 const courierNames = {
   1: "FEDEX",
@@ -29,6 +30,7 @@ const PDFManifest = () => {
   const [modalAdd, setModalAdd] = useState(false);
   const [orderToAdd, setOrderToAdd] = useState("");
   const [loaderAddOrder, setLoaderAddOrder] = useState(false);
+  const [filteredData, setFilteredData] = useState([]);
   function getManifest() {
     axios
       .get(`${api}/pick-pack/manifest/${courierId}`)
@@ -36,6 +38,7 @@ const PDFManifest = () => {
         // console.log(res.data);
         let data = res.data.sort((a, b) => a.sequence_order - b.sequence_order);
         setTableData(data);
+        setFilteredData(data);
         const orders = res.data.map((order) => order.idVtex_order);
         setLoadingPDF(true);
         axios
@@ -103,12 +106,6 @@ const PDFManifest = () => {
       .finally(() => setLoading(false));
   };
 
-  const trimName = (fullName) => {
-    const nameParts = fullName.trim().split(" ");
-    const firstName = nameParts[0];
-    const lastName = nameParts[nameParts.length - 2];
-    return `${firstName} ${lastName}`;
-  };
   const addToManifest = () => {
     const res =
       tableData.find((order) => order.idVtex_order === orderToAdd) ||
@@ -133,12 +130,27 @@ const PDFManifest = () => {
         });
     }
   };
+
+  const searchOrder = (query) => {
+    let noSpaceQuery = query.trim().toLowerCase();
+    const filteredData = tableData.filter(
+      (order) =>
+        order.idVtex_order.toLowerCase().includes(noSpaceQuery) ||
+        order.sequence_order.toString().includes(noSpaceQuery) ||
+        order.customerName_order.toLowerCase().includes(noSpaceQuery)
+    );
+    setFilteredData(filteredData);
+  };
   return (
     <NavBar>
       <div className="">
         <div className="text-center w-full p-3    font-semibold">
           Manifiesto {courier}
         </div>
+        <SearchInput
+          onHandleQuery={(query) => searchOrder(query)}
+          placeHolderValue="Busca por identificar de orden o cliente..."
+        />
         <div className="m-3 font-semibold">
           Ordenes en manifiesto: {tableData.length}
         </div>
@@ -175,7 +187,7 @@ const PDFManifest = () => {
               </tr>
             </thead>
             <tbody>
-              {tableData.map((order, i) => (
+              {filteredData.map((order, i) => (
                 <tr
                   onClick={() => setRowSelected(order)}
                   className="border-b-2"
