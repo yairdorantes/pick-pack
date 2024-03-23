@@ -20,7 +20,7 @@ const TopBarM = ({ view = 2 }) => {
   };
   return (
     <div className="border-t-2 ">
-      <div className="sticky top-16 bg-white grid grid-cols-2  text-center  cursor-pointer">
+      <div className="sticky top-16 bg-white z-20 grid grid-cols-2  text-center  cursor-pointer">
         {/* <div
           className={`p-3 inner-shadow ${
             selection === 1 && "border-b-4  border-b-blue-600 text-blue-600"

@@ -93,7 +93,6 @@ const Shipped = () => {
           </div>
         </div>
       </Modal>
-
       <Transition appear show={modalImages} as={Fragment}>
         <Dialog
           as="div"
@@ -175,10 +174,10 @@ const Shipped = () => {
         </Dialog>
       </Transition>
 
-      <div className="overflow-x-auto w-screen mx-auto">
-        <table className="table table-zebra text-center table-sm">
+      <div className="overflow-x-auto w-screen mx-auto h-[80vh]">
+        <table className="table table-zebra table-pin-rows text-center table-sm ">
           <thead>
-            <tr>
+            <tr className="text-black">
               <th>ordenes</th>
               {/* <th>sec</th> */}
               <th className="">Paqueteria</th>
