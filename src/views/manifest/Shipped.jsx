@@ -58,18 +58,39 @@ const Shipped = () => {
     };
     return date.toLocaleDateString("es-ES", options);
   }
+
+  const orderOrders = (orders) => {
+    const data = orders.sort(
+      (a, b) => parseInt(a.split("-")[0]) - parseInt(b.split("-")[0])
+    );
+    return data;
+    // return "";
+  };
   return (
     <div>
       <Modal isOpen={modalOrders} setIsOpen={setModalOrders}>
-        <div className="m-10 ">
+        <div className="p-4">
           {orders.length === 0 && "Sin ordenes"}
-          <ul className="list-disc grid grid-cols-2 overflow-y-auto  max-h-96">
-            {orders.map((order, i) => (
-              <li key={i} className="mb-2">
-                {order}
-              </li>
-            ))}
-          </ul>
+
+          <div className="overflow-x-auto table-zebra table-pin-rows max-h-96">
+            <table className="table">
+              {/* head */}
+              <thead>
+                <tr className="text-black">
+                  <th>Total: {orders.length}</th>
+                  <th>Orden ID</th>
+                </tr>
+              </thead>
+              <tbody>
+                {orders.map((order, i) => (
+                  <tr key={i}>
+                    <th>{i + 1}</th>
+                    <td>{order}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </Modal>
 
@@ -177,7 +198,7 @@ const Shipped = () => {
                 <td>
                   <span
                     onClick={() => {
-                      setOrders(manifest.data);
+                      setOrders(orderOrders(manifest.data));
                       setModalOrders(true);
                     }}
                     className="px-3 py-2 border border-blue-500 bg-blue-600 text-white rounded-lg text-blue-500 cursor-pointer hover:bg-blue-500 hover:text-white"
