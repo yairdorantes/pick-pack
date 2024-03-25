@@ -1,6 +1,19 @@
 import Modal from "../../components/Modal";
 
 const ModalUsers = ({ isOpen, setIsOpen, users }) => {
+  function dateToReadable(timestamp) {
+    const date = new Date(timestamp);
+    const options = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      // hour: "numeric",
+      // minute: "numeric",
+      // second: "numeric",
+      // timeZone: "UTC",
+    };
+    return date.toLocaleDateString("es-ES", options);
+  }
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
       <div className="overflow-x-auto max-h-96">
@@ -10,9 +23,10 @@ const ModalUsers = ({ isOpen, setIsOpen, users }) => {
         <table className="table mt-8">
           {/* head */}
           <thead>
-            <tr>
+            <tr className="text-black">
               <th></th>
               <th>Nombre</th>
+              <th>Ingreso</th>
             </tr>
           </thead>
           <tbody>
@@ -33,7 +47,13 @@ const ModalUsers = ({ isOpen, setIsOpen, users }) => {
                 </td>
                 <td>
                   {" "}
-                  {user.name_user} {user.lastname_user}
+                  <div className="font-semibold">
+                    {user.name_user} {user.lastname_user}
+                  </div>
+                  <div className="text-sm opacity-70">{user.email_user}</div>
+                </td>
+                <td className="whitespace-nowrap">
+                  {dateToReadable(user.creationDate_user)}
                 </td>
               </tr>
             ))}
