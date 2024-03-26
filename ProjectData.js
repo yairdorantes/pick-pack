@@ -1,5 +1,5 @@
 // const testingMode = false;
-const testingMode = false;
+const testingMode = true;
 // const rootCodes = { TCOMADC: "te coma dece", THEADAM: "de a dam" };
 const adrianImg =
   "https://cdn.discordapp.com/avatars/1171876442586501121/7025947bea56fc3149a39f3d4ec2a656.webp?size=80";
